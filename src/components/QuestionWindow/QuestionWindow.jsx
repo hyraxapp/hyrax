@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {accessProblem} from '../../actions/posts';
 import './QuestionWindow.css';
-import DOMPurify from "dompurify";
 
 const seeProblem = async () => {
     try {

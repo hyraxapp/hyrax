@@ -1,5 +1,5 @@
 import React from 'react';
-import {HashRouter as Router, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Routes} from 'react-router-dom';
 import { Route} from 'react-router';
 import './App.css';
 import { Toaster } from 'react-hot-toast';
@@ -24,7 +24,7 @@ const App = () => {
   return(
     <div>
       <Toaster/>
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path='/' element={
           <div>

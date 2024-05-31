@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/SLin24.github.io/static/css/main.ca161f33.css",
-    "main.js": "/SLin24.github.io/static/js/main.5abdbc09.js",
-    "static/media/mainLogo.png": "/SLin24.github.io/static/media/mainLogo.c67a484933aac34b0416.png",
-    "static/media/user.png": "/SLin24.github.io/static/media/user.0d14c6999b4a5c8e86a7.png",
-    "static/media/coin-icon.png": "/SLin24.github.io/static/media/coin-icon.e08bb06fa4e2f37231a7.png",
-    "index.html": "/SLin24.github.io/index.html",
-    "main.ca161f33.css.map": "/SLin24.github.io/static/css/main.ca161f33.css.map",
-    "main.5abdbc09.js.map": "/SLin24.github.io/static/js/main.5abdbc09.js.map"
+    "main.css": "/SLin24.github.io/hyrax/static/css/main.ca161f33.css",
+    "main.js": "/SLin24.github.io/hyrax/static/js/main.e123b9dd.js",
+    "static/media/mainLogo.png": "/SLin24.github.io/hyrax/static/media/mainLogo.c67a484933aac34b0416.png",
+    "static/media/user.png": "/SLin24.github.io/hyrax/static/media/user.0d14c6999b4a5c8e86a7.png",
+    "static/media/coin-icon.png": "/SLin24.github.io/hyrax/static/media/coin-icon.e08bb06fa4e2f37231a7.png",
+    "index.html": "/SLin24.github.io/hyrax/index.html",
+    "main.ca161f33.css.map": "/SLin24.github.io/hyrax/static/css/main.ca161f33.css.map",
+    "main.e123b9dd.js.map": "/SLin24.github.io/hyrax/static/js/main.e123b9dd.js.map"
   },
   "entrypoints": [
     "static/css/main.ca161f33.css",
-    "static/js/main.5abdbc09.js"
+    "static/js/main.e123b9dd.js"
   ]
 }

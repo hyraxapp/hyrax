@@ -1,0 +1,157 @@
+/* Style for the title box */
+.title-box {
+    background-color: #ffcc00; /* Yellow background color */
+    color: #ffffff; /* White text color */
+    text-align: center; /* Center-align the text */
+    padding: 20px 0; /* Add padding at the top and bottom */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a shadow for depth */
+    margin-top: 25px;
+    position: absolute;
+    top: 10%; /* Adjust vertical position as needed */
+    left: 50%; /* Adjust horizontal position as needed */
+    transform: translate(-50%, -50%);
+    width: 500px;
+    border-radius: 15px;
+    z-index: 3;
+}
+
+/* Style for the title text */
+.title-box h1 {
+    font-size: 48px; /* Set the font size */
+    font-family: "EB Garamond";
+    font-weight: bold;
+    text-transform: uppercase; /* Convert text to uppercase */
+    letter-spacing: 2px; /* Add letter spacing for emphasis */
+    font-weight: bold; /* Make the text bold */
+    text-shadow: 
+        -1px -1px 0 #000,  
+        1px -1px 0 #000,  
+        -1px 1px 0 #000,  
+        1px 1px 0 #000; 
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+    align-items: left;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+  }
+
+/* Style for the Google Sign-In container */
+.google-signin-container {
+    position: absolute;
+    margin-top: 20px;
+    margin-right: 20px;
+    top: 20px; /* Adjust top spacing as needed */
+    right: 20px; /* Adjust right spacing as needed */
+    z-index: 4; /* Ensure it's on top of other elements */
+}
+  
+.button {
+    border: none;
+    font-family: "EB Garamond";
+    font-weight: bold;
+    color: white;
+    padding: 20px 40px; /* Increase the padding to make the button bigger */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    border-radius: 20px;
+    width: 200px; 
+    margin-bottom: 20px;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    cursor: pointer; /* Add cursor pointer */
+    z-index: 2
+}
+
+/* Define the :active state to darken the background color */
+.button:active {
+    filter: brightness(0.8); /* This will darken the button */ /* Example: Darken the color by changing it */
+}
+
+body {
+    /* background-color: #1A1A3E; */
+    overflow: hidden;
+}
+  
+.background-image {
+    width: 100%;
+    height: 200%; /* Set height to twice the container height to enable seamless scrolling */
+    background-image: url('../images/mainpage-background.jpg');
+    background-repeat: repeat-y; /* Repeat the background vertically */
+    background-size: 100% 50%; /* Ensure the background scales to fit the container correctly without compressing vertically */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Ensure the background is behind other elements */
+    animation: autoscroll 5s linear infinite; /* Adjust duration for smoother transition */
+    filter: blur(10px) grayscale(50%); /* Apply blur effect */
+}
+
+.button:hover {
+    transform: scale(1.1);
+}
+
+@keyframes autoscroll {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 100%; /* Scroll vertically to the bottom */
+    }
+}
+
+/* Style for the top-left box */
+.top-left-box {
+    position: absolute;
+    top: 40px; /* Adjust the top position */
+    left: 40px; /* Adjust the left position */
+    display: flex;
+    align-items: center;
+    background-color: purple; /* Purple background */
+    padding: 15px 30px; /* Adjust padding to make the box smaller */
+    border-radius: 15px; /* Adjust border-radius if you want rounded corners */
+    z-index: 3; /* Ensure the box appears above other elements */
+}
+
+.coin-icon {
+    width: 40px; /* Adjust the size of the icon */
+    height: 40px; /* Ensure height matches the width for a square icon */
+    margin-right: 15px; /* Space between icon and text */
+}
+
+.money-amount {
+    font-size: 25px; /* Adjust the font size */
+    color: #fff;
+}
+
+#googleSignInButton {
+    display: inline-block;
+    background-color: #4285f4; /* Google blue color */
+    color: #fff; /* White text color */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 20px; /* Padding */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Cursor style */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+#g_id_signin {
+    border: 1px solid red; /* Highlight the button with a border */
+    margin-top: 20px; /* Ensure it has some margin from the top */
+    display: block; /* Ensure it's displayed as a block element */
+}
+
+/* Hover effect for the Google Sign-In button */
+#googleSignInButton:hover {
+    background-color: #357ae8; /* Darker blue on hover */
+}
+
+/* Styling for the text inside the Google Sign-In button */
+#googleSignInButton span {
+    vertical-align: middle; /* Align text vertically */
+}

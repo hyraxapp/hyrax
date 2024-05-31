@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Project</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Top-Left Box -->
+        <div class="top-left-box">
+            <img src="../images/coin-icon.png" alt="Coin Icon" class="coin-icon">
+            <div id="money-amount" class="money-amount">0</div>
+        </div>
+
+        <!-- Title Box -->
+        <div class="title-box">
+            <h1>Smart Monkey</h1>
+        </div>
+
+        <!-- Button Container -->
+        <div class="button-container">
+            <button class="button" style="background-color: green;" id="answer-questions">Answer Questions</button>
+            <button class="button" style="background-color: blue;">Roll For Pets</button>
+            <button class="button" style="background-color: teal;">Black Jack</button>
+            <button class="button" style="background-color: red;">Play Dice</button>
+        </div>
+
+        <!-- Google Sign-In Button Container -->
+        <div class="google-signin-container">
+            <a href="/auth/google">
+                <button id="googleSignInButton">Sign in with Google</button>
+            </a>
+        </div>
+
+        <!-- <div id="profileInfo">
+            <% if (user) { %>
+                <p>Welcome, <%= user.displayName %>! <a href="/auth/logout">Logout</a></p>
+            <% } else { %>
+                <a href="/auth/google"><button id="googleSignInButton">Sign in with Google</button></a>
+            <% } %>
+        </div> -->
+        
+        <!-- Background Image -->
+        <div class="background-image"></div>
+    </div>
+</body>
+</html>

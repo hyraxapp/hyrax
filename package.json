@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "homepage": "https://hyraxapp.github.io/hyrax",
+  "homepage": "https://hyraxapp.com",
   "private": false,
   "proxy": "https://hyrax-api.onrender.com/",
   "dependencies": {

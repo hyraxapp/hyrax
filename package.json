@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "homepage": "https://SLin24.github.io/hyrax",
+  "homepage": "https://hyraxapp.github.io/hyrax",
   "private": false,
   "proxy": "http://localhost:5000",
   "dependencies": {

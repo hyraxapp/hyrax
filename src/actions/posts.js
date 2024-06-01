@@ -103,9 +103,9 @@ export const createPost = (post) => async(dispatch) => {
     toast.dismiss(toastId);
 }
 
-export const accessProblem = async (genTopic, subTopic, difficulty, number) => {
+export const accessProblem = async (domain, skill, difficulty, number) => {
     try {
-      const {data} = await api.getPrompt(genTopic, subTopic, difficulty, number);
+      const {data} = await api.getPrompt(domain, skill, difficulty, number);
       return data;
     } catch (error) {
       console.log(error.message);

@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/hyrax/static/css/main.ca161f33.css",
-    "main.js": "/hyrax/static/js/main.4c745779.js",
+    "main.js": "/hyrax/static/js/main.f3fcad48.js",
     "static/media/mainLogo.png": "/hyrax/static/media/mainLogo.c67a484933aac34b0416.png",
     "static/media/user.png": "/hyrax/static/media/user.0d14c6999b4a5c8e86a7.png",
     "static/media/coin-icon.png": "/hyrax/static/media/coin-icon.e08bb06fa4e2f37231a7.png",
     "index.html": "/hyrax/index.html",
     "main.ca161f33.css.map": "/hyrax/static/css/main.ca161f33.css.map",
-    "main.4c745779.js.map": "/hyrax/static/js/main.4c745779.js.map"
+    "main.f3fcad48.js.map": "/hyrax/static/js/main.f3fcad48.js.map"
   },
   "entrypoints": [
     "static/css/main.ca161f33.css",
-    "static/js/main.4c745779.js"
+    "static/js/main.f3fcad48.js"
   ]
 }

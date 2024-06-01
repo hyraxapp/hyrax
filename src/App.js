@@ -24,7 +24,7 @@ const App = () => {
   return(
     <div>
       <Toaster/>
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path='/' element={
           <div>

@@ -109,3 +109,11 @@ export const sendOtp = (formData, navigate) => async(dispatch) => {
     toast.dismiss(toastId);
 }
 
+export const updateTheta = async(id, theta) => {
+    try {
+        await api.updateTheta(id, theta);
+    } catch (error) {
+        console.log("Update theta error...", error);
+    }
+} 
+

@@ -27,9 +27,11 @@ export const getPrompt = (id) => API.get(`/problems/${id}`);
 export const getParams = (id) => API.get(`/problems/getParams/${id}`);
 export const getBestQuestion = (theta) => API.get(`/problems/getBestQuestion/${theta}`);
 export const getUpdatedParameters = (theta, a, b, c, correct) => API.get(`/problems/getUpdatedParameters/${theta}/${a}/${b}/${c}/${correct}`);
+export const postUpdatedParameters = (id, a, b) => API.post(`/problems/postUpdatedParameters/${id}/${a}/${b}`);
 
 //authentification related calls
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const googleSignIn = (formData) => API.post('/user/googleSignIn', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 export const sendOTP = (finalData) => API.post('/user/sendotp', finalData);
+export const updateTheta = (id, theta) => API.post(`/user/updateTheta/${id}/${theta}`);

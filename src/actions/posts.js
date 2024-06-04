@@ -143,3 +143,11 @@ export const getUpdatedParameters = async(theta, a, b, c, correct) => {
         return null;
     }
 }
+
+export const postUpdatedParameters = async(id, a, b) => {
+    try {
+        await api.postUpdatedParameters(id, a, b);
+    } catch (error) {
+        console.log("Failed to post Updated Parameters");
+    }
+}

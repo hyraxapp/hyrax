@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {accessProblem, accessParameters, getBestQuestion, getUpdatedParameters} from '../../actions/posts';
+import {accessProblem, accessParameters, getBestQuestion, getUpdatedParameters, postUpdatedParameters} from '../../actions/posts';
+import {updateTheta} from '../../actions/auth';
 import './QuestionWindow.css';
 
 const seeProblem = async () => {
@@ -25,6 +26,10 @@ const seeProblem = async () => {
       console.log(error);
     }
   };
+
+  const checkProblem = async() => {
+
+  }
 
 const QuestionWindow = () => {
   const user = JSON.parse(localStorage.getItem("profile"));

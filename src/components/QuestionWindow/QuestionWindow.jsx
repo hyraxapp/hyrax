@@ -4,6 +4,7 @@ import './QuestionWindow.css';
 
 const seeProblem = async () => {
     try {
+      const user = JSON.parse(localStorage.getItem("profile"));
       const userTheta = user.theta;
       console.log("USER THETA");
       console.log(userTheta);

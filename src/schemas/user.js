@@ -6,4 +6,5 @@ export const userSchema = Yup.object({
     email : Yup.string().required(),
     password : Yup.string().required().min(6),
     money: 0,
+    theta: 0.0,
 })

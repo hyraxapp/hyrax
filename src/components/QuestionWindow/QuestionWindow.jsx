@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import {accessProblem} from '../../actions/posts';
+import {accessProblem, accessParameters, getBestQuestion, getUpdatedParameters} from '../../actions/posts';
 import './QuestionWindow.css';
 
 const seeProblem = async () => {
     try {
-      const response = await accessProblem("b7c74b73");
+      const userTheta = user.theta;
+      console.log("USER THETA");
+      console.log(userTheta);
+      const questionId = await getBestQuestion(userTheta);
+      const response = await accessProblem(questionId);
       if (response) {
         // const div = document.createElement('div');
         // div.innerHTML = response.data;
-        const text = response.data;
+        const text = response.text;
+        const answers = response.answertext;
         const questionBox = document.querySelector('.question-prompt');
         questionBox.innerHTML = text;
       }
     } catch (error) {
+      console.log("Unable to see problem");
       console.log(error);
     }
   };

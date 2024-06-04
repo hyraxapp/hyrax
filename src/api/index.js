@@ -24,6 +24,9 @@ export const addNotice = (notice) => API.post(`/noti/notifications`, notice);
 
 //problem related API calls
 export const getPrompt = (id) => API.get(`/problems/${id}`);
+export const getParams = (id) => API.get(`/problems/getParams/${id}`);
+export const getBestQuestion = (theta) => API.get('/problems/getBestQuestion', theta);
+export const getUpdatedParameters = (theta, a, b, c, correct) => API.get('/problems/getUpdatedParameters', theta, a, b, c, correct);
 
 //authentification related calls
 export const signIn = (formData) => API.post('/user/signin', formData);

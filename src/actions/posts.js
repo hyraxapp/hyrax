@@ -105,10 +105,40 @@ export const createPost = (post) => async(dispatch) => {
 
 export const accessProblem = async (id) => {
     try {
-      const {data} = await api.getPrompt(id);
-      return data;
+      const {text, answertext} = await api.getPrompt(id);
+      return {text: text, answertext : answertext};
     } catch (error) {
-      console.log(error.message);
+      console.log("Failed to access problem");
       return null;
+    }
+}
+
+export const accessParameters = async (id) => {
+    try {
+        const {a, b, c} = await api.getParams(id);
+        return {a: a, b: b, c: c};
+    } catch (error) {
+        console.log("Failed to access parameters");
+        return null;
+    }
+}
+
+export const getBestQuestion = async (theta) => {
+    try {
+        const {best_question_id} = await api.getBestQuestion(theta);
+        return {id: best_question_id};
+    } catch (error) {
+        console.log("Failed to get best question");
+        return null;
+    }
+}
+
+export const getUpdatedParameters = async(theta, a, b, c, correct) => {
+    try {
+        const {newTheta, newa, newb} = await api.getUpdatedParameters(theta, a, b, c, correct);
+        return {new_theta: newTheta, new_a: newa, new_b: newb};
+    } catch (error) {
+        console.log("Failed to retrieve updated parameters");
+        return null;
     }
 }

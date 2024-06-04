@@ -125,7 +125,12 @@ export const accessParameters = async (id) => {
 
 export const getBestQuestion = async (theta) => {
     try {
-        const {best_question_id} = await api.getBestQuestion(theta);
+        const {data} = await api.getBestQuestion(theta);
+        console.log("DATA");
+        console.log(data)
+        console.log("BEST QUESTION ID:");
+        best_question_id = data.best_question_id;
+        console.log(best_question_id);
         return {id: best_question_id};
     } catch (error) {
         console.log("Failed to get best question");

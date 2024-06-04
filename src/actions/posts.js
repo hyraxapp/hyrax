@@ -129,7 +129,7 @@ export const getBestQuestion = async (theta) => {
         console.log("DATA");
         console.log(data)
         console.log("BEST QUESTION ID:");
-        best_question_id = data.best_question_id;
+        const best_question_id = data.best_question_id;
         console.log(best_question_id);
         return {id: best_question_id};
     } catch (error) {

@@ -6,6 +6,8 @@ const seeProblem = async () => {
     try {
       const user = JSON.parse(localStorage.getItem("profile"));
       const userTheta = user.theta;
+      console.log("USER:");
+      console.log(user);
       console.log("USER THETA");
       console.log(userTheta);
       const questionId = await getBestQuestion(userTheta);

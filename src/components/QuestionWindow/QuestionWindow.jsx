@@ -10,7 +10,7 @@ const seeProblem = async () => {
       console.log(user);
       console.log("USER THETA");
       console.log(userTheta);
-      const questionId = await getBestQuestion(userTheta);
+      const questionId = await getBestQuestion(userTheta).id;
       const response = await accessProblem(questionId);
       if (response) {
         // const div = document.createElement('div');

@@ -43,6 +43,7 @@
     word-wrap: break-word;
     overflow: auto;
     white-space: normal;
+    align-items: flex-end;
 }
 
 .answer-choices{

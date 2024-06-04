@@ -105,8 +105,8 @@ export const createPost = (post) => async(dispatch) => {
 
 export const accessProblem = async (id) => {
     try {
-      const {text, answertext} = await api.getPrompt(id);
-      return {text: text, answertext : answertext};
+      const {data} = await api.getPrompt(id);
+      return {text: data.text, answertext : data.answertext};
     } catch (error) {
       console.log("Failed to access problem");
       return null;
@@ -126,11 +126,7 @@ export const accessParameters = async (id) => {
 export const getBestQuestion = async (theta) => {
     try {
         const {data} = await api.getBestQuestion(theta);
-        console.log("DATA");
-        console.log(data)
-        console.log("BEST QUESTION ID:");
         const best_question_id = data.best_question_id;
-        console.log(best_question_id);
         return {id: best_question_id};
     } catch (error) {
         console.log("Failed to get best question");

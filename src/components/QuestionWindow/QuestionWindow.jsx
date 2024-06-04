@@ -8,10 +8,8 @@ const seeProblem = async () => {
       const userTheta = parseFloat(user.result.theta.$numberDecimal);
       console.log("USER THETA");
       console.log(userTheta);
-      const questionId = await getBestQuestion(userTheta);
-      console.log("QUESTOIN ID");
-      console.log(questionId);
-      const response = await accessProblem(questionId);
+      const questionId = await getBestQuestion(userTheta)
+      const response = await accessProblem(questionId.id);
       if (response) {
         // const div = document.createElement('div');
         // div.innerHTML = response.data;
@@ -19,6 +17,8 @@ const seeProblem = async () => {
         const answers = response.answertext;
         const questionBox = document.querySelector('.question-prompt');
         questionBox.innerHTML = text;
+        const answerChoiceBox = document.querySelector('.answer-choices');
+        answerChoiceBox.innerHTML = answers;
       }
     } catch (error) {
       console.log("Unable to see problem");

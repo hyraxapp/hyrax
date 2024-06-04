@@ -6,11 +6,11 @@ const seeProblem = async () => {
     try {
       const user = JSON.parse(localStorage.getItem("profile"));
       const userTheta = parseFloat(user.result.theta.$numberDecimal);
-      console.log("USER:");
-      console.log(user);
       console.log("USER THETA");
       console.log(userTheta);
-      const questionId = await getBestQuestion(userTheta).id;
+      const questionId = await getBestQuestion(userTheta);
+      console.log("QUESTOIN ID");
+      console.log(questionId);
       const response = await accessProblem(questionId);
       if (response) {
         // const div = document.createElement('div');

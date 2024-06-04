@@ -115,8 +115,8 @@ export const accessProblem = async (id) => {
 
 export const accessParameters = async (id) => {
     try {
-        const {a, b, c} = await api.getParams(id);
-        return {a: a, b: b, c: c};
+        const {data} = await api.getParams(id);
+        return {a: data.a, b: data.b, c: data.c};
     } catch (error) {
         console.log("Failed to access parameters");
         return null;
@@ -136,8 +136,8 @@ export const getBestQuestion = async (theta) => {
 
 export const getUpdatedParameters = async(theta, a, b, c, correct) => {
     try {
-        const {newTheta, newa, newb} = await api.getUpdatedParameters(theta, a, b, c, correct);
-        return {new_theta: newTheta, new_a: newa, new_b: newb};
+        const {data} = await api.getUpdatedParameters(theta, a, b, c, correct);
+        return {new_theta: data.newTheta, new_a: data.newa, new_b: data.newb};
     } catch (error) {
         console.log("Failed to retrieve updated parameters");
         return null;

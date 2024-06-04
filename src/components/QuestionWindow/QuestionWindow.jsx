@@ -4,7 +4,7 @@ import './QuestionWindow.css';
 
 const seeProblem = async () => {
     try {
-      const response = await accessProblem("Geometry and Trigonometry", "Lines, angles, and triangles", "Easy", 3);
+      const response = await accessProblem("b7c74b73");
       if (response) {
         // const div = document.createElement('div');
         // div.innerHTML = response.data;

@@ -123,6 +123,16 @@ export const accessParameters = async (id) => {
     }
 }
 
+export const getAnswer = async(id) => {
+    try {
+        const {data} = await api.getAnswer(id);
+        return {text: data.txt, correct_answer: data.correct_answer};
+    } catch (error) {
+        console.log("Failed to get answer explanation");
+        return null;
+    }
+}
+
 export const getBestQuestion = async (theta) => {
     try {
         const {data} = await api.getBestQuestion(theta);

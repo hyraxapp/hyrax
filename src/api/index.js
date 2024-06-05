@@ -28,6 +28,7 @@ export const getParams = (id) => API.get(`/problems/getParams/${id}`);
 export const getBestQuestion = (theta) => API.get(`/problems/getBestQuestion/${theta}`);
 export const getUpdatedParameters = (theta, a, b, c, correct) => API.get(`/problems/getUpdatedParameters/${theta}/${a}/${b}/${c}/${correct}`);
 export const postUpdatedParameters = (id, a, b) => API.post(`/problems/postUpdatedParameters/${id}/${a}/${b}`);
+export const getAnswer = (id) => API.get(`/problems/getAnswer/${id}`);
 
 //authentification related calls
 export const signIn = (formData) => API.post('/user/signin', formData);

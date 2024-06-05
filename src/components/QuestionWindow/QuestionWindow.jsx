@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {accessProblem, accessParameters, getBestQuestion, getUpdatedParameters, postUpdatedParameters} from '../../actions/posts';
+import {accessProblem, accessParameters, getBestQuestion, getUpdatedParameters, postUpdatedParameters, getAnswer} from '../../actions/posts';
 import {updateTheta} from '../../actions/auth';
+import AnswerBox from "../AnswerBox/AnswerBox";
 import './QuestionWindow.css';
+
 
 const seeProblem = async () => {
     try {
@@ -11,6 +13,7 @@ const seeProblem = async () => {
       console.log(userTheta);
       const questionId = await getBestQuestion(userTheta)
       const response = await accessProblem(questionId.id);
+      const response2 = await getAnswer(questionId.id);
       if (response) {
         // const div = document.createElement('div');
         // div.innerHTML = response.data;
@@ -20,6 +23,17 @@ const seeProblem = async () => {
         questionBox.innerHTML = text;
         const answerChoiceBox = document.querySelector('.answer-choices');
         answerChoiceBox.innerHTML = answers;
+        const correctAnswer = response2.correct_answer;
+        const explanation = response2.text;
+        const isMultipleChoice = ['A', 'B', 'C', 'D'].includes(correctAnswer);
+        const isAnswerChoice = !isMultipleChoice;
+        setQuestionData({
+          id,
+          correctAnswer,
+          explanation,
+          isMultipleChoice,
+          isAnswerChoice,
+        });
       }
     } catch (error) {
       console.log("Unable to see problem");
@@ -27,13 +41,10 @@ const seeProblem = async () => {
     }
   };
 
-  const checkProblem = async() => {
-
-  }
-
 const QuestionWindow = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const [html, setHtml] = useState('');
+  const [questionData, setQuestionData] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -50,7 +61,15 @@ const QuestionWindow = () => {
             <div className="question-prompt">{html}</div>
             <div className="answer-choices"></div>
         </div>
-        <div className="answer-box"></div>
+        <div className="answer-box">
+          <AnswerBox
+            id={questionData.id}
+            isMultipleChoice={questionData.isMultipleChoice}
+            isAnswerChoice={questionData.isAnswerChoice}
+            correctAnswer={questionData.correctAnswer}
+            explanationText={questionData.explanation}
+          />
+        </div>
       </div>
     </div>
   );

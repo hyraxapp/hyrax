@@ -64,15 +64,26 @@ const AnswerBox = ({ id, isMultipleChoice, isAnswerChoice, correctAnswer, explan
             </div>
             ) : (
             <div>
-                <input
-                type="text"
-                value={userInput}
-                onChange={handleInputChange}
-                placeholder="Type your answer here"
-                />
+                {!isSubmitted && (
+                    <div>
+                        <input
+                        type="text"
+                        value={userInput}
+                        onChange={handleInputChange}
+                        placeholder="Type your answer here"
+                        />
+                    </div>
+                )}
+                {isSubmitted && (
+                    <div>Selected Answer: {userInput}</div>
+                )}
             </div>
             )}
-            <button className="submitButton" onClick={handleSubmit}>Submit</button>
+            {!isSubmitted && (
+                <div>
+                    <button className="submitButton" onClick={handleSubmit}>Submit</button>
+                </div>
+            )}
             {isSubmitted && (
             <div className="answer-explanation">
                 {isCorrect ? 'Correct!' : 'Incorrect'}

@@ -41,7 +41,7 @@
     width: 100%;
     padding: 30px;
     word-wrap: break-word;
-    overflow: auto;
+    overflow: scroll;
     white-space: normal;
     align-items: flex-end;
 }

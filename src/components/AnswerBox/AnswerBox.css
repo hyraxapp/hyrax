@@ -1,6 +1,6 @@
 .answer-explanation{
     word-wrap: break-word;
-    overflow: auto;
+    overflow: scroll;
     white-space: normal;
 }
 
@@ -34,4 +34,8 @@
 .answerButton.selected {
     background-color: #666; /* Dark background color for selected button */
     color: #fff; /* Light text color for selected button */
+}
+
+.cb-font-weight-bold {
+    font-weight: bold;
 }

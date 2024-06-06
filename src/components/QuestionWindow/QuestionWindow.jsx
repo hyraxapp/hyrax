@@ -3,8 +3,6 @@ import {accessProblem, getBestQuestion, getAnswer} from '../../actions/posts';
 import AnswerBox from "../AnswerBox/AnswerBox";
 import './QuestionWindow.css';
 
-var ObjectId = require('mongoose').Types.ObjectId;
-
 const QuestionWindow = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const [html, setHtml] = useState('');
@@ -32,7 +30,7 @@ const QuestionWindow = () => {
           const isMultipleChoice = ['A', 'B', 'C', 'D'].includes(correctAnswer);
           const isAnswerChoice = !isMultipleChoice;
           const id = questionId.id;
-          const userId = new ObjectId(user.result._id.toString());
+          const userId = user.result._id;
           setQuestionData({
             userId,
             id,

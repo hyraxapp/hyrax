@@ -31,6 +31,8 @@ const AnswerBox = ({ id, theta, isMultipleChoice, isAnswerChoice, correctAnswer,
       setIsCorrect(cor);
       setIsSubmitted(true);
       const response = await accessParameters(id);
+      console.log("TEST");
+      console.log(response.a.$numberDecimal);
       const newVals = await getUpdatedParameters(theta, response.a.$numberDecimal, response.b.$numberDecimal, response.c.$numberDecimal, cor);
       await postUpdatedParameters(id, newVals.new_a, newVals.new_b);
       await updateTheta(id, newVals.theta);

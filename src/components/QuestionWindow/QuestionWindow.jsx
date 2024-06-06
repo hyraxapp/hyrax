@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {accessProblem, getBestQuestion, getAnswer} from '../../actions/posts';
-import {updateTheta} from '../../actions/auth';
 import AnswerBox from "../AnswerBox/AnswerBox";
 import './QuestionWindow.css';
 

@@ -24,7 +24,7 @@ const AnswerBox = ({ id, theta, isMultipleChoice, isAnswerChoice, correctAnswer,
       if (isMultipleChoice) {
         cor = (answerToCheck == correctAnswer);
       } else {
-        possibleAnswers = correctAnswer.split(',').map(answer => answer.trim());
+        let possibleAnswers = correctAnswer.split(',').map(answer => answer.trim());
         cor = possibleAnswers.includes(answerToCheck);
       }
 

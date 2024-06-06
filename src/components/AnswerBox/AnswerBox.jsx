@@ -17,7 +17,7 @@ const AnswerBox = ({ id, theta, isMultipleChoice, isAnswerChoice, correctAnswer,
     setUserInput(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let answerToCheck = isMultipleChoice ? selectedAnswer : userInput;
     if (answerToCheck) {
       let cor = false;
@@ -30,10 +30,12 @@ const AnswerBox = ({ id, theta, isMultipleChoice, isAnswerChoice, correctAnswer,
 
       setIsCorrect(cor);
       setIsSubmitted(true);
-      const response = accessParameters(id);
-      const newVals = getUpdatedParameters(theta, response.a, response.b, response.c, cor);
-      postUpdatedParameters(id, newVals.new_a, newVals.new_b);
-      updateTheta(id, newVals.theta);
+      const response = await accessParameters(id);
+      console.log("RESPONSEEEE");
+      console.log(response);
+      const newVals = await getUpdatedParameters(theta, response.a, response.b, response.c, cor);
+      await postUpdatedParameters(id, newVals.new_a, newVals.new_b);
+      await updateTheta(id, newVals.theta);
     } else {
       alert('Please select or enter an answer before submitting.');
     }

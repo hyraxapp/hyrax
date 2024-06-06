@@ -86,7 +86,9 @@ const AnswerBox = ({ id, isMultipleChoice, isAnswerChoice, correctAnswer, explan
             )}
             {isSubmitted && (
             <div className="answer-explanation">
-                {isCorrect ? 'Correct!' : 'Incorrect'}
+                <div className="answer_validity">
+                    {isCorrect ? 'Correct!' : 'Incorrect'}
+                </div>
                 <div dangerouslySetInnerHTML={{ __html: explanationText }} />
             </div>
             )}

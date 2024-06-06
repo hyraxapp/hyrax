@@ -30,7 +30,7 @@ const QuestionWindow = () => {
           const isMultipleChoice = ['A', 'B', 'C', 'D'].includes(correctAnswer);
           const isAnswerChoice = !isMultipleChoice;
           const id = questionId.id;
-          const userId = user.result._id;
+          const userId = {"$oid":user.result._id};
           setQuestionData({
             userId,
             id,

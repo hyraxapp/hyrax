@@ -1,0 +1,37 @@
+.answer-explanation{
+    word-wrap: break-word;
+    overflow: auto;
+    white-space: normal;
+}
+
+.answerButton {
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 5px; /* Small rounded corners */
+    border: 1px solid #ccc; /* Light gray border */
+    background-color: #f0f0f0; /* Light gray background */
+    color: #333; /* Dark gray text color */
+    font-size: 14px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
+    margin: 5px; /* Spacing between buttons */
+}
+
+.answerButton:hover {
+    background-color: #e0e0e0; /* Slightly darker gray background on hover */
+    color: #000; /* Darker text color on hover */
+}
+
+.answerButton:active {
+    background-color: #d0d0d0; /* Even darker gray background when active */
+    border-color: #bbb; /* Darker border when active */
+}
+
+.answerButton:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Custom focus outline */
+}
+
+.answerButton.selected {
+    background-color: #666; /* Dark background color for selected button */
+    color: #fff; /* Light text color for selected button */
+}

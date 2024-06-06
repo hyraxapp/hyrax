@@ -32,10 +32,34 @@ const AnswerBox = ({ id, isMultipleChoice, isAnswerChoice, correctAnswer, explan
             <h1>Answer Question</h1>
             {isMultipleChoice ? (
             <div>
-                <button onClick={() => handleAnswerClick('a')}>A</button>
-                <button onClick={() => handleAnswerClick('b')}>B</button>
-                <button onClick={() => handleAnswerClick('c')}>C</button>
-                <button onClick={() => handleAnswerClick('d')}>D</button>
+                {!isSubmitted && (
+                    <div>
+                        <button
+                            className={`answerButton ${selectedAnswer === 'A' ? 'selected' : ''}`}
+                            onClick={() => handleAnswerClick('A')}
+                        >
+                            A
+                        </button>
+                        <button
+                            className={`answerButton ${selectedAnswer === 'B' ? 'selected' : ''}`}
+                            onClick={() => handleAnswerClick('B')}
+                        >
+                            B
+                        </button>
+                        <button
+                            className={`answerButton ${selectedAnswer === 'C' ? 'selected' : ''}`}
+                            onClick={() => handleAnswerClick('C')}
+                        >
+                            C
+                        </button>
+                        <button
+                            className={`answerButton ${selectedAnswer === 'D' ? 'selected' : ''}`}
+                            onClick={() => handleAnswerClick('D')}
+                        >
+                            D
+                        </button>
+                    </div>
+                )}
                 <div>Selected Answer: {selectedAnswer}</div>
             </div>
             ) : (
@@ -50,7 +74,7 @@ const AnswerBox = ({ id, isMultipleChoice, isAnswerChoice, correctAnswer, explan
             )}
             <button onClick={handleSubmit}>Submit</button>
             {isSubmitted && (
-            <div>
+            <div className="answer-explanation">
                 {isCorrect ? 'Correct!' : 'Incorrect'}
                 <div dangerouslySetInnerHTML={{ __html: explanationText }} />
             </div>

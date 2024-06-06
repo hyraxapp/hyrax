@@ -29,9 +29,9 @@ const AnswerBox = ({ id, isMultipleChoice, isAnswerChoice, correctAnswer, explan
     <div>
         {(isMultipleChoice || isAnswerChoice) && (
         <div>
-            <h1>Answer Question</h1>
             {isMultipleChoice ? (
             <div>
+                <h1>Answer Question</h1>
                 {!isSubmitted && (
                     <div>
                         <button
@@ -66,6 +66,7 @@ const AnswerBox = ({ id, isMultipleChoice, isAnswerChoice, correctAnswer, explan
             <div>
                 {!isSubmitted && (
                     <div>
+                        <h1>Answer Question</h1>
                         <input
                         type="text"
                         value={userInput}

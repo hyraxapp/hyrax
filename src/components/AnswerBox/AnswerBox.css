@@ -1,6 +1,6 @@
 .answer-explanation{
     word-wrap: break-word;
-    overflow: scroll;
+    overflow: auto;
     white-space: normal;
 }
 

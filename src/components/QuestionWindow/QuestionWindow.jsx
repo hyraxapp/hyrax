@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {accessProblem, getBestQuestion, getAnswer} from '../../actions/posts';
 import AnswerBox from "../AnswerBox/AnswerBox";
-import {ObjectId} from mongoose;
+import {ObjectId} from 'mongoose';
 import './QuestionWindow.css';
 
 const QuestionWindow = () => {

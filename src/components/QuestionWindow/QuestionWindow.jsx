@@ -30,7 +30,11 @@ const QuestionWindow = () => {
           const isMultipleChoice = ['A', 'B', 'C', 'D'].includes(correctAnswer);
           const isAnswerChoice = !isMultipleChoice;
           const id = questionId.id;
+          console.log("USER");
+          console.log(user);
+          const userId = user.id;
           setQuestionData({
+            userId,
             id,
             userTheta,
             correctAnswer,
@@ -62,6 +66,7 @@ const QuestionWindow = () => {
         <div className="answer-box">
           {questionData && (
               <AnswerBox
+                userId={questionData.userId}
                 id={questionData.id}
                 theta={questionData.userTheta}
                 isMultipleChoice={questionData.isMultipleChoice}

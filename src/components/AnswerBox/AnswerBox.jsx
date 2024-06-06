@@ -3,7 +3,7 @@ import {accessParameters, getUpdatedParameters, postUpdatedParameters} from '../
 import {updateTheta} from '../../actions/auth';
 import './AnswerBox.css';
 
-const AnswerBox = ({ id, theta, isMultipleChoice, isAnswerChoice, correctAnswer, explanationText }) => {
+const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correctAnswer, explanationText }) => {
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [userInput, setUserInput] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -35,7 +35,7 @@ const AnswerBox = ({ id, theta, isMultipleChoice, isAnswerChoice, correctAnswer,
       console.log("NEW VALS");
       console.log(newVals);
       await postUpdatedParameters(id, newVals.new_a, newVals.new_b);
-      await updateTheta(id, newVals.new_theta);
+      await updateTheta(userId, newVals.new_theta);
     } else {
       alert('Please select or enter an answer before submitting.');
     }

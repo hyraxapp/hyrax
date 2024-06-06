@@ -72,7 +72,7 @@ const AnswerBox = ({ id, isMultipleChoice, isAnswerChoice, correctAnswer, explan
                 />
             </div>
             )}
-            <button onClick={handleSubmit}>Submit</button>
+            <button className="submitButton" onClick={handleSubmit}>Submit</button>
             {isSubmitted && (
             <div className="answer-explanation">
                 {isCorrect ? 'Correct!' : 'Incorrect'}

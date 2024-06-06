@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import {accessParameters, getUpdatedParameters, postUpdatedParameters} from '../../actions/posts';
+import {updateTheta} from '../../actions/auth';
 import './AnswerBox.css';
 
-const AnswerBox = ({ id, isMultipleChoice, isAnswerChoice, correctAnswer, explanationText }) => {
+const AnswerBox = ({ id, theta, isMultipleChoice, isAnswerChoice, correctAnswer, explanationText }) => {
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [userInput, setUserInput] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -18,8 +20,20 @@ const AnswerBox = ({ id, isMultipleChoice, isAnswerChoice, correctAnswer, explan
   const handleSubmit = () => {
     let answerToCheck = isMultipleChoice ? selectedAnswer : userInput;
     if (answerToCheck) {
-      setIsCorrect(answerToCheck === correctAnswer);
+      let cor = false;
+      if (isMultipleChoice) {
+        cor = (answerToCheck == correctAnswer);
+      } else {
+        possibleAnswers = correctAnswer.split(',').map(answer => answer.trim());
+        cor = possibleAnswers.includes(answerToCheck);
+      }
+
+      setIsCorrect(cor);
       setIsSubmitted(true);
+      const response = accessParameters(id);
+      const newVals = getUpdatedParameters(theta, response.a, response.b, response.c, cor);
+      postUpdatedParameters(id, newVals.new_a, newVals.new_b);
+      updateTheta(id, newVals.theta);
     } else {
       alert('Please select or enter an answer before submitting.');
     }

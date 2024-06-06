@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {accessProblem, accessParameters, getBestQuestion, getUpdatedParameters, postUpdatedParameters, getAnswer} from '../../actions/posts';
+import {accessProblem, getBestQuestion, getAnswer} from '../../actions/posts';
 import {updateTheta} from '../../actions/auth';
 import AnswerBox from "../AnswerBox/AnswerBox";
 import './QuestionWindow.css';
@@ -14,7 +14,7 @@ const QuestionWindow = () => {
       try {
         const user = JSON.parse(localStorage.getItem("profile"));
         const userTheta = parseFloat(user.result.theta.$numberDecimal);
-        const questionId = await getBestQuestion(userTheta)
+        const questionId = await getBestQuestion(userTheta);
         const response = await accessProblem(questionId.id);
         const response2 = await getAnswer(questionId.id);
         if (response) {
@@ -33,6 +33,7 @@ const QuestionWindow = () => {
           const id = questionId;
           setQuestionData({
             id,
+            userTheta,
             correctAnswer,
             explanation,
             isMultipleChoice,
@@ -63,6 +64,7 @@ const QuestionWindow = () => {
           {questionData && (
               <AnswerBox
                 id={questionData.id}
+                theta={questionData.userTheta}
                 isMultipleChoice={questionData.isMultipleChoice}
                 isAnswerChoice={questionData.isAnswerChoice}
                 correctAnswer={questionData.correctAnswer}

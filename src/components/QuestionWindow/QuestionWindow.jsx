@@ -30,7 +30,7 @@ const QuestionWindow = () => {
           const explanation = response2.text;
           const isMultipleChoice = ['A', 'B', 'C', 'D'].includes(correctAnswer);
           const isAnswerChoice = !isMultipleChoice;
-          const id = questionId;
+          const id = questionId.id;
           setQuestionData({
             id,
             userTheta,

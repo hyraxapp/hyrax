@@ -60,13 +60,15 @@ const QuestionWindow = () => {
             <div className="answer-choices"></div>
         </div>
         <div className="answer-box">
-          <AnswerBox
-            id={questionData.id}
-            isMultipleChoice={questionData.isMultipleChoice}
-            isAnswerChoice={questionData.isAnswerChoice}
-            correctAnswer={questionData.correctAnswer}
-            explanationText={questionData.explanation}
-          />
+          {questionData && (
+              <AnswerBox
+                id={questionData.id}
+                isMultipleChoice={questionData.isMultipleChoice}
+                isAnswerChoice={questionData.isAnswerChoice}
+                correctAnswer={questionData.correctAnswer}
+                explanationText={questionData.explanation}
+              />
+          )}
         </div>
       </div>
     </div>

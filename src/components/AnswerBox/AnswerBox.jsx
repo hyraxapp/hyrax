@@ -33,8 +33,6 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
       const response = await accessParameters(id);
       const newVals = await getUpdatedParameters(theta, response.a.$numberDecimal, response.b.$numberDecimal, response.c.$numberDecimal, cor);
       await postUpdatedParameters(id, newVals.new_a, newVals.new_b);
-      console.log("TRY TO GET USER ID");
-      console.log(userId);
       await updateTheta(userId, newVals.new_theta);
     } else {
       alert('Please select or enter an answer before submitting.');

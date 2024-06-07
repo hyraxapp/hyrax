@@ -37,7 +37,7 @@
 }
 
 .question-prompt{
-    height: 60%;
+    height: 100%;
     width: 100%;
     padding: 30px;
     word-wrap: break-word;
@@ -47,9 +47,12 @@
 }
 
 .answer-choices{
-    height:40%;
+    height:100%;
     width:100%;
     padding: 20px;
+    word-wrap: break-word;
+    overflow: auto;
+    white-space: normal;
 }
 
 .answer-box{

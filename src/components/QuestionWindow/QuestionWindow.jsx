@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {accessProblem, getBestQuestion, getAnswer} from '../../actions/posts';
+import {accessProblem, getBestQuestion, getAnswer, removeOffList, clearList, getUserArr} from '../../actions/posts';
 import AnswerBox from "../AnswerBox/AnswerBox";
 import './QuestionWindow.css';
 
@@ -7,13 +7,19 @@ const QuestionWindow = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const [html, setHtml] = useState('');
   const [questionData, setQuestionData] = useState(null);
+  const [loadProblem, setLoadProblem] = useState(true);
 
   useEffect(() => {
     const seeProblem = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("profile"));
         const userTheta = parseFloat(user.result.theta.$numberDecimal);
-        const questionId = await getBestQuestion(userTheta);
+        const userArr = await getUserArr(user.result._id);
+        const questionId = await getBestQuestion(userTheta, userArr);
+        if (userArr.arr.length > 250) {
+          await clearList(user.result._id);
+        }
+        await removeOffList(user.result._id, questionId.id);
         const response = await accessProblem(questionId.id);
         const response2 = await getAnswer(questionId.id);
         if (response) {
@@ -47,10 +53,11 @@ const QuestionWindow = () => {
       }
     };
 
-    if (user) {
+    if (user && loadProblem) {
       seeProblem();
+      setLoadProblem(false);
     }
-  }, [user]);
+  }, [user, loadProblem]);
 
   return (
     user &&

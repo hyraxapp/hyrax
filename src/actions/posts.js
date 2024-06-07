@@ -133,13 +133,41 @@ export const getAnswer = async(id) => {
     }
 }
 
-export const getBestQuestion = async (theta) => {
+export const getBestQuestion = async (theta, arr) => {
     try {
-        const {data} = await api.getBestQuestion(theta);
+        const {data} = await api.getBestQuestion(theta, (JSON.stringify(arr)));
         const best_question_id = data.best_question_id;
         return {id: best_question_id};
     } catch (error) {
         console.log("Failed to get best question");
+        return null;
+    }
+}
+
+export const getUserArr = async(userId) => {
+    try {
+        const {data} = await api.getUserArr(userId);
+        return {arr : data.arr};
+    } catch (error) {
+        console.log("Failed to get User Array");
+        return null;
+    }
+}
+
+export const removeOffList = async(userId, id) => {
+    try {
+        await api.removeOffList(userId, id);
+    } catch (error) {
+        console.log("Failed to remove problem off list");
+        return null;
+    }
+}
+
+export const clearList = async(userId) => {
+    try {
+        await api.clearList(userId);
+    } catch (error) {
+        console.log("failed to clear list");
         return null;
     }
 }

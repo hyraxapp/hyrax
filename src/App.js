@@ -18,6 +18,7 @@ import VerifyEmail from './components/VerifyEmail/VerifyEmail';
 import Sidebar from './components/Sidebar/Sidebar'
 import MainPageWindow from './components/MainPageWindow/MainPageWindow'
 import QuestionWindow from './components/QuestionWindow/QuestionWindow'
+import CrashWindow from './components/CrashWindow/CrashWindow'
 
 const App = () => {
 
@@ -48,6 +49,19 @@ const App = () => {
               </div>
               <div className="noti_maincontainer">
                 <QuestionWindow/>
+              </div>
+            </div>
+          </div>
+        }/>
+        <Route path='/crash' element={
+          <div>
+            <Navbar1/>
+            <div className="mainContainer">
+              <div className="sideBar_maincontainer">
+                <Sidebar/>
+              </div>
+              <div className="noti_maincontainer">
+                <CrashWindow/>
               </div>
             </div>
           </div>

@@ -31,9 +31,16 @@
 .questionSide{
     display: flex;
     height: 100%;
-    width: 50%;
+    width: 100%;
     flex-direction: column;
     font-size: 15px;
+}
+
+.answerSide{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
 }
 
 .question-prompt{
@@ -57,8 +64,11 @@
 
 .answer-box{
     height: 100%;
-    width:50%;
+    width:100%;
     padding: 20px;
+    word-wrap: break-word;
+    overflow: auto;
+    white-space: normal;
 }
 
 SVG{

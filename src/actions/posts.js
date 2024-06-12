@@ -106,7 +106,7 @@ export const createPost = (post) => async(dispatch) => {
 export const accessProblem = async (id) => {
     try {
       const {data} = await api.getPrompt(id);
-      return {text: data.text, answertext : data.answertext};
+      return {text: data.text, answertext : data.answertext, difficulty: data.difficulty};
     } catch (error) {
       console.log("Failed to access problem");
       return null;
@@ -187,5 +187,24 @@ export const postUpdatedParameters = async(id, a, b) => {
         await api.postUpdatedParameters(id, a, b);
     } catch (error) {
         console.log("Failed to post Updated Parameters");
+    }
+}
+
+export const updateMoney = async(id, change) => {
+    try {
+        await api.updateMoney(id, change);
+    } catch (error) {
+        console.log("Failed to update money");
+        return null;
+    }
+}
+
+export const getMoney = async(id) => {
+    try {
+        const {data} = await api.getMoney(id);
+        return {money: data.money};
+    } catch (error) {
+        console.log("Failed to update money");
+        return null;
     }
 }

@@ -14,6 +14,7 @@ import Logout from "@mui/icons-material/Logout";
 import {toast} from 'react-hot-toast';
 import images from "../../constants/images";
 import decode from "jwt-decode";
+import {getMoney} from '../../actions/posts';
 
 const Navbar1 = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const Navbar1 = () => {
   const location = useLocation();
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const [curMoney, setCurMoney] = useState(0);
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
@@ -42,6 +44,23 @@ const Navbar1 = () => {
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
     setUser(JSON.parse(localStorage.getItem("profile")));
+    const refreshMoney = async () => {
+      const userMoney = await getMoney(user?.result?._id);
+      try {
+        setCurMoney(userMoney.money);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (user) {
+      refreshMoney();
+    }
+
+    // Set up an interval to call refreshMoney every second
+    const intervalId = setInterval(refreshMoney, 3000);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
   }, [location]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -71,7 +90,7 @@ const Navbar1 = () => {
                 </Tooltip>
               </div>
               <div className="money_amount_container">
-                {user?.result?.money}
+                {curMoney}
               </div>
             </div>
           )

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {accessProblem, getBestQuestion, getAnswer, removeOffList, clearList, getUserArr} from '../../actions/posts';
+import {accessProblem, getBestQuestion, getAnswer, getUserArr} from '../../actions/posts';
 import AnswerBox from "../AnswerBox/AnswerBox";
 import './QuestionWindow.css';
 
@@ -8,6 +8,9 @@ const QuestionWindow = () => {
   const [html, setHtml] = useState('');
   const [questionData, setQuestionData] = useState(null);
   const [loadProblem, setLoadProblem] = useState(true);
+  const handleNextQuestion = () => {
+    setLoadProblem(true);
+  };
 
   useEffect(() => {
     const seeProblem = async () => {
@@ -16,10 +19,6 @@ const QuestionWindow = () => {
         const userTheta = parseFloat(user.result.theta.$numberDecimal);
         const userArr = await getUserArr(user.result._id);
         const questionId = await getBestQuestion(userTheta, userArr);
-        if (userArr.arr.length > 250) {
-          await clearList(user.result._id);
-        }
-        await removeOffList(user.result._id, questionId.id);
         const response = await accessProblem(questionId.id);
         const response2 = await getAnswer(questionId.id);
         if (response) {
@@ -37,14 +36,18 @@ const QuestionWindow = () => {
           const isAnswerChoice = !isMultipleChoice;
           const id = questionId.id;
           const userId = user.result._id;
+          const difficulty = response.difficulty;
+          const arrLength = userArr.arr.length;
           setQuestionData({
             userId,
             id,
             userTheta,
             correctAnswer,
+            difficulty,
             explanation,
             isMultipleChoice,
             isAnswerChoice,
+            arrLength
           });
         }
       } catch (error) {
@@ -68,18 +71,23 @@ const QuestionWindow = () => {
             <div className="question-prompt">{html}</div>
             <div className="answer-choices"></div>
         </div>
-        <div className="answer-box">
-          {questionData && (
-              <AnswerBox
-                userId={questionData.userId}
-                id={questionData.id}
-                theta={questionData.userTheta}
-                isMultipleChoice={questionData.isMultipleChoice}
-                isAnswerChoice={questionData.isAnswerChoice}
-                correctAnswer={questionData.correctAnswer}
-                explanationText={questionData.explanation}
-              />
-          )}
+        <div className="answerSide">
+          <div className="answer-box">
+            {questionData && (
+                <AnswerBox
+                  userId={questionData.userId}
+                  id={questionData.id}
+                  theta={questionData.userTheta}
+                  isMultipleChoice={questionData.isMultipleChoice}
+                  isAnswerChoice={questionData.isAnswerChoice}
+                  correctAnswer={questionData.correctAnswer}
+                  difficulty={questionData.difficulty}
+                  explanationText={questionData.explanation}
+                  arrLength={questionData.arrLength}
+                  onNextQuestion={handleNextQuestion}
+                />
+            )}
+          </div>
         </div>
       </div>
     </div>

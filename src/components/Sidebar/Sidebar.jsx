@@ -42,8 +42,8 @@ const Sidebar = () => {
                 {
                     user && (
                         <button className="ProjectPart">
-                            <Link to="/blackjack" className="projectPart">
-                                <Tooltip title='Play Blackjack' arrow>{Icons.CardIcon}</Tooltip>
+                            <Link to="/crash" className="projectPart">
+                                <Tooltip title='Play Crash' arrow>{Icons.RocketIcon}</Tooltip>
                             </Link>
                         </button>
                     )

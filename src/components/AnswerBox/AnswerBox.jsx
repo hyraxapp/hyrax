@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import {accessParameters, getUpdatedParameters, postUpdatedParameters} from '../../actions/posts';
+import {accessParameters, getUpdatedParameters, postUpdatedParameters, updateMoney, removeOffList, clearList} from '../../actions/posts';
 import {updateTheta} from '../../actions/auth';
 import './AnswerBox.css';
 
-const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correctAnswer, explanationText }) => {
+const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correctAnswer, difficulty, explanationText, arrLength, onNextQuestion }) => {
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [userInput, setUserInput] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -17,23 +17,55 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
     setUserInput(event.target.value);
   };
 
+  const handleNextQuestion = async () => {
+    setUserInput('');
+    setSelectedAnswer('');
+    setIsSubmitted(false);
+    setIsCorrect(false);
+    isMultipleChoice = false;
+    isAnswerChoice = false;
+    onNextQuestion();
+  }
+
   const handleSubmit = async () => {
     let answerToCheck = isMultipleChoice ? selectedAnswer : userInput;
+    if (arrLength > 250) {
+        await clearList(userId);
+    }
+    await removeOffList(userId, id);
     if (answerToCheck) {
       let cor = false;
       if (isMultipleChoice) {
-        cor = (answerToCheck == correctAnswer);
+        cor = (answerToCheck === correctAnswer);
       } else {
         let possibleAnswers = correctAnswer.split(',').map(answer => answer.trim());
         cor = possibleAnswers.includes(answerToCheck);
       }
-
       setIsCorrect(cor);
       setIsSubmitted(true);
       const response = await accessParameters(id);
       const newVals = await getUpdatedParameters(theta, response.a.$numberDecimal, response.b.$numberDecimal, response.c.$numberDecimal, cor);
       await postUpdatedParameters(id, newVals.new_a, newVals.new_b);
       await updateTheta(userId, newVals.new_theta);
+      if (difficulty === "Easy") {
+        if (cor) {
+            await updateMoney(userId, 2);
+        } else {
+            await updateMoney(userId, -2);
+        }
+      } else if (difficulty === "Medium") {
+        if (cor) {
+            await updateMoney(userId, 3);
+        } else {
+            await updateMoney(userId, -2);
+        }
+      } else {
+        if (cor) {
+            await updateMoney(userId, 4);
+        } else {
+            await updateMoney(userId, -2);
+        }
+      }
     } else {
       alert('Please select or enter an answer before submitting.');
     }
@@ -105,6 +137,7 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
                     {isCorrect ? 'Correct!' : 'Incorrect'}
                 </div>
                 <div dangerouslySetInnerHTML={{ __html: explanationText }} />
+                <button className="submitButton" onClick={handleNextQuestion}>Next Question</button>
             </div>
             )}
         </div>

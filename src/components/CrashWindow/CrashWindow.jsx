@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './CrashWindow.css';
-import {getMoney} from '../../actions/posts';
+import {getMoney, updateMoney, getTickets, updateTickets} from '../../actions/posts';
+import { CancelScheduleSendOutlined } from '@mui/icons-material';
 
 const CrashWindow = () => {
 const user = JSON.parse(localStorage.getItem("profile"));
@@ -9,12 +10,16 @@ const [start, updateStart] = useState(false);
 const [betAmount, setBetAmount] = useState('');
 const [message, setMessage] = useState('');
 const [isSubmitted, setIsSubmitted] = useState(false);
+const [cashedOut, setCashedOut] = useState(true);
+let number = 1;
 
 const handleSubmit = async () => {
+    setCashedOut(false);
     const amount = parseFloat(betAmount);
     let tuserMoney = await getMoney(user?.result?._id);
-    let userMoney = tuserMoney.money
-    let userHasTicket = true; // await getTickets(user?.result?._id) > 0;
+    let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
+    let numTickets = await getTickets(user?.result?._id);
+    let userHasTicket = parseInt(numTickets.tickets) > 0;
     // Clear previous messages
     setMessage('');
 
@@ -26,29 +31,20 @@ const handleSubmit = async () => {
         setMessage('You do not have a ticket to place a bet.');
     } else {
         setMessage('Bet placed successfully!');
+        await updateTickets(user?.result?._id, -1);
+        await updateMoney(user?.result?._id, -1 * amount);
         setIsSubmitted(true);
         updateStart(true);
     }
 };
 
 const handleCashOut = async () => {
+    setCashedOut(true);
     const amount = parseFloat(betAmount);
-    let tuserMoney = await getMoney(user?.result?._id);
-    let userMoney = tuserMoney.money
-    let userHasTicket = true; // await getTickets(user?.result?._id) > 0;
-    // Clear previous messages
-    setMessage('');
-
-    if (isNaN(amount) || amount <= 0) {
-        setMessage('Please enter a valid decimal amount.');
-    } else if (amount > userMoney) {
-        setMessage('You do not have enough money to place this bet.');
-    } else if (!userHasTicket) {
-        setMessage('You do not have a ticket to place a bet.');
-    } else {
-        setMessage('Bet placed successfully!');
-        setIsSubmitted(true);
-        updateStart(true);
+    try {
+        await updateMoney(user?.result?._id, amount * number);
+    } catch (error) {
+        console.log(error);
     }
 };
 
@@ -97,7 +93,6 @@ useEffect(() => {
     let rocketVel = -0.8;
     let numberVel = 0.0001;
     let numberAccel = 0.000001;
-    let number = 1;
     // let rocketHeight = rocket.height * 0.2;
     // let rocketWidth = rocket.width * 0.2;
 
@@ -148,6 +143,9 @@ useEffect(() => {
             numberAccel = 0;
             ctx.drawImage(explosion, 1000, 600, 450, 450);
             updateStart(false);
+            setBetAmount('');
+            setMessage('');
+            setIsSubmitted(false);
         } else {
             ctx.drawImage(flameArr[curFlameFrame], 1100, rocketY + 300, 200, 200);
             ctx.drawImage(rocket, 1000, rocketY);
@@ -184,30 +182,38 @@ useEffect(() => {
     }
 }, [start]);
 return (user &&
-    <div className="crash_window">
-        <canvas className="crash_container" ref={canvasRef}></canvas>
-        <div className="betting-container">
-            <input
-                type="number"
-                value={betAmount}
-                onChange={(e) => setBetAmount(e.target.value)}
-                placeholder="Enter bet amount"
-                step="0.01"
-                disabled={isSubmitted}
-            />
-            {(!isSubmitted) && 
-                <button onClick={handleSubmit}>
-                    Submit Bet
-                </button>
-            }
-            <p id="message" style={{ color: isSubmitted ? 'green' : 'red' }}>
-                {message}
-            </p>
-            {(isSubmitted && start) && (
-                <button onClick={handleCashOut}>
-                    Cash Out
-                </button>
-            )}
+    <div className="crash_main_window">
+        <div className="crash_window">
+            <canvas className="crash_container" ref={canvasRef}></canvas>
+            <div className="betting-container">
+                <input
+                    type="number"
+                    value={betAmount}
+                    onChange={(e) => setBetAmount(e.target.value)}
+                    placeholder="Enter bet amount"
+                    step="0.01"
+                    disabled={isSubmitted}
+                />
+                {(!isSubmitted) && 
+                    <button className="submit_button" onClick={handleSubmit}>
+                        Submit Bet
+                    </button>
+                }
+                <p id="message" style={{ color: isSubmitted ? 'green' : 'red' }}>
+                    {message}
+                </p>
+                {(isSubmitted && start && !cashedOut) && (
+                    <button className="cashout" onClick={handleCashOut}>
+                        Cash Out
+                    </button>
+                )}
+            </div>
+        </div>
+        <div className="crash_explanation">
+            <h1 className="crash_title">How Crash Works</h1>
+            <p>Crash involves investing a given amount and cashing out before the rocket ship exlodes</p>
+            <p>If one is too late to cash out, all invested hybux will be lost</p>
+            <p>Otherwise, the invested amount is multiplied by the cashed out multiplier</p>
         </div>
     </div>
 )

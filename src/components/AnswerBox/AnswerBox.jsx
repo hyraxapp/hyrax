@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import {accessParameters, getUpdatedParameters, postUpdatedParameters, updateMoney, removeOffList, clearList} from '../../actions/posts';
+import {accessParameters, getUpdatedParameters, postUpdatedParameters, updateMoney, updateTickets, removeOffList, clearList} from '../../actions/posts';
 import {updateTheta} from '../../actions/auth';
+import images from "../../constants/images";
 import './AnswerBox.css';
+
 
 const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correctAnswer, difficulty, explanationText, arrLength, onNextQuestion }) => {
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [userInput, setUserInput] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [mode, setMode] = useState('money'); // Default mode is money
+  const [givenUp, setGivenUp] = useState(false);
 
   const handleAnswerClick = (answer) => {
     setSelectedAnswer(answer);
@@ -17,6 +21,11 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
     setUserInput(event.target.value);
   };
 
+  const handleGiveUp = () => {
+    setGivenUp(true);
+    setIsSubmitted(true);
+  };
+
   const handleNextQuestion = async () => {
     setUserInput('');
     setSelectedAnswer('');
@@ -24,6 +33,7 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
     setIsCorrect(false);
     isMultipleChoice = false;
     isAnswerChoice = false;
+    setGivenUp(false);
     onNextQuestion();
   }
 
@@ -43,27 +53,32 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
       }
       setIsCorrect(cor);
       setIsSubmitted(true);
-      const response = await accessParameters(id);
-      const newVals = await getUpdatedParameters(theta, response.a.$numberDecimal, response.b.$numberDecimal, response.c.$numberDecimal, cor);
-      await postUpdatedParameters(id, newVals.new_a, newVals.new_b);
-      await updateTheta(userId, newVals.new_theta);
-      if (difficulty === "Easy") {
-        if (cor) {
-            await updateMoney(userId, 2);
+      if (!givenUp) {
+        const response = await accessParameters(id);
+        const newVals = await getUpdatedParameters(theta, response.a.$numberDecimal, response.b.$numberDecimal, response.c.$numberDecimal, cor);
+        await postUpdatedParameters(id, newVals.new_a, newVals.new_b);
+        await updateTheta(userId, newVals.new_theta);
+
+        if (mode === 'money') {
+          let amount = 0;
+          if (difficulty === 'Easy') {
+            amount = cor ? 2 : -2;
+          } else if (difficulty === 'Medium') {
+            amount = cor ? 3 : -2;
+          } else {
+            amount = cor ? 4 : -2;
+          }
+          await updateMoney(userId, amount);
         } else {
-            await updateMoney(userId, -2);
-        }
-      } else if (difficulty === "Medium") {
-        if (cor) {
-            await updateMoney(userId, 3);
-        } else {
-            await updateMoney(userId, -2);
-        }
-      } else {
-        if (cor) {
-            await updateMoney(userId, 4);
-        } else {
-            await updateMoney(userId, -2);
+            let amount = 0;
+            if (difficulty == 'Easy') {
+                amount = cor ? 1 : -1;
+            } else if (difficulty == 'Medium') {
+                amount = cor ? 1 : -1;
+            } else {
+                amount = cor ? 2 : -1;
+            }
+            await updateTickets(userId, amount);
         }
       }
     } else {
@@ -73,63 +88,80 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
 
   return (     
     <div>
+        {givenUp && <div>You've given up on this question.</div>}
         {(isMultipleChoice || isAnswerChoice) && (
         <div>
-            {isMultipleChoice ? (
+            {!givenUp && (
             <div>
-                {!isSubmitted && (
-                    <div>
-                        <h1>Answer Question</h1>
-                        <button
-                            className={`answerButton ${selectedAnswer === 'A' ? 'selected' : ''}`}
-                            onClick={() => handleAnswerClick('A')}
-                        >
-                            A
+                <div className="betChoice">
+                    <p>Choose to Solve for Hybux or Tickets</p>
+                    <div className="mode-selection">
+                        <button className={`modeButton ${mode === 'money' ? 'selected' : ''}`} onClick={() => setMode('money')}>
+                        <img src = {images.coinIcon} width={28} height={28}/>
                         </button>
-                        <button
-                            className={`answerButton ${selectedAnswer === 'B' ? 'selected' : ''}`}
-                            onClick={() => handleAnswerClick('B')}
-                        >
-                            B
-                        </button>
-                        <button
-                            className={`answerButton ${selectedAnswer === 'C' ? 'selected' : ''}`}
-                            onClick={() => handleAnswerClick('C')}
-                        >
-                            C
-                        </button>
-                        <button
-                            className={`answerButton ${selectedAnswer === 'D' ? 'selected' : ''}`}
-                            onClick={() => handleAnswerClick('D')}
-                        >
-                            D
+                        <button className={`modeButton ${mode === 'tickets' ? 'selected' : ''}`} onClick={() => setMode('tickets')}>
+                        <img src = {images.ticketIcon} width={28} height={28}/>
                         </button>
                     </div>
-                )}
-                <div>Selected Answer: {selectedAnswer}</div>
-            </div>
-            ) : (
-            <div>
-                {!isSubmitted && (
-                    <div>
-                        <h1>Answer Question</h1>
-                        <input
-                        type="text"
-                        value={userInput}
-                        onChange={handleInputChange}
-                        placeholder="Type your answer here"
-                        />
-                    </div>
-                )}
-                {isSubmitted && (
-                    <div>Selected Answer: {userInput}</div>
-                )}
-            </div>
-            )}
-            {!isSubmitted && (
-                <div>
-                    <button className="submitButton" onClick={handleSubmit}>Submit</button>
                 </div>
+                {isMultipleChoice ? (
+                <div>
+                    {!isSubmitted && (
+                        <div>
+                            <h1>Answer Question</h1>
+                            <button
+                                className={`answerButton ${selectedAnswer === 'A' ? 'selected' : ''}`}
+                                onClick={() => handleAnswerClick('A')}
+                            >
+                                A
+                            </button>
+                            <button
+                                className={`answerButton ${selectedAnswer === 'B' ? 'selected' : ''}`}
+                                onClick={() => handleAnswerClick('B')}
+                            >
+                                B
+                            </button>
+                            <button
+                                className={`answerButton ${selectedAnswer === 'C' ? 'selected' : ''}`}
+                                onClick={() => handleAnswerClick('C')}
+                            >
+                                C
+                            </button>
+                            <button
+                                className={`answerButton ${selectedAnswer === 'D' ? 'selected' : ''}`}
+                                onClick={() => handleAnswerClick('D')}
+                            >
+                                D
+                            </button>
+                        </div>
+                    )}
+                    <div>Selected Answer: {selectedAnswer}</div>
+                </div>
+                ) : (
+                <div>
+                    {!isSubmitted && (
+                        <div>
+                            <h1>Answer Question</h1>
+                            <input
+                            type="text"
+                            value={userInput}
+                            onChange={handleInputChange}
+                            placeholder="Type your answer here"
+                            />
+                        </div>
+                    )}
+                    {isSubmitted && (
+                        <div>Selected Answer: {userInput}</div>
+                    )}
+                </div>
+                )}
+                {!isSubmitted && (
+                    <div>
+                        <button className="submitButton" onClick={handleSubmit}>Submit</button>
+                        <button className="giveUpButton" onClick={handleGiveUp}>Give Up</button>
+                    </div>
+                )}
+            </div>
             )}
             {isSubmitted && (
             <div className="answer-explanation">

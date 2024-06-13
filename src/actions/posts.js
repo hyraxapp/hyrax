@@ -208,3 +208,22 @@ export const getMoney = async(id) => {
         return null;
     }
 }
+
+export const updateTickets = async(id, change) => {
+    try {
+        await api.updateTickets(id, change);
+    } catch (error) {
+        console.log("Failed to update tickets");
+        return null;
+    }
+}
+
+export const getTickets = async(id) => {
+    try {
+        const {data} = await api.getTickets(id);
+        return {tickets: data.tickets};
+    } catch (error) {
+        console.log("Failed to update tickets");
+        return null;
+    }
+}

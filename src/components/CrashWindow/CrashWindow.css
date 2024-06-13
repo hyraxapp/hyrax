@@ -1,3 +1,12 @@
+.crash_main_window{
+    transform: translate(0%, 10%);
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
 .crash_window{
     display: flex;
     flex-direction: column;
@@ -25,11 +34,12 @@
     transform: translate(-50%, -50%);
 }
 
-.bet_container {
+.betting-container {
     display: flex;
     align-items: center;
+    flex-direction: column;
     gap: 10px;
-    color: white;
+    color: black;
 }
 
 input[type="number"] {
@@ -39,7 +49,7 @@ input[type="number"] {
     font-size: 16px;
 }
 
-button {
+.submit_button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -49,7 +59,7 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.submit_button:hover {
     background-color: #0056b3;
 }
 
@@ -57,4 +67,33 @@ button:hover {
     margin-top: 10px;
     color: red;
     font-size: 14px;
+}
+
+.cashout {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cashout:hover {
+    background-color: #0056b3;
+}
+
+.crash_explanation{
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.crash_title{
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: underline;
 }

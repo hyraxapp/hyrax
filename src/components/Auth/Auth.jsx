@@ -11,7 +11,7 @@ import "./Auth.css";
 import { toast } from "react-hot-toast";
 
 const clientId = "385535133386-7trib7sa1qvhqh9ghnmdoeh9cgjsjo7h.apps.googleusercontent.com";
-const initialState = { firstName: "", lastName: "", email: "", password: "", money: 0, theta: 0.0 };
+const initialState = { firstName: "", lastName: "", email: "", password: "", money: 0.0, tickets: 0, theta: 0.0 };
 
 const Auth = () => {
   const dispatch = useDispatch();

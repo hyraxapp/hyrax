@@ -14,7 +14,7 @@ import Logout from "@mui/icons-material/Logout";
 import {toast} from 'react-hot-toast';
 import images from "../../constants/images";
 import decode from "jwt-decode";
-import {getMoney} from '../../actions/posts';
+import {getMoney, getTickets} from '../../actions/posts';
 
 const Navbar1 = () => {
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const Navbar1 = () => {
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const [curMoney, setCurMoney] = useState(0);
+  const [curTickets, setCurTickets] = useState(0);
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
@@ -44,20 +45,22 @@ const Navbar1 = () => {
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
     setUser(JSON.parse(localStorage.getItem("profile")));
-    const refreshMoney = async () => {
+    const refresh = async () => {
       const userMoney = await getMoney(user?.result?._id);
+      const userTickets = await getTickets(user?.result?._id);
       try {
-        setCurMoney(userMoney.money);
+        setCurMoney(parseFloat(userMoney.money.$numberDecimal).toFixed(2));
+        setCurTickets(parseInt(userTickets.tickets));
       } catch (error) {
         console.log(error);
       }
     }
     if (user) {
-      refreshMoney();
+      refresh();
     }
 
-    // Set up an interval to call refreshMoney every second
-    const intervalId = setInterval(refreshMoney, 3000);
+    // Set up an interval to call refreshMoney every 3 second
+    const intervalId = setInterval(refresh, 2000);
 
     // Clean up the interval on component unmount
     return () => clearInterval(intervalId);
@@ -81,7 +84,20 @@ const Navbar1 = () => {
         <Link to="/" className="logo">
           Hyrax
         </Link>
-        
+        {user && (
+            <div className="ticket_container">
+              <div className="ticket_image_container">
+                <Tooltip title='Tickets' arrow>
+                  <img src = {images.ticketIcon} width={28} height={28}/>
+                </Tooltip>
+              </div>
+              <div className="ticket_amount_container">
+                {curTickets}
+              </div>
+            </div>
+          )
+        }
+
         {user && (
             <div className="money_container">
               <div className="money_image_container">

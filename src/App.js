@@ -19,6 +19,8 @@ import Sidebar from './components/Sidebar/Sidebar'
 import MainPageWindow from './components/MainPageWindow/MainPageWindow'
 import QuestionWindow from './components/QuestionWindow/QuestionWindow'
 import CrashWindow from './components/CrashWindow/CrashWindow'
+import LeaderboardWindow from './components/LeaderboardWindow/LeaderboardWindow'
+import ProfileWindow from './components/ProfileWindow/ProfileWindow'
 
 const App = () => {
 
@@ -62,6 +64,32 @@ const App = () => {
               </div>
               <div className="noti_maincontainer">
                 <CrashWindow/>
+              </div>
+            </div>
+          </div>
+        }/>
+        <Route path='/leaderboard' element={
+          <div>
+            <Navbar1/>
+            <div className="mainContainer">
+              <div className="sideBar_maincontainer">
+                <Sidebar/>
+              </div>
+              <div className="noti_maincontainer">
+                <LeaderboardWindow/>
+              </div>
+            </div>
+          </div>
+        }/>
+        <Route path='/profile' element={
+          <div>
+            <Navbar1/>
+            <div className="mainContainer">
+              <div className="sideBar_maincontainer">
+                <Sidebar/>
+              </div>
+              <div className="noti_maincontainer">
+                <ProfileWindow/>
               </div>
             </div>
           </div>

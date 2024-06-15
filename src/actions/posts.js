@@ -227,3 +227,13 @@ export const getTickets = async(id) => {
         return null;
     }
 }
+
+export const getTopUsers = async() => {
+    try {
+        const {data} = await api.getTopUsers();
+        return {list: data.list};
+    } catch (error) {
+        console.log("Failed to get top users");
+        return null;
+    }
+}

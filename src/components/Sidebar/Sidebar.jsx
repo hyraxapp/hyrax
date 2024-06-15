@@ -54,8 +54,8 @@ const Sidebar = () => {
                 {
                     user && (
                         <button className="ProjectPart">
-                            <Link to="/pets" className="projectPart">
-                                <Tooltip title="Roll for Pets" arrow>{Icons.PetIcon}</Tooltip>
+                            <Link to="/leaderboard" className="projectPart">
+                                <Tooltip title="Leaderboard" arrow>{Icons.LeaderboardIcon}</Tooltip>
                             </Link>
                         </button>
                     )
@@ -66,8 +66,8 @@ const Sidebar = () => {
                 {
                     user && (
                         <button className="ProjectPart">
-                            <Link to="/pets" className="projectPart">
-                                <Tooltip title="Play Dice" arrow>{Icons.DiceIcon}</Tooltip>
+                            <Link to="/profile" className="projectPart">
+                                <Tooltip title="Profile" arrow>{Icons.ProfileIcon}</Tooltip>
                             </Link>
                         </button>
                     )

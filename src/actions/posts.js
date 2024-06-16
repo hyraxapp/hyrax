@@ -133,9 +133,9 @@ export const getAnswer = async(id) => {
     }
 }
 
-export const getBestQuestion = async (theta, arr) => {
+export const getBestQuestion = async (theta, arr, showDomains) => {
     try {
-        const {data} = await api.getBestQuestion(theta, (JSON.stringify(arr)));
+        const {data} = await api.getBestQuestion(theta, (JSON.stringify(arr)), JSON.stringify(showDomains));
         const best_question_id = data.best_question_id;
         return {id: best_question_id};
     } catch (error) {

@@ -21,7 +21,11 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
     setUserInput(event.target.value);
   };
 
-  const handleGiveUp = () => {
+  const handleGiveUp = async() => {
+    if (arrLength > 90) {
+      await clearList(userId);
+    }
+    await removeOffList(userId, id);
     setGivenUp(true);
     setIsSubmitted(true);
   };
@@ -99,7 +103,7 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
 
   const handleSubmit = async () => {
     let answerToCheck = isMultipleChoice ? selectedAnswer : userInput;
-    if (arrLength > 250) {
+    if (arrLength > 90) {
         await clearList(userId);
     }
     await removeOffList(userId, id);

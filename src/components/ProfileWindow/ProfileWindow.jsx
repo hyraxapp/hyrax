@@ -34,26 +34,26 @@ const ProfileWindow = () => {
             <div className="profile_container">
                 {/* Checkboxes for domains */}
                 <div className="checkboxes">
-                    <div className="checkBoxItem">
+                    <div className="checkBoxItem" onClick={() => handleCheckboxChange('algebra')}>
                         <label>
                             <input type="checkbox" checked={showDomains.algebra} onChange={() => handleCheckboxChange('algebra')} />
                             <label className="checkboxLabel">Algebra</label>
                         </label>
                     </div>
-                    <div className="checkBoxItem">
+                    <div className="checkBoxItem" onClick={() => handleCheckboxChange('advancedMath')}>
                         <label>
                             <input type="checkbox" checked={showDomains.advancedMath} onChange={() => handleCheckboxChange('advancedMath')} />
                             <label className="checkboxLabel">Advanced Math</label>
                         </label>
                     </div>
-                    <div className="checkBoxItem">
+                    <div className="checkBoxItem" onClick={() => handleCheckboxChange('problemSolvingAndDataAnalysis')}>
                         <label>
                             <input type="checkbox" checked={showDomains.problemSolvingAndDataAnalysis} onChange={() => handleCheckboxChange('problemSolvingAndDataAnalysis')} />
                             <label className="checkboxLabel">Problem Solving and Data Analysis</label>
                         </label>
                     </div>
-                    <div className="checkBoxItem">
-                        <label className="checkboxItem">
+                    <div className="checkBoxItem" onClick={() => handleCheckboxChange('geometryTrigonometry')}>
+                        <label>
                             <input type="checkbox" checked={showDomains.geometryTrigonometry} onChange={() => handleCheckboxChange('geometryTrigonometry')} />
                             <label className="checkboxLabel">Geometry and Trigonometry</label>
                         </label>

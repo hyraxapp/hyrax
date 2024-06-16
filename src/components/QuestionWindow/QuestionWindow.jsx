@@ -8,6 +8,23 @@ const QuestionWindow = () => {
   const [html, setHtml] = useState('');
   const [questionData, setQuestionData] = useState(null);
   const [loadProblem, setLoadProblem] = useState(true);
+  // Function to toggle visibility of domain sections
+  const handleCheckboxChange = (domain) => {
+    if (Object.values(showDomains).filter((value) => value).length === 1 && showDomains[domain]) {
+      // If there's only one checked box and it's the current one, don't uncheck it
+      return;
+    }
+    setShowDomains(prevState => ({
+        ...prevState,
+        [domain]: !prevState[domain]
+    }));
+  };
+  const [showDomains, setShowDomains] = useState({
+    algebra: true,
+    advancedMath: true,
+    problemSolvingAndDataAnalysis : true,
+    geometryTrigonometry: true
+  });
   const handleNextQuestion = () => {
     setLoadProblem(true);
   };
@@ -18,7 +35,7 @@ const QuestionWindow = () => {
         const user = JSON.parse(localStorage.getItem("profile"));
         const userTheta = parseFloat(user.result.theta.$numberDecimal);
         const userArr = await getUserArr(user.result._id);
-        const questionId = await getBestQuestion(userTheta, userArr);
+        const questionId = await getBestQuestion(userTheta, userArr, showDomains);
         const response = await accessProblem(questionId.id);
         const response2 = await getAnswer(questionId.id);
         if (response) {
@@ -66,6 +83,29 @@ const QuestionWindow = () => {
     user &&
     <div className='question_container'>
       <div className="question_header">Answer Questions</div>
+      <div className="checkboxes">
+          Chosen Topics: 
+          <div className="checkBoxItem" onClick={() => handleCheckboxChange('algebra')}>
+              <label>
+                  <input type="checkbox" checked={showDomains.algebra} onChange={() => handleCheckboxChange('algebra')} /> Algebra
+              </label>
+          </div>
+          <div className="checkBoxItem" onClick={() => handleCheckboxChange('advancedMath')}>
+              <label>
+                  <input type="checkbox" checked={showDomains.advancedMath} onChange={() => handleCheckboxChange('advancedMath')} /> Advanced Math
+              </label>
+          </div>
+          <div className="checkBoxItem" onClick={() => handleCheckboxChange('problemSolvingAndDataAnalysis')}>
+              <label>
+                  <input type="checkbox" checked={showDomains.problemSolvingAndDataAnalysis} onChange={() => handleCheckboxChange('problemSolvingAndDataAnalysis')} /> Problem Solving and Data Analysis
+              </label>
+          </div>
+          <div className="checkBoxItem" onClick={() => handleCheckboxChange('geometryTrigonometry')}>
+              <label>
+                  <input type="checkbox" checked={showDomains.geometryTrigonometry} onChange={() => handleCheckboxChange('geometryTrigonometry')} /> Geometry and Trigonometry
+              </label>
+          </div>
+      </div>
       <div className="question_box">
         <div className="questionSide">
             <div className="question-prompt">{html}</div>

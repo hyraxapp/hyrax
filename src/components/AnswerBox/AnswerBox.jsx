@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {accessParameters, getUpdatedParameters, postUpdatedParameters, updateMoney, updateTickets, removeOffList, clearList} from '../../actions/posts';
+import {accessParameters, accessProblem, getUpdatedParameters, postUpdatedParameters, postUpdatedUserStats, updateMoney, updateTickets, removeOffList, clearList} from '../../actions/posts';
 import {updateTheta} from '../../actions/auth';
 import images from "../../constants/images";
 import './AnswerBox.css';
@@ -37,6 +37,66 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
     onNextQuestion();
   }
 
+  const getDomain = (domain) => {
+    switch(domain) {
+      case "Algebra":
+        return "algebra";
+      case "Advanced Math":
+        return "advMath";
+      case "Problem-Solving and Data Analysis":
+        return "probSolvDataAnalysis";
+      case "Geometry and Trigonometry":
+        return "geoTrig";
+      default:
+        return "";
+    }
+  }
+
+  const getSkill = (skill) => {
+    switch(skill) {
+      case "Linear equations in one variable":
+        return "linEqOneVar";
+      case "Linear functions":
+        return "linFunctions";
+      case "Linear equations in two variables":
+        return "linEqTwoVar";
+      case "Systems of two linear equations in two variables":
+        return "sysTwoLinEqTwoVar";
+      case "Linear inequalities in one or two variables":
+        return "linIneqOneOrTwoVar";
+      case "Nonlinear functions":
+        return "nonLinFunc";
+      case "Nonlinear equations in one variable and systems of equations in two variables":
+        return "nonLinEqOneVarAndSysEqTwoVar";
+      case "Equivalent expressions":
+        return "equivExpressions";
+      case "Ratios, rates, proportional relationships, and units":
+        return "ratioRatePropRelationUnits";
+      case "Percentages":
+        return "percentages";
+      case "One-variable data: Distributions and measures of center and spread":
+        return "oneVarDataDistribMeasuresCenterSpread";
+      case "Two-variable data: Models and scatterplots":
+        return "twoVarDataModelScatPlot";
+      case "Probability and conditional probability":
+        return "probConditionalProb";
+      case "Inference from sample statistics and margin of error":
+        return "infFromSampleStatAndMarginError";
+      case "Evaluating statistical claims: Observational studies and experiments":
+        return "evalStatClaimObvStudyAndExperiment";
+      case "Area and volume":
+        return "areaAndVolume";
+      case "Lines, angles, and triangles":
+        return "lineAngleTriangle";
+      case "Right triangles and trigonometry":
+        return "rightTriangleTrig";
+      case "Circles":
+        return "circles";
+      default:
+        return "";
+    }
+  }
+
   const handleSubmit = async () => {
     let answerToCheck = isMultipleChoice ? selectedAnswer : userInput;
     if (arrLength > 250) {
@@ -54,8 +114,10 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
       setIsCorrect(cor);
       setIsSubmitted(true);
       if (!givenUp) {
+        const problem = await accessProblem(id);
         const response = await accessParameters(id);
         const newVals = await getUpdatedParameters(theta, response.a.$numberDecimal, response.b.$numberDecimal, response.c.$numberDecimal, cor);
+        await postUpdatedUserStats(userId, getDomain(problem.attributes.domain), getSkill(problem.attributes.skill), problem.attributes.difficulty, (cor?"Correct":"Incorrect"));
         await postUpdatedParameters(id, newVals.new_a, newVals.new_b);
         await updateTheta(userId, newVals.new_theta);
 
@@ -80,6 +142,9 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
             }
             await updateTickets(userId, amount);
         }
+      } else {
+        const problem = await accessProblem(id);
+        await postUpdatedUserStats(userId, getDomain(problem.attributes.domain), getSkill(problem.attributes.skill), problem.attributes.difficulty, "GivenUp");
       }
     } else {
       alert('Please select or enter an answer before submitting.');

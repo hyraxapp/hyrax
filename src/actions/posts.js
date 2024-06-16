@@ -106,7 +106,7 @@ export const createPost = (post) => async(dispatch) => {
 export const accessProblem = async (id) => {
     try {
       const {data} = await api.getPrompt(id);
-      return {text: data.text, answertext : data.answertext, difficulty: data.difficulty};
+      return {text: data.text, answertext : data.answertext, difficulty: data.difficulty, attributes: data.attributes};
     } catch (error) {
       console.log("Failed to access problem");
       return null;
@@ -235,5 +235,23 @@ export const getTopUsers = async() => {
     } catch (error) {
         console.log("Failed to get top users");
         return null;
+    }
+}
+
+export const getUserProblemStats = async(id) => {
+    try {
+        const {data} = await api.getUserProblemStats(id);
+        return {algebra: data.algebra, advMath: data.advMath, probSolvDataAnalysis: data.probSolvDataAnalysis, geoTrig: data.geoTrig};
+    } catch (error) {
+        console.log("Failed to get top users");
+        return null;
+    }
+}
+
+export const postUpdatedUserStats = async(id, domain, skill, difficulty, cor) => {
+    try {
+        await api.postUpdatedUserStats(id, domain, skill, difficulty, cor);
+    } catch (error) {
+        console.log("Failed to post Updated User Stats");
     }
 }

@@ -199,7 +199,7 @@ return (user &&
                         Submit Bet
                     </button>
                 }
-                <p id="message" style={{ color: isSubmitted ? 'green' : 'red' }}>
+                <p id="message" style={{ color: isSubmitted ? 'green' : 'white' }}>
                     {message}
                 </p>
                 {(isSubmitted && start && !cashedOut) && (
@@ -211,7 +211,7 @@ return (user &&
         </div>
         <div className="crash_explanation">
             <h1 className="crash_title">How Crash Works</h1>
-            <p>Crash involves investing a given amount and cashing out before the rocket ship exlodes</p>
+            <p>Crash involves investing a given amount and cashing out before the rocket ship explodes</p>
             <p>If one is too late to cash out, all invested hybux will be lost</p>
             <p>Otherwise, the invested amount is multiplied by the cashed out multiplier</p>
         </div>

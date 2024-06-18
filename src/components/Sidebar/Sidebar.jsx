@@ -73,6 +73,18 @@ const Sidebar = () => {
                     )
                 }
             </li>
+
+            <li>
+                {
+                    user && (
+                        <button className="ProjectPart">
+                            <Link to="/plinko" className="projectPart">
+                                <Tooltip title="Play Plinko" arrow>{Icons.PlinkoIcon}</Tooltip>
+                            </Link>
+                        </button>
+                    )
+                }
+            </li>
         </ul>
     </div>
   );

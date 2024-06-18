@@ -6,3 +6,4 @@ export const RocketIcon = <img src="https://img.icons8.com/?size=100&id=999&form
 export const ExplosionIcon = <img src="https://img.icons8.com/?size=100&id=SLx9kZV_N4bX&format=png&color=000000" width={100} height={100}/>
 export const LeaderboardIcon = <img src="https://img.icons8.com/?size=100&id=6yiQUAER3NXc&format=png&color=000000" width={35} height={35}/>
 export const ProfileIcon = <img src="https://img.icons8.com/?size=100&id=fUUEbUbXhzOA&format=png&color=000000" width={35} height={35}/>
+export const PlinkoIcon = <img src="https://img.icons8.com/?size=100&id=mIzQr2yyVyPW&format=png&color=000000" width={35} height={35}/>

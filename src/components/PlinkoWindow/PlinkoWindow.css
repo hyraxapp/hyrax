@@ -1,0 +1,57 @@
+.plinko_main_window{
+    transform: translate(0%, 10%);
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.plinko_window{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+.p5Canvas{
+    width: 80%;
+    height: 600px;
+    border: 2px solid rgb(104, 104, 104);
+    border-radius: 50px;
+}
+
+#canvas1 {
+    width:100%;
+    height:100%;
+    /* background-color: red; */
+}
+
+.counter{
+    width:200px;
+    height:100px;
+    background-color: gray;
+    transform: translate(-50%, -50%);
+}
+
+.betting-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    color: black;
+}
+
+.plinko_explanation{
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.plinko_title{
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: underline;
+}

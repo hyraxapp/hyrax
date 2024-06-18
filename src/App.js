@@ -16,6 +16,7 @@ import QuestionWindow from './components/QuestionWindow/QuestionWindow'
 import CrashWindow from './components/CrashWindow/CrashWindow'
 import LeaderboardWindow from './components/LeaderboardWindow/LeaderboardWindow'
 import ProfileWindow from './components/ProfileWindow/ProfileWindow'
+import PlinkoWindow from './components/PlinkoWindow/PlinkoWindow'
 
 const App = () => {
 
@@ -85,6 +86,19 @@ const App = () => {
               </div>
               <div className="noti_maincontainer">
                 <ProfileWindow/>
+              </div>
+            </div>
+          </div>
+        }/>
+        <Route path='/plinko' element={
+          <div>
+            <Navbar1/>
+            <div className="mainContainer">
+              <div className="sideBar_maincontainer">
+                <Sidebar/>
+              </div>
+              <div className="noti_maincontainer">
+                <PlinkoWindow/>
               </div>
             </div>
           </div>

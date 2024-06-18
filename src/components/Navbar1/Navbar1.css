@@ -59,6 +59,7 @@
     color: white;
     font-size: 25px;
     width: 90px;
+    overflow-x: auto;
 }
 .ticket_container{
     display: flex;
@@ -75,6 +76,7 @@
     border-color: white;
     background-color: lightslategray;
     border-width: 1px;
+    overflow-x: auto;
 }
 .ticket_image_container{
     width: 35px;

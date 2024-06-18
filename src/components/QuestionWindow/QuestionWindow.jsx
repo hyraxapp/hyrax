@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {accessProblem, getBestQuestion, getAnswer, getUserArr} from '../../actions/posts';
 import AnswerBox from "../AnswerBox/AnswerBox";
+import images from "../../constants/images";
 import './QuestionWindow.css';
 
 const QuestionWindow = () => {
@@ -130,6 +131,37 @@ const QuestionWindow = () => {
           </div>
         </div>
       </div>
+      <div className="question_explanation">
+            <h1 className="question_title">How Earning Tickets / Hybux Works</h1>
+            <p>Each Question has a generally assigned difficulty (Easy / Medium / Hard)</p>
+            <p>For each question answered, there will be a set amount of reward/punishment:</p>
+            <table className="questionTable">
+                <tr>
+                  <td className="questionTableElem"></td>
+                  <td className="questionTableElem"><p className='questionPgph'>Easy</p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>Medium</p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>Hard</p></td>
+                </tr>
+                <tr>
+                  <td className="questionTableElem"><p className='questionPgph'>Correct</p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>2<img src = {images.coinIcon} width={30}/><p>/</p>1<img src = {images.ticketIcon} width={30}/></p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>3<img src = {images.coinIcon} width={30}/><p>/</p>1<img src = {images.ticketIcon} width={30}/></p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>4<img src = {images.coinIcon} width={30}/><p>/</p>2<img src = {images.ticketIcon} width={30}/></p></td>
+                </tr>
+                <tr>
+                  <td className="questionTableElem"><p className='questionPgph'>Incorrect</p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>-2<img src = {images.coinIcon} width={30}/><p>/</p>-1<img src = {images.ticketIcon} width={30}/></p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>-2<img src = {images.coinIcon} width={30}/><p>/</p>-1<img src = {images.ticketIcon} width={30}/></p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>-2<img src = {images.coinIcon} width={30}/><p>/</p>-1<img src = {images.ticketIcon} width={30}/></p></td>
+                </tr>
+                <tr>
+                  <td className="questionTableElem"><p className='questionPgph'>Give Up</p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>0<img src = {images.coinIcon} width={30}/><p>/</p>0<img src = {images.ticketIcon} width={30}/></p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>0<img src = {images.coinIcon} width={30}/><p>/</p>0<img src = {images.ticketIcon} width={30}/></p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>0<img src = {images.coinIcon} width={30}/><p>/</p>0<img src = {images.ticketIcon} width={30}/></p></td>
+                </tr>
+            </table>
+        </div>
     </div>
   );
 }

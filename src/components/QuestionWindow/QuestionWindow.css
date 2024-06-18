@@ -18,7 +18,7 @@
 }
 .question_box{
     display: flex;
-    height: 90%;
+    height: 75%;
     width: 100%;
     align-items: center;
     flex-direction: row;
@@ -44,7 +44,7 @@
 }
 
 .question-prompt{
-    height: 60%;
+    height: 100%;
     width: 100%;
     padding: 30px;
     word-wrap: break-word;
@@ -54,7 +54,7 @@
 }
 
 .answer-choices{
-    height:80%;
+    height:100%;
     width:100%;
     padding: 20px;
     word-wrap: break-word;
@@ -63,7 +63,7 @@
 }
 
 .answer-box{
-    height: 80%;
+    height: 100%;
     width:100%;
     padding: 20px;
     word-wrap: break-word;
@@ -90,4 +90,40 @@ SVG{
     content: counter(letter, upper-alpha) ". ";
     font-weight: bold;
     color: black;
+}
+
+.question_explanation{
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.question_title{
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.questionTable {
+    width: 80%;
+    border: 1px solid white;
+    margin-bottom: 30px;
+}
+
+.questionTableElem {
+    border: 1px solid white;
+}
+
+.questionPgph {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "BoldPrice";
 }

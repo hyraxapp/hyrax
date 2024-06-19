@@ -38,29 +38,6 @@ const Sidebar = () => {
                     )
                 }
             </li>
-            <li>
-                {
-                    user && (
-                        <button className="ProjectPart">
-                            <Link to="/crash" className="projectPart">
-                                <Tooltip title='Play Crash' arrow>{Icons.RocketIcon}</Tooltip>
-                            </Link>
-                        </button>
-                    )
-                }
-            </li>
-
-            <li>
-                {
-                    user && (
-                        <button className="ProjectPart">
-                            <Link to="/leaderboard" className="projectPart">
-                                <Tooltip title="Leaderboard" arrow>{Icons.LeaderboardIcon}</Tooltip>
-                            </Link>
-                        </button>
-                    )
-                }
-            </li>
 
             <li>
                 {
@@ -78,8 +55,32 @@ const Sidebar = () => {
                 {
                     user && (
                         <button className="ProjectPart">
+                            <Link to="/leaderboard" className="projectPart">
+                                <Tooltip title="Leaderboard" arrow>{Icons.LeaderboardIcon}</Tooltip>
+                            </Link>
+                        </button>
+                    )
+                }
+            </li>
+            
+            <li>
+                {
+                    user && (
+                        <button className="ProjectPart">
                             <Link to="/plinko" className="projectPart">
                                 <Tooltip title="Play Plinko" arrow>{Icons.PlinkoIcon}</Tooltip>
+                            </Link>
+                        </button>
+                    )
+                }
+            </li>
+
+            <li>
+                {
+                    user && (
+                        <button className="ProjectPart">
+                            <Link to="/crash" className="projectPart">
+                                <Tooltip title='Play Crash' arrow>{Icons.RocketIcon}</Tooltip>
                             </Link>
                         </button>
                     )

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import {getMoney, updateMoney, getTickets, updateTickets} from '../../actions/posts';
 import './PlinkoWindow.css';
 import { ReactP5Wrapper } from "@p5-wrapper/react";
+import { TimerSharp } from '@mui/icons-material';
 var Matter = require('matter-js');
 
 
@@ -28,6 +29,7 @@ var world = engine.world;
 world.gravity.y = 1;
 var plinkos = [];
 var multis = [];
+var boundaries = [];
 var frameCount = 0;
 var rows = 14;
 var multipliers = ['170x', '24x', '8.1x', '2x', '1x', '0.7x', '0.5x', '0.2x', '0.5x', '0.7x', '1x', '2x', '8.1x', '24x', '170x'];
@@ -38,20 +40,23 @@ const handleSubmit = async () => {
     let tuserMoney = await getMoney(user?.result?._id);
     let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
     let numTickets = await getTickets(user?.result?._id);
-    let userHasTicket = parseInt(numTickets.tickets) > 0;
+    let userTickets = numTickets.tickets;
+    let plinkoCnt = parseInt(numPlinkos);
     // Clear previous messages
     setMessage('');
 
-    if (isNaN(amount) || amount <= 1) {
+    if (isNaN(amount) || amount < 1) {
         setMessage('Please enter a valid decimal amount. (Minimum bet 1)');
-    } else if (amount > userMoney) {
+    } else if (amount * plinkoCnt > userMoney) {
         setMessage('You do not have enough money to place this bet.');
-    } else if (!userHasTicket) {
-        setMessage('You do not have a ticket to place a bet.');
+    } else if (userTickets < numPlinkos) {
+        setMessage('You do not have enough tickets to place a bet.');
+    } else if (numPlinkos > 25) {
+        setMessage('Max number of chips allowed is 25');
     } else {
         setMessage('Bet placed successfully!');
-        await updateTickets(user?.result?._id, -1);
-        await updateMoney(user?.result?._id, -1 * amount);
+        await updateTickets(user?.result?._id, -1 * numPlinkos);
+        await updateMoney(user?.result?._id, -1 * amount * numPlinkos);
         setIsSubmitted(true);
         setGameOver(false);
         updateShouldStart(true);
@@ -75,13 +80,52 @@ const handleHitBottom = async(multi) => {
 
 const sketch = (p5) => {
     const playDing = () => {
-        var sound = new Audio('./ding.mp3');
-        sound.volume = 0.2;
-        sound.play();
+        // var sound = new Audio('./ding.mp3');
+        // sound.volume = 0.2;
+        // sound.play();
     }
+    var ballCategory = 0x0001;
+    var pegCategory = 0x0002;
+    var boundaryCategory = 0x0004;
+    var multiCategory = 0x0008;
 
     p5.setup = () => {
         p5.createCanvas(800, 600);
+        // Function to animate multiplier with a spring-like motion
+        function animateMultiplier(multiplier) {
+            var originalPositionY = multiplier.position.y;
+            var compressionDistance = 10; // Adjust as needed for the animation effect
+            var animationFrames = 60; // Number of frames for the animation
+            var animationTime = 500; // Duration of the animation in milliseconds
+        
+            var frame = 0;
+            var animationInterval = setInterval(function() {
+                frame++;
+        
+                // Calculate animation progress (t) from 0 to 1
+                var t = frame / animationFrames;
+        
+                // Apply a sinusoidal easing function for smooth animation
+                var animationProgress = Math.sin(t * Math.PI);
+        
+                // Calculate new position based on original position and animation progress
+                var newPositionY = originalPositionY + compressionDistance * animationProgress;
+        
+                // Update multiplier position
+                Matter.Body.setPosition(multiplier, { x: multiplier.position.x, y: newPositionY });
+        
+                // Check if animation is complete
+                if (frame >= animationFrames) {
+                    clearInterval(animationInterval);
+        
+                    // Reset multiplier to original position after a short delay
+                    setTimeout(function() {
+                        Matter.Body.setPosition(multiplier, { x: multiplier.position.x, y: originalPositionY });
+                    }, 500); // Adjust reset delay as needed
+                }
+            }, animationTime / animationFrames);
+        }
+
         function collision(event) {
             var pairs = event.pairs;
             for (var i = 0; i < pairs.length; i++) {
@@ -89,6 +133,21 @@ const sketch = (p5) => {
                 var labelB = pairs[i].bodyB.label;
                 if ((labelA == 'peg' && labelB == 'plinko') || (labelA == 'plinko' && labelB == 'peg')) {
                     playDing();
+                } else if ((labelA == 'multi' && labelB == 'plinko') || (labelB == 'multi' && labelA == 'plinko')) {
+                    var ball;
+                    var box;
+                    if (labelA == 'multi') {
+                        ball = pairs[i].bodyB;
+                        box = pairs[i].bodyA;
+                    } else {
+                        ball = pairs[i].bodyA;
+                        box = pairs[i].bodyB;
+                    }
+                    var index = particles.findIndex((plinko) => plinko.body.id == ball.id);
+                    particles.splice(index, 1);
+                    World.remove(world, ball);
+                    handleHitBottom(box.multiplier);
+                    animateMultiplier(box);
                 }
             }
         }
@@ -117,7 +176,7 @@ const sketch = (p5) => {
         for (var i = 0; i < rows + 1; i++) {
             var x = start + i * spacing + spacing / 2;
             var y = bot + botOffset;
-            var multi = new Multi(x, y, sideLength, sideLength, multipliers[i]);
+            var multi = new Multi(x, y, sideLength, sideLength, multipliers[i], multiVals[i]);
             multis.push(multi); 
         }
     }
@@ -131,6 +190,8 @@ const sketch = (p5) => {
             };
             this.visible = visible;
             this.body = Bodies.fromVertices(x, y, vertices, options);
+            this.body.collisionFilter.category = boundaryCategory;
+            this.body.collisionFilter.mask = ballCategory;
             World.add(world, this.body);
         }
         show = () => {
@@ -152,7 +213,7 @@ const sketch = (p5) => {
     }
     
     class Multi {
-        constructor (x, y, w, h, text) {
+        constructor (x, y, w, h, text, multiplier) {
             var options = {
                 isStatic: true,
                 restitution: 0.5,
@@ -162,6 +223,10 @@ const sketch = (p5) => {
             this.w = w;
             this.h = h;
             this.body = Bodies.rectangle(x, y, w, h, options);
+            this.body.collisionFilter.category = multiCategory;
+            this.body.collisionFilter.mask = ballCategory;
+            this.body.label = "multi";
+            this.body.multiplier = multiplier;
             World.add(world, this.body);
         }
         show = () => {
@@ -188,6 +253,8 @@ const sketch = (p5) => {
                 friction: 0
             };
             this.body = Bodies.circle(x, y, r, options);
+            this.body.collisionFilter.category = pegCategory;
+            this.body.collisionFilter.mask = ballCategory;
             this.body.label = "peg";
             this.r = r;
             World.add(world, this.body);
@@ -207,9 +274,11 @@ const sketch = (p5) => {
         constructor (x, y, r) {
             var options = {
                 restitution: 0.5,
-                friction: 0
+                friction: 0,
             };
             this.body = Bodies.circle(x, y, r, options);
+            this.body.collisionFilter.category = ballCategory;
+            this.body.collisionFilter.mask = pegCategory | boundaryCategory | multiCategory;
             this.body.label = "plinko";
             this.r = r;
             World.add(world, this.body);
@@ -236,24 +305,19 @@ const sketch = (p5) => {
         Engine.update(engine);
         if (once) {
             once = false;
-            var horizOffset = Math.random() * 2 - 1;
-            var p = new Plinko(400 + horizOffset, 30, 10);
-            particles.push(p);
-            hit = false;
-            vel = 1
-        }
-        if (hit) {
-            multis[luckyIndex].body.position.y += vel;
-            vel += accel;
-            if (multis[luckyIndex].body.position.y <= origY) {
-                multis[luckyIndex].body.position.y = origY;
-                hit = false;
-                setGameOver(true);
-                updateShouldStart(false);
-                setIsSubmitted(false);
-                setBetAmount('');
-                setMessage('');
+            for (var i = 0; i < numPlinkos; i++) {
+                var horizOffset = Math.random() * 2 - 1;
+                var p = new Plinko(400 + horizOffset, 30, 10);
+                particles.push(p);
             }
+        }
+        if (particles.length == 0 && !gameOver) {
+            setGameOver(true);
+            updateShouldStart(false);
+            setIsSubmitted(false);
+            setBetAmount('');
+            setNumPlinkos('');
+            setMessage('');
         }
         for (var i = 0; i < particles.length; i++) {
             particles[i].show();
@@ -263,16 +327,6 @@ const sketch = (p5) => {
         }
         for (var i = 0; i < multis.length; i++) {
             multis[i].show();
-            if (particles?.length) {
-                if (Matter.Collision.collides(particles[0].body, multis[i].body)) {
-                    World.remove(world, particles[0].body);
-                    particles.splice(0, 1);
-                    origY = multis[i].body.position.y;
-                    hit = true;
-                    luckyIndex = i;
-                    handleHitBottom(multiVals[i]);
-                }
-            }
         }
         frameCount++;
     };
@@ -305,6 +359,28 @@ return (user &&
                     />
                     <p className="slider-value">{betAmount}</p>
                 </div>
+                <input
+                    type="number"
+                    value={numPlinkos}
+                    onChange={(e) => setNumPlinkos(e.target.value)}
+                    placeholder="Enter Number of Chips"
+                    step="0.01"
+                    min="1"
+                    disabled={isSubmitted}
+                />
+                <div className="slider-container">
+                    <input
+                    type="range"
+                    value={numPlinkos}
+                    onChange={(e) => setNumPlinkos(e.target.value)}
+                    min="1"
+                    max={25}
+                    step="1"
+                    disabled={isSubmitted}
+                    className="slider"
+                    />
+                    <p className="slider-value">{numPlinkos}</p>
+                </div>
                 {(!isSubmitted && gameOver) && 
                     <button className="submit_button" onClick={handleSubmit}>
                         Submit Bet
@@ -319,6 +395,7 @@ return (user &&
             <h1 className="plinko_title">How Plinko Works</h1>
             <p>Plinko involves investing a given amount and dropping a chip down the board</p>
             <p>Whichever number the chip lands on is the amount the invested hybux is multiplied by</p>
+            <p>DISCLAIMER: If chip does not hit the bottom, user will lose all money (i.e. refreshing mid game)</p>
         </div>
     </div>
 )

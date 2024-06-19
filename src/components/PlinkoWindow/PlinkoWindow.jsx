@@ -16,7 +16,7 @@ const PlinkoWindow = () => {
 const user = JSON.parse(localStorage.getItem("profile"));
 const [shouldStart, updateShouldStart] = useState(false);
 const [betAmount, setBetAmount] = useState('');
-const [numPlinkos, setNumPlinkos] = useState('');
+const [numPlinkos, setNumPlinkos] = useState(1);
 const [userMoney, setUserMoney] = useState('');
 const [message, setMessage] = useState('');
 const [isSubmitted, setIsSubmitted] = useState(false);
@@ -306,7 +306,7 @@ const sketch = (p5) => {
         if (once) {
             once = false;
             for (var i = 0; i < numPlinkos; i++) {
-                var horizOffset = Math.random() * 2 - 1;
+                var horizOffset = Math.random() * 1.4 - 0.7;
                 var p = new Plinko(400 + horizOffset, 30, 10);
                 particles.push(p);
             }
@@ -316,7 +316,7 @@ const sketch = (p5) => {
             updateShouldStart(false);
             setIsSubmitted(false);
             setBetAmount('');
-            setNumPlinkos('');
+            setNumPlinkos(1);
             setMessage('');
         }
         for (var i = 0; i < particles.length; i++) {
@@ -340,27 +340,6 @@ return (user &&
             <div className="betting-container">
                 <input
                     type="number"
-                    value={betAmount}
-                    onChange={(e) => setBetAmount(e.target.value)}
-                    placeholder="Enter bet amount"
-                    step="0.01"
-                    disabled={isSubmitted}
-                />
-                <div className="slider-container">
-                    <input
-                    type="range"
-                    value={betAmount}
-                    onChange={(e) => setBetAmount(e.target.value)}
-                    min="0.01"
-                    max={userMoney}
-                    step="0.01"
-                    disabled={isSubmitted}
-                    className="slider"
-                    />
-                    <p className="slider-value">{betAmount}</p>
-                </div>
-                <input
-                    type="number"
                     value={numPlinkos}
                     onChange={(e) => setNumPlinkos(e.target.value)}
                     placeholder="Enter Number of Chips"
@@ -380,6 +359,27 @@ return (user &&
                     className="slider"
                     />
                     <p className="slider-value">{numPlinkos}</p>
+                </div>
+                <input
+                    type="number"
+                    value={betAmount}
+                    onChange={(e) => setBetAmount(e.target.value)}
+                    placeholder="Enter bet amount"
+                    step="0.01"
+                    disabled={isSubmitted}
+                />
+                <div className="slider-container">
+                    <input
+                    type="range"
+                    value={betAmount}
+                    onChange={(e) => setBetAmount(e.target.value)}
+                    min="0.01"
+                    max={userMoney/parseInt(numPlinkos)}
+                    step="0.01"
+                    disabled={isSubmitted}
+                    className="slider"
+                    />
+                    <p className="slider-value">{betAmount}</p>
                 </div>
                 {(!isSubmitted && gameOver) && 
                     <button className="submit_button" onClick={handleSubmit}>

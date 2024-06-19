@@ -11,7 +11,7 @@ import "./Auth.css";
 import { toast } from "react-hot-toast";
 
 const clientId = "385535133386-7trib7sa1qvhqh9ghnmdoeh9cgjsjo7h.apps.googleusercontent.com";
-const initialState = { firstName: "", lastName: "", email: "", password: "", money: 0.0, tickets: 0, theta: 0.0 };
+const initialState = { username: "", email: "", password: "", money: 0.0, tickets: 0, theta: 0.0 };
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -44,8 +44,7 @@ const Auth = () => {
         if (
           formData.email &&
           formData.password &&
-          formData.firstName &&
-          formData.lastName
+          formData.username
         ) {
           dispatch({ type: "STORE_SIGNUP_DATA", data: formData });
           dispatch(sendOtp(formData, navigate));
@@ -71,7 +70,7 @@ const Auth = () => {
     
     dispatch({ type: "START_LOADING" });
     try {
-      dispatch((googleSignIn({userEmail: res.profileObj.email, userName: res.profileObj.name}, navigate)));
+      dispatch((googleSignIn({userEmail: res.profileObj.email, username: res.profileObj.name}, navigate)));
       toast.success("Login Successful 🎉");
       dispatch({ type: "END_LOADING" });
     } catch (error) {
@@ -109,15 +108,8 @@ const Auth = () => {
               <input
                 type="text"
                 className="auth_name"
-                placeholder="First name"
-                name="firstName"
-                onChange={handleChange}
-              />
-              <input
-                type="text"
-                className="auth_name"
-                placeholder="Last name"
-                name="lastName"
+                placeholder="Username"
+                name="username"
                 onChange={handleChange}
               />
             </div>

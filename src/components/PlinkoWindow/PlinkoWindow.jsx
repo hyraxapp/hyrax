@@ -306,7 +306,7 @@ const sketch = (p5) => {
         if (once) {
             once = false;
             for (var i = 0; i < numPlinkos; i++) {
-                var horizOffset = Math.random() * 1.4 - 0.7;
+                var horizOffset = Math.random() * 2 - 1;
                 var p = new Plinko(400 + horizOffset, 30, 10);
                 particles.push(p);
             }

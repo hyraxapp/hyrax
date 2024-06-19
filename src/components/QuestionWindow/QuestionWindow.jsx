@@ -144,21 +144,15 @@ const QuestionWindow = () => {
                 </tr>
                 <tr>
                   <td className="questionTableElem"><p className='questionPgph'>Correct</p></td>
-                  <td className="questionTableElem"><p className='questionPgph'>2<img src = {images.coinIcon} width={30}/><p>/</p>1<img src = {images.ticketIcon} width={30}/></p></td>
-                  <td className="questionTableElem"><p className='questionPgph'>3<img src = {images.coinIcon} width={30}/><p>/</p>1<img src = {images.ticketIcon} width={30}/></p></td>
-                  <td className="questionTableElem"><p className='questionPgph'>4<img src = {images.coinIcon} width={30}/><p>/</p>2<img src = {images.ticketIcon} width={30}/></p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>20<img src = {images.coinIcon} width={30}/><p>/</p>1<img src = {images.ticketIcon} width={30}/></p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>30<img src = {images.coinIcon} width={30}/><p>/</p>1<img src = {images.ticketIcon} width={30}/></p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>40<img src = {images.coinIcon} width={30}/><p>/</p>2<img src = {images.ticketIcon} width={30}/></p></td>
                 </tr>
                 <tr>
                   <td className="questionTableElem"><p className='questionPgph'>Incorrect</p></td>
-                  <td className="questionTableElem"><p className='questionPgph'>-2<img src = {images.coinIcon} width={30}/><p>/</p>-1<img src = {images.ticketIcon} width={30}/></p></td>
-                  <td className="questionTableElem"><p className='questionPgph'>-2<img src = {images.coinIcon} width={30}/><p>/</p>-1<img src = {images.ticketIcon} width={30}/></p></td>
-                  <td className="questionTableElem"><p className='questionPgph'>-2<img src = {images.coinIcon} width={30}/><p>/</p>-1<img src = {images.ticketIcon} width={30}/></p></td>
-                </tr>
-                <tr>
-                  <td className="questionTableElem"><p className='questionPgph'>Give Up</p></td>
-                  <td className="questionTableElem"><p className='questionPgph'>0<img src = {images.coinIcon} width={30}/><p>/</p>0<img src = {images.ticketIcon} width={30}/></p></td>
-                  <td className="questionTableElem"><p className='questionPgph'>0<img src = {images.coinIcon} width={30}/><p>/</p>0<img src = {images.ticketIcon} width={30}/></p></td>
-                  <td className="questionTableElem"><p className='questionPgph'>0<img src = {images.coinIcon} width={30}/><p>/</p>0<img src = {images.ticketIcon} width={30}/></p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>-2<img src = {images.coinIcon} width={30}/><p>/</p>0<img src = {images.ticketIcon} width={30}/></p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>-2<img src = {images.coinIcon} width={30}/><p>/</p>0<img src = {images.ticketIcon} width={30}/></p></td>
+                  <td className="questionTableElem"><p className='questionPgph'>-2<img src = {images.coinIcon} width={30}/><p>/</p>0<img src = {images.ticketIcon} width={30}/></p></td>
                 </tr>
             </table>
         </div>

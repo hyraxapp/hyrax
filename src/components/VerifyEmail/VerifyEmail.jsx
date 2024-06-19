@@ -15,15 +15,13 @@ const VerifyEmail = () => {
         e.preventDefault();
 
         const {
-          firstName,
-          lastName,
+          username,
           email,
           password,  
         } = signUpData || {};
         
         const finalData = {
-          firstName,
-          lastName,
+          username,
           email,
           password,
           otp

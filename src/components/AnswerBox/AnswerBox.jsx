@@ -128,21 +128,21 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
         if (mode === 'money') {
           let amount = 0;
           if (difficulty === 'Easy') {
-            amount = cor ? 2 : -2;
+            amount = cor ? 20 : -2;
           } else if (difficulty === 'Medium') {
-            amount = cor ? 3 : -2;
+            amount = cor ? 30 : -2;
           } else {
-            amount = cor ? 4 : -2;
+            amount = cor ? 40 : -2;
           }
           await updateMoney(userId, amount);
         } else {
             let amount = 0;
             if (difficulty == 'Easy') {
-                amount = cor ? 1 : -1;
+                amount = cor ? 1 : 0;
             } else if (difficulty == 'Medium') {
-                amount = cor ? 1 : -1;
+                amount = cor ? 1 : 0;
             } else {
-                amount = cor ? 2 : -1;
+                amount = cor ? 2 : 0;
             }
             await updateTickets(userId, amount);
         }
@@ -227,7 +227,6 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
                 {!isSubmitted && (
                     <div>
                         <button className="submitButton" onClick={handleSubmit}>Submit</button>
-                        <button className="giveUpButton" onClick={handleGiveUp}>Give Up</button>
                     </div>
                 )}
             </div>

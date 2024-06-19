@@ -63,7 +63,6 @@ useEffect(() => {
         let tuserMoney = await getMoney(user?.result?._id);
         let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
         setUserMoney(userMoney);
-        console.log(userMoney);
     }
     retrieveMoney();
 })
@@ -260,13 +259,10 @@ const sketch = (p5) => {
         for (var i = 0; i < plinkos.length; i++) {
             plinkos[i].show();
         }
-        console.log(particles);
         for (var i = 0; i < multis.length; i++) {
             multis[i].show();
             if (particles?.length) {
                 if (Matter.Collision.collides(particles[0].body, multis[i].body)) {
-                    console.log("COLLIDE");
-                    console.log(particles);
                     World.remove(world, particles[0].body);
                     particles.splice(0, 1);
                     origY = multis[i].body.position.y;

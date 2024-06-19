@@ -12,6 +12,7 @@ const [betAmount, setBetAmount] = useState('');
 const [message, setMessage] = useState('');
 const [isSubmitted, setIsSubmitted] = useState(false);
 const [cashedOut, setCashedOut] = useState(true);
+const [curNumber, setCurNumber] = useState('');
 let number = 1;
 
 const handleSubmit = async () => {
@@ -43,7 +44,7 @@ const handleCashOut = async () => {
     setCashedOut(true);
     const amount = parseFloat(betAmount);
     try {
-        await updateMoney(user?.result?._id, amount * number);
+        await updateMoney(user?.result?._id, amount * curNumber);
     } catch (error) {
         console.log(error);
     }
@@ -54,7 +55,6 @@ useEffect(() => {
         let tuserMoney = await getMoney(user?.result?._id);
         let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
         setUserMoney(userMoney);
-        console.log(userMoney);
     }
     retrieveMoney();
     const canvas = canvasRef.current;
@@ -103,7 +103,6 @@ useEffect(() => {
     let numberAccel = 0.000001;
     // let rocketHeight = rocket.height * 0.2;
     // let rocketWidth = rocket.width * 0.2;
-
     const getMultiplier = () => {
         let val = parseInt(Math.random() * 1000000);
         if (val < 1000) {
@@ -139,6 +138,8 @@ useEffect(() => {
         const calcDec = Math.pow(10, dec);
         return Math.trunc(num * calcDec) / calcDec;
     }
+
+    let shouldStart = start;
     const animate = () => {
         ctx.clearRect(0, 0, width, height); // Clear the canvas
         ctx.drawImage(backgroundLayer, 0, y);
@@ -153,16 +154,20 @@ useEffect(() => {
             numberVel = 0;
             numberAccel = 0;
             ctx.drawImage(explosion, 1000, 600, 450, 450);
-            updateStart(false);
-            setBetAmount('');
-            setMessage('');
-            setIsSubmitted(false);
+            if (shouldStart) {
+                updateStart(false);
+                shouldStart = false;
+                setBetAmount('');
+                setMessage('');
+                setIsSubmitted(false);
+            }
         } else {
             ctx.drawImage(flameArr[curFlameFrame], 1100, rocketY + 300, 200, 200);
             ctx.drawImage(rocket, 1000, rocketY);
             if (rocketY < 500) {
                 rocketVel = 0;
                 number += numberVel;
+                setCurNumber(number);
                 numberVel += numberAccel;
                 y+=velocity;
                 y2+=velocity
@@ -179,7 +184,7 @@ useEffect(() => {
         requestAnimationFrame(animate);
     };
 
-    if (start) {
+    if (shouldStart) {
         velocity = 4;
         y = -10912; // total height = 1514, width = 300
         y2 = -3592-10912; // initial placement minus initialpalcement for bottom

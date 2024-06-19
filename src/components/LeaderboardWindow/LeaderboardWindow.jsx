@@ -40,7 +40,7 @@ return (user &&
                     <li key={index+1} className="leaderboard_item">
                         <span className="rank">{index + 1}.</span>
                         <span className="username">{user.name}</span>
-                        <span className="money">${truncateToDecimals(parseFloat(user.money.$numberDecimal))}</span>
+                        <span className="money">${truncateToDecimals(parseFloat(user.money.$numberDecimal)).toLocaleString('en', {useGrouping:true})}</span>
                     </li>
                 ))}
             </ul>

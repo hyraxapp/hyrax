@@ -150,7 +150,7 @@ useEffect(() => {
             ctx.font = "100px serif";
             ctx.textAlign = "center";
             ctx.fillStyle = "white";
-            ctx.fillText(truncateToDecimals(number) + "x", 1200, 400);
+            ctx.fillText(truncateToDecimals(number).toLocaleString('en', {useGrouping:true}) + "x", 1200, 400);
             rocketY += rocketVel;
             if (number > target) {
                 numberVel = 0;

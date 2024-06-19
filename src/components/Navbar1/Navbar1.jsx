@@ -52,7 +52,7 @@ const Navbar1 = () => {
       const userMoney = await getMoney(user?.result?._id);
       const userTickets = await getTickets(user?.result?._id);
       try {
-        setCurMoney(truncateToDecimals(parseFloat(userMoney.money.$numberDecimal)));
+        setCurMoney(truncateToDecimals(parseFloat(userMoney.money.$numberDecimal)).toLocaleString('en', {useGrouping:true}));
         setCurTickets(parseInt(userTickets.tickets));
       } catch (error) {
         console.log(error);

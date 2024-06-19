@@ -192,6 +192,11 @@ export const postUpdatedParameters = async(id, a, b) => {
 
 export const updateMoney = async(id, change) => {
     try {
+        if (change > 0) {
+            toast.success("Earned " + change + " Hybux");
+        } else {
+            toast.error("Lost " + Math.abs(change) + " Hybux");
+        }
         await api.updateMoney(id, change);
     } catch (error) {
         console.log("Failed to update money");
@@ -211,6 +216,11 @@ export const getMoney = async(id) => {
 
 export const updateTickets = async(id, change) => {
     try {
+        if (change > 0) {
+            toast.success("Earned " + change + " Ticket");
+        } else {
+            toast.error("Lost " + Math.abs(change) + " Ticket");
+        }
         await api.updateTickets(id, change);
     } catch (error) {
         console.log("Failed to update tickets");

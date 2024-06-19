@@ -36,7 +36,10 @@ const Navbar1 = () => {
   const creatorNAME = user?.result?.name;
   const creatorID = user?.result?.googleId || user?.result?._id;
 
-
+  function truncateToDecimals(num, dec = 2) {
+    const calcDec = Math.pow(10, dec);
+    return Math.trunc(num * calcDec) / calcDec;
+  }
   useEffect(() => {
     const token = user?.token;
 
@@ -49,7 +52,7 @@ const Navbar1 = () => {
       const userMoney = await getMoney(user?.result?._id);
       const userTickets = await getTickets(user?.result?._id);
       try {
-        setCurMoney(parseFloat(userMoney.money.$numberDecimal).toFixed(2));
+        setCurMoney(truncateToDecimals(parseFloat(userMoney.money.$numberDecimal)));
         setCurTickets(parseInt(userTickets.tickets));
       } catch (error) {
         console.log(error);

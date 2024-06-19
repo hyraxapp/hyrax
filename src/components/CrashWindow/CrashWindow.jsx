@@ -7,6 +7,7 @@ const CrashWindow = () => {
 const user = JSON.parse(localStorage.getItem("profile"));
 const canvasRef = useRef(null);
 const [start, updateStart] = useState(false);
+const [userMoney, setUserMoney] = useState('');
 const [betAmount, setBetAmount] = useState('');
 const [message, setMessage] = useState('');
 const [isSubmitted, setIsSubmitted] = useState(false);
@@ -49,6 +50,13 @@ const handleCashOut = async () => {
 };
 
 useEffect(() => {
+    const retrieveMoney = async() => {
+        let tuserMoney = await getMoney(user?.result?._id);
+        let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
+        setUserMoney(userMoney);
+        console.log(userMoney);
+    }
+    retrieveMoney();
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     ctx.canvas.width = 2400;
@@ -127,7 +135,10 @@ useEffect(() => {
     setInterval(updateFlameCounter, 35);
 
     let target = getMultiplier();
-
+    function truncateToDecimals(num, dec = 2) {
+        const calcDec = Math.pow(10, dec);
+        return Math.trunc(num * calcDec) / calcDec;
+    }
     const animate = () => {
         ctx.clearRect(0, 0, width, height); // Clear the canvas
         ctx.drawImage(backgroundLayer, 0, y);
@@ -136,7 +147,7 @@ useEffect(() => {
         ctx.font = "100px serif";
         ctx.textAlign = "center";
         ctx.fillStyle = "white";
-        ctx.fillText(number.toFixed(2) + "x", 1200, 400);
+        ctx.fillText(truncateToDecimals(number) + "x", 1200, 400);
         rocketY += rocketVel;
         if (number > target) {
             numberVel = 0;
@@ -194,6 +205,19 @@ return (user &&
                     step="0.01"
                     disabled={isSubmitted}
                 />
+                <div className="slider-container">
+                    <input
+                    type="range"
+                    value={betAmount}
+                    onChange={(e) => setBetAmount(e.target.value)}
+                    min="0.01"
+                    max={userMoney}
+                    step="0.01"
+                    disabled={isSubmitted}
+                    className="slider"
+                    />
+                    <p className="slider-value">{betAmount}</p>
+                </div>
                 {(!isSubmitted) && 
                     <button className="submit_button" onClick={handleSubmit}>
                         Submit Bet

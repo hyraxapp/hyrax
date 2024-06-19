@@ -42,8 +42,8 @@ const handleSubmit = async () => {
     // Clear previous messages
     setMessage('');
 
-    if (isNaN(amount) || amount <= 0) {
-        setMessage('Please enter a valid decimal amount.');
+    if (isNaN(amount) || amount <= 1) {
+        setMessage('Please enter a valid decimal amount. (Minimum bet 1)');
     } else if (amount > userMoney) {
         setMessage('You do not have enough money to place this bet.');
     } else if (!userHasTicket) {
@@ -63,9 +63,10 @@ useEffect(() => {
         let tuserMoney = await getMoney(user?.result?._id);
         let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
         setUserMoney(userMoney);
+        console.log(userMoney);
     }
     retrieveMoney();
-}, [])
+})
 
 const handleHitBottom = async(multi) => {
     await updateMoney(user?.result?._id, multi * parseFloat(betAmount));
@@ -228,6 +229,7 @@ const sketch = (p5) => {
         }
     }
     var once = shouldStart;
+    particles = [];
     p5.draw = () => {
         p5.background(16, 32, 45);
         Engine.update(engine);
@@ -258,12 +260,15 @@ const sketch = (p5) => {
         for (var i = 0; i < plinkos.length; i++) {
             plinkos[i].show();
         }
+        console.log(particles);
         for (var i = 0; i < multis.length; i++) {
             multis[i].show();
             if (particles?.length) {
                 if (Matter.Collision.collides(particles[0].body, multis[i].body)) {
+                    console.log("COLLIDE");
+                    console.log(particles);
                     World.remove(world, particles[0].body);
-                    particles.shift();
+                    particles.splice(0, 1);
                     origY = multis[i].body.position.y;
                     hit = true;
                     luckyIndex = i;
@@ -298,6 +303,7 @@ return (user &&
                     max={userMoney}
                     step="0.01"
                     disabled={isSubmitted}
+                    className="slider"
                     />
                     <p className="slider-value">{betAmount}</p>
                 </div>

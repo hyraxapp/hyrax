@@ -25,6 +25,10 @@ useEffect(() => {
 
     fetchTopUsers();
 }, []);
+function truncateToDecimals(num, dec = 2) {
+    const calcDec = Math.pow(10, dec);
+    return Math.trunc(num * calcDec) / calcDec;
+}
 return (user &&
     <div className="leaderboard_window">
         <div className="leaderboard_container">
@@ -34,7 +38,7 @@ return (user &&
                     <li key={index+1} className="leaderboard_item">
                         <span className="rank">{index + 1}.</span>
                         <span className="username">{user.name}</span>
-                        <span className="money">${parseFloat(user.money.$numberDecimal).toFixed(2)}</span>
+                        <span className="money">${truncateToDecimals(parseFloat(user.money.$numberDecimal))}</span>
                     </li>
                 ))}
             </ul>

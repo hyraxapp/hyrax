@@ -55,7 +55,7 @@
   font-weight: 400;
 }
 .auth_headText {
-  background: linear-gradient(90deg, #ff4d00, #a500f3);
+  background: linear-gradient(90deg, #007bff, #a500f3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -70,6 +70,7 @@
   width: 42%;
   height: 95%;
   border: 1px solid #ff4d00;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -15,6 +15,8 @@ const PlinkoWindow = () => {
 const user = JSON.parse(localStorage.getItem("profile"));
 const [shouldStart, updateShouldStart] = useState(false);
 const [betAmount, setBetAmount] = useState('');
+const [numPlinkos, setNumPlinkos] = useState('');
+const [userMoney, setUserMoney] = useState('');
 const [message, setMessage] = useState('');
 const [isSubmitted, setIsSubmitted] = useState(false);
 const [gameOver, setGameOver] = useState(true);
@@ -55,6 +57,15 @@ const handleSubmit = async () => {
         updateShouldStart(true);
     }
 };
+
+useEffect(() => {
+    const retrieveMoney = async() => {
+        let tuserMoney = await getMoney(user?.result?._id);
+        let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
+        setUserMoney(userMoney);
+    }
+    retrieveMoney();
+}, [])
 
 const handleHitBottom = async(multi) => {
     await updateMoney(user?.result?._id, multi * parseFloat(betAmount));
@@ -278,6 +289,18 @@ return (user &&
                     step="0.01"
                     disabled={isSubmitted}
                 />
+                <div className="slider-container">
+                    <input
+                    type="range"
+                    value={betAmount}
+                    onChange={(e) => setBetAmount(e.target.value)}
+                    min="0.01"
+                    max={userMoney}
+                    step="0.01"
+                    disabled={isSubmitted}
+                    />
+                    <p className="slider-value">{betAmount}</p>
+                </div>
                 {(!isSubmitted && gameOver) && 
                     <button className="submit_button" onClick={handleSubmit}>
                         Submit Bet

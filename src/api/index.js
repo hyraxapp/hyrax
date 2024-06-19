@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({baseURL : `https://hyrax-api.onrender.com/`})
+const API = axios.create({baseURL : `http://localhost:5000`})
 
 API.interceptors.request.use((req) => {
     if(localStorage.getItem('profile'))
@@ -25,7 +25,7 @@ export const addNotice = (notice) => API.post(`/noti/notifications`, notice);
 //problem related API calls
 export const getPrompt = (id) => API.get(`/problems/${id}`);
 export const getParams = (id) => API.get(`/problems/getParams/${id}`);
-export const getBestQuestion = (theta) => API.get(`/problems/getBestQuestion/${theta}`);
+export const getBestQuestion = (theta, arr, showDomains) => API.get(`/problems/getBestQuestion/${theta}/${arr}/${showDomains}`);
 export const getUpdatedParameters = (theta, a, b, c, correct) => API.get(`/problems/getUpdatedParameters/${theta}/${a}/${b}/${c}/${correct}`);
 export const postUpdatedParameters = (id, a, b) => API.post(`/problems/postUpdatedParameters/${id}/${a}/${b}`);
 export const getAnswer = (id) => API.get(`/problems/getAnswer/${id}`);
@@ -36,3 +36,13 @@ export const googleSignIn = (formData) => API.post('/user/googleSignIn', formDat
 export const signUp = (formData) => API.post('/user/signup', formData);
 export const sendOTP = (finalData) => API.post('/user/sendotp', finalData);
 export const updateTheta = (id, theta) => API.post(`/user/updateTheta/${id}/${theta}`);
+export const removeOffList = (userId, id) => API.post(`/user/removeOffList/${userId}/${id}`);
+export const clearList = (userId) => API.post(`/user/clearList/${userId}`);
+export const updateMoney = (id, change) => API.post(`user/updateMoney/${id}/${change}`);
+export const getMoney = (id) => API.get(`user/getMoney/${id}`);
+export const updateTickets = (id, change) => API.post(`user/updateTickets/${id}/${change}`);
+export const getTickets = (id) => API.get(`user/getTickets/${id}`);
+export const getUserArr = (userId) => API.get(`/user/getUserArr/${userId}`);
+export const getTopUsers = () => API.get(`/user/getTopUsers`);
+export const getUserProblemStats = (id) => API.get(`/user/getUserProblemStats/${id}`);
+export const postUpdatedUserStats = (id, domain, skill, difficulty, cor) => API.post(`/user/postUpdatedUserStats/${id}/${domain}/${skill}/${difficulty}/${cor}`);

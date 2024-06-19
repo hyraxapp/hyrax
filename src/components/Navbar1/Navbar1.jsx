@@ -79,7 +79,7 @@ const Navbar1 = () => {
     <nav>
       <div className="navContainer">
         <div className="logoContainer">
-          <img src="https://img.icons8.com/?size=100&id=4540&format=png&color=FFFFFF" width={50} height={50}/>
+          <img src="hyraxLogoCircle.png" width={50} height={50}/>
         </div>
         <Link to="/" className="logo">
           Hyrax

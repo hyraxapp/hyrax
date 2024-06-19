@@ -21,7 +21,7 @@ export const googleSignIn = (formData, navigate) => async(dispatch) => {
     }
     catch (error) {
         console.log(error);
-        // toast.error(error.response.data.message);
+        toast.error(error.response.data.message);
     }
 
     toast.dismiss(toastId);
@@ -48,7 +48,7 @@ export const signin = (formData, navigate) => async(dispatch) => {
     }
     catch (error) {
         console.log(error);
-        // toast.error(error.response.data.message);
+        toast.error(error.response.data.message);
     }
 
     toast.dismiss(toastId);
@@ -89,7 +89,6 @@ export const sendOtp = (formData, navigate) => async(dispatch) => {
     try{
         const response = await api.sendOTP(formData);
 
-        console.log("sendOTP API response", response);
         console.log(response.data.success);
         toast.success("OTP sent successfully")
         if(!response.data.success)

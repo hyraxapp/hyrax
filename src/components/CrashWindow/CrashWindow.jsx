@@ -51,150 +51,153 @@ const handleCashOut = async () => {
 };
 
 useEffect(() => {
-    const retrieveMoney = async() => {
-        let tuserMoney = await getMoney(user?.result?._id);
-        let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
-        setUserMoney(userMoney);
-    }
-    retrieveMoney();
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    ctx.canvas.width = 2400;
-    ctx.canvas.height = 1200;
-    const width = canvas.width;
-    const height = canvas.height;
-
-    const backgroundLayer = new Image();
-    const backgroundLayer2 = new Image();
-    const rocket = new Image();
-    const explosion = new Image();
-    explosion.src = "./explosion.png";
-    rocket.src = "./rocket.png";
-    backgroundLayer.src = "./stitched.jpg"; // Adjust the path to your image
-    backgroundLayer2.src = "./space.jpg";
-    const flameArr = []
-    flameArr[0] = new Image();
-    flameArr[1] = new Image();
-    flameArr[2] = new Image();
-    flameArr[3] = new Image();
-    flameArr[4] = new Image();
-    flameArr[5] = new Image();
-    flameArr[6] = new Image();
-    flameArr[7] = new Image();
-    flameArr[8] = new Image();
-    flameArr[9] = new Image();
-    flameArr[0].src="./flames/1.png";
-    flameArr[1].src="./flames/2.png";
-    flameArr[2].src="./flames/3.png";
-    flameArr[3].src="./flames/4.png";
-    flameArr[4].src="./flames/5.png";
-    flameArr[5].src="./flames/6.png";
-    flameArr[6].src="./flames/7.png";
-    flameArr[7].src="./flames/8.png";
-    flameArr[8].src="./flames/9.png";
-    flameArr[9].src="./flames/10.png";
-    let velocity = 4;
-    let y = -10912; // total height = 1514, width = 300
-    let y2 = -3592-10912; // initial placement minus initialpalcement for bottom
-    let y3 = -3592-3592-10912;
-    let rocketY = 650;
-    let rocketVel = -0.8;
-    let numberVel = 0.0001;
-    let numberAccel = 0.000001;
-    // let rocketHeight = rocket.height * 0.2;
-    // let rocketWidth = rocket.width * 0.2;
-    const getMultiplier = () => {
-        let val = parseInt(Math.random() * 1000000);
-        if (val < 1000) {
-            //100x - 250x
-            return 100 + Math.random() * 150;
-        } else if (val < 5000) {
-            //50x - 100x
-            return 50 + Math.random() * 50;
-        } else if (val < 20000) {
-            //25x - 50x
-            return 25 + Math.random() * 25;
-        } else if (val < 60000) {
-            // 10x - 25x
-            return 10 + Math.random() * 15;
-        } else if (val < 350000) {
-            // 5x - 10x
-            return 5 + Math.random() * 5;
-        } else {
-            // 1x - 5x
-            return 1 + Math.random() * 4;
+    if (user) {
+        const retrieveMoney = async() => {
+            let tuserMoney = await getMoney(user?.result?._id);
+            let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
+            setUserMoney(userMoney);
         }
-    }
-    let curFlameFrame = 0;
+        retrieveMoney();
+        
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        ctx.canvas.width = 2400;
+        ctx.canvas.height = 1200;
+        const width = canvas.width;
+        const height = canvas.height;
 
-    const updateFlameCounter = () => {
-        curFlameFrame++;
-        curFlameFrame %= 10;
-    }
-    setInterval(updateFlameCounter, 35);
-
-    let target = getMultiplier();
-    function truncateToDecimals(num, dec = 2) {
-        const calcDec = Math.pow(10, dec);
-        return Math.trunc(num * calcDec) / calcDec;
-    }
-
-    let shouldStart = start;
-    const animate = () => {
-        ctx.clearRect(0, 0, width, height); // Clear the canvas
-        ctx.drawImage(backgroundLayer, 0, y);
-        ctx.drawImage(backgroundLayer2, 0, y2);
-        ctx.drawImage(backgroundLayer2, 0, y3);
-        ctx.font = "100px serif";
-        ctx.textAlign = "center";
-        ctx.fillStyle = "white";
-        ctx.fillText(truncateToDecimals(number) + "x", 1200, 400);
-        rocketY += rocketVel;
-        if (number > target) {
-            numberVel = 0;
-            numberAccel = 0;
-            ctx.drawImage(explosion, 1000, 600, 450, 450);
-            if (shouldStart) {
-                updateStart(false);
-                shouldStart = false;
-                setBetAmount('');
-                setMessage('');
-                setIsSubmitted(false);
-            }
-        } else {
-            ctx.drawImage(flameArr[curFlameFrame], 1100, rocketY + 300, 200, 200);
-            ctx.drawImage(rocket, 1000, rocketY);
-            if (rocketY < 500) {
-                rocketVel = 0;
-                number += numberVel;
-                setCurNumber(number);
-                numberVel += numberAccel;
-                y+=velocity;
-                y2+=velocity
-                y3+=velocity;
-                velocity += 0.01;
-            }
-            if (y2 > canvas.height) {
-                y2 = -5984; // 2 * initial placement - canvasHeight
-            }
-            if (y3 > canvas.height) {
-                y3 = -5984;
+        const backgroundLayer = new Image();
+        const backgroundLayer2 = new Image();
+        const rocket = new Image();
+        const explosion = new Image();
+        explosion.src = "./explosion.png";
+        rocket.src = "./rocket.png";
+        backgroundLayer.src = "./stitched.jpg"; // Adjust the path to your image
+        backgroundLayer2.src = "./space.jpg";
+        const flameArr = []
+        flameArr[0] = new Image();
+        flameArr[1] = new Image();
+        flameArr[2] = new Image();
+        flameArr[3] = new Image();
+        flameArr[4] = new Image();
+        flameArr[5] = new Image();
+        flameArr[6] = new Image();
+        flameArr[7] = new Image();
+        flameArr[8] = new Image();
+        flameArr[9] = new Image();
+        flameArr[0].src="./flames/1.png";
+        flameArr[1].src="./flames/2.png";
+        flameArr[2].src="./flames/3.png";
+        flameArr[3].src="./flames/4.png";
+        flameArr[4].src="./flames/5.png";
+        flameArr[5].src="./flames/6.png";
+        flameArr[6].src="./flames/7.png";
+        flameArr[7].src="./flames/8.png";
+        flameArr[8].src="./flames/9.png";
+        flameArr[9].src="./flames/10.png";
+        let velocity = 4;
+        let y = -10912; // total height = 1514, width = 300
+        let y2 = -3592-10912; // initial placement minus initialpalcement for bottom
+        let y3 = -3592-3592-10912;
+        let rocketY = 650;
+        let rocketVel = -0.8;
+        let numberVel = 0.0001;
+        let numberAccel = 0.000001;
+        // let rocketHeight = rocket.height * 0.2;
+        // let rocketWidth = rocket.width * 0.2;
+        const getMultiplier = () => {
+            let val = parseInt(Math.random() * 1000000);
+            if (val < 1000) {
+                //100x - 250x
+                return 100 + Math.random() * 150;
+            } else if (val < 5000) {
+                //50x - 100x
+                return 50 + Math.random() * 50;
+            } else if (val < 20000) {
+                //25x - 50x
+                return 25 + Math.random() * 25;
+            } else if (val < 60000) {
+                // 10x - 25x
+                return 10 + Math.random() * 15;
+            } else if (val < 350000) {
+                // 5x - 10x
+                return 5 + Math.random() * 5;
+            } else {
+                // 1x - 5x
+                return 1 + Math.random() * 4;
             }
         }
-        requestAnimationFrame(animate);
-    };
+        let curFlameFrame = 0;
 
-    if (shouldStart) {
-        velocity = 4;
-        y = -10912; // total height = 1514, width = 300
-        y2 = -3592-10912; // initial placement minus initialpalcement for bottom
-        y3 = -3592-3592-10912;
-        rocketY = 650;
-        rocketVel = -0.8;
-        numberVel = 0.0001;
-        numberAccel = 0.000001;
-        number = 1;
-        animate();
+        const updateFlameCounter = () => {
+            curFlameFrame++;
+            curFlameFrame %= 10;
+        }
+        setInterval(updateFlameCounter, 35);
+
+        let target = getMultiplier();
+        function truncateToDecimals(num, dec = 2) {
+            const calcDec = Math.pow(10, dec);
+            return Math.trunc(num * calcDec) / calcDec;
+        }
+
+        let shouldStart = start;
+        const animate = () => {
+            ctx.clearRect(0, 0, width, height); // Clear the canvas
+            ctx.drawImage(backgroundLayer, 0, y);
+            ctx.drawImage(backgroundLayer2, 0, y2);
+            ctx.drawImage(backgroundLayer2, 0, y3);
+            ctx.font = "100px serif";
+            ctx.textAlign = "center";
+            ctx.fillStyle = "white";
+            ctx.fillText(truncateToDecimals(number) + "x", 1200, 400);
+            rocketY += rocketVel;
+            if (number > target) {
+                numberVel = 0;
+                numberAccel = 0;
+                ctx.drawImage(explosion, 1000, 600, 450, 450);
+                if (shouldStart) {
+                    updateStart(false);
+                    shouldStart = false;
+                    setBetAmount('');
+                    setMessage('');
+                    setIsSubmitted(false);
+                }
+            } else {
+                ctx.drawImage(flameArr[curFlameFrame], 1100, rocketY + 300, 200, 200);
+                ctx.drawImage(rocket, 1000, rocketY);
+                if (rocketY < 500) {
+                    rocketVel = 0;
+                    number += numberVel;
+                    setCurNumber(number);
+                    numberVel += numberAccel;
+                    y+=velocity;
+                    y2+=velocity
+                    y3+=velocity;
+                    velocity += 0.01;
+                }
+                if (y2 > canvas.height) {
+                    y2 = -5984; // 2 * initial placement - canvasHeight
+                }
+                if (y3 > canvas.height) {
+                    y3 = -5984;
+                }
+            }
+            requestAnimationFrame(animate);
+        };
+
+        if (shouldStart) {
+            velocity = 4;
+            y = -10912; // total height = 1514, width = 300
+            y2 = -3592-10912; // initial placement minus initialpalcement for bottom
+            y3 = -3592-3592-10912;
+            rocketY = 650;
+            rocketVel = -0.8;
+            numberVel = 0.0001;
+            numberAccel = 0.000001;
+            number = 1;
+            animate();
+        }
     }
 }, [start]);
 return (user &&

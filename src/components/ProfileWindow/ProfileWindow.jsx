@@ -15,11 +15,13 @@ const ProfileWindow = () => {
     const [userData, setUserData] = useState({});
     // Example user data (replace with actual data)
     useEffect(() => {
-        const fetchUserStats = async () => {
-            const userStats = await getUserProblemStats(user?.result?._id);
-            setUserData(userStats);
+        if (user) {
+            const fetchUserStats = async () => {
+                const userStats = await getUserProblemStats(user?.result?._id);
+                setUserData(userStats);
+            }
+            fetchUserStats();
         }
-        fetchUserStats();
     });
     // Function to toggle visibility of domain sections
     const handleCheckboxChange = (domain) => {
@@ -29,7 +31,7 @@ const ProfileWindow = () => {
         }));
     };
 
-    return (
+    return (user &&
         <div className="profile_window">
             <div className="profile_container">
                 {/* Checkboxes for domains */}

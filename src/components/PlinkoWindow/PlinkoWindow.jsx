@@ -64,7 +64,9 @@ useEffect(() => {
         let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
         setUserMoney(userMoney);
     }
-    retrieveMoney();
+    if (user) {
+        retrieveMoney();
+    }
 })
 
 const handleHitBottom = async(multi) => {

@@ -6,24 +6,26 @@ const LeaderboardWindow = () => {
 const user = JSON.parse(localStorage.getItem("profile"));
 const [topUsers, setTopUsers] = useState([]);
 useEffect(() => {
-    // Function to fetch top 10 users based on money descending
-    const fetchTopUsers = async () => {
-        try {
-            // Replace this with actual API endpoint for fetching leaderboard data
-            const response = await getTopUsers();
-            console.log(response);
-            if (response) {
-                console.log(response.list);
-                setTopUsers(response.list); // Assuming data is an array of top users
-            } else {
-                throw new Error('Failed to fetch leaderboard data');
+    if (user) {
+        // Function to fetch top 10 users based on money descending
+        const fetchTopUsers = async () => {
+            try {
+                // Replace this with actual API endpoint for fetching leaderboard data
+                const response = await getTopUsers();
+                console.log(response);
+                if (response) {
+                    console.log(response.list);
+                    setTopUsers(response.list); // Assuming data is an array of top users
+                } else {
+                    throw new Error('Failed to fetch leaderboard data');
+                }
+            } catch (error) {
+                console.error('Error fetching leaderboard data:', error);
             }
-        } catch (error) {
-            console.error('Error fetching leaderboard data:', error);
-        }
-    };
+        };
 
-    fetchTopUsers();
+        fetchTopUsers();
+    }
 }, []);
 function truncateToDecimals(num, dec = 2) {
     const calcDec = Math.pow(10, dec);

@@ -27,6 +27,7 @@
     "poly-decomp": "^0.3.0",
     "postcss-cli": "^11.0.0",
     "react": "^18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-google-login": "^5.2.2",
     "react-hot-toast": "^2.4.1",

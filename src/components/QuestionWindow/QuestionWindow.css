@@ -4,6 +4,7 @@
     background-color: white;
     border: 1px solid rgb(104, 104, 104);
     border-radius: 50px;
+    transform: translate(13%, 0%);
 }
 .question_header{
     color: black;
@@ -18,7 +19,7 @@
 }
 .question_box{
     display: flex;
-    height: 75%;
+    height: 65%;
     width: 100%;
     align-items: center;
     flex-direction: row;
@@ -126,4 +127,34 @@ SVG{
     font-size: 20px;
     font-weight: bold;
     font-family: "BoldPrice";
+}
+
+.whiteboard_container {
+    width: 800px;
+    height: 600px;
+    background-color: white;
+}
+
+.entire_container {
+    display: flex;
+    flex-direction: column;
+    transform: translate(0%, 15%);
+}
+
+.whiteboard_toggle {
+    display: flex;
+    align-items:right;
+    padding: 10px;
+    background-color: white;
+}
+
+.total_white {
+    transform: translate(0%, -20%);
+    background-color: white;
+}
+
+.iconpad{
+    height: 30px;
+    width: 30px;
+    margin-left: 20px;
 }

@@ -26,8 +26,7 @@ const VerifyEmail = () => {
           password,
           otp
         }
-        console.log("FINAL DATA");
-        console.log("USERNAME", username);
+        
         dispatch(
             signup(
                 finalData,

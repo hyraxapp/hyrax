@@ -1,5 +1,5 @@
 .plinko_main_window{
-    transform: translate(0%, 15%);
+    transform: translate(0%, 10%);
     margin-top: 50px;
     display: flex;
     flex-direction: column;

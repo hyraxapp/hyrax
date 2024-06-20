@@ -169,7 +169,9 @@ const Navbar1 = () => {
                 }}
               >
                 <MenuItem>
-                  <Avatar /> {user?.result?.name}
+                    <Link to="/profile" className="tempDisplay">
+                      <Avatar /> {user?.result?.name}
+                    </Link>
                 </MenuItem>
 
                 <Divider />

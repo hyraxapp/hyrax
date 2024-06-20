@@ -5,6 +5,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: fixed;
+    z-index: 100;
 }
 .logo{
     font-size: 30px;
@@ -156,4 +158,10 @@
         top: 0px;
     }
     
+}
+
+.tempDisplay {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
 }

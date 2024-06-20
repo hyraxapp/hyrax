@@ -45,12 +45,17 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .sideBar_maincontainer{
-  height: 90vh;
-  width: 10%;
-  background-color: #0D1117;
+  position: fixed;
+  background-color: #242c38;
   display: inline-flex;
+  height: 90vh;
   flex-direction: column;
   align-items: center;
+  margin-top: 10%;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  z-index: 99;
 }
 
 .noti_maincontainer {
@@ -61,6 +66,7 @@ body::-webkit-scrollbar-thumb:hover {
   justify-content: center;
   align-items: center;
   margin-right: 100px;
+  transform: translate(10%, 20%);
   margin-bottom: 70px;
 }
 
@@ -340,4 +346,9 @@ body::-webkit-scrollbar-thumb:hover {
     letter-spacing: 1px;
     font-weight: 400;
   }
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
 }

@@ -24,68 +24,87 @@ const Sidebar = () => {
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
-  return (
+  return (user && 
     <div className="sidebar_container">
         <ul>
-            <li>
-                {
-                    user && (
-                        <button className="ProjectPart">
-                            <Link to="/answer-questions" className="projectPart">
-                                <Tooltip title='Answer Questions' arrow>{Icons.QuestionIcon}</Tooltip>
-                            </Link>
-                        </button>
-                    )
-                }
-            </li>
+            <div className="group">
+                <li>
+                    {
+                        user && (
+                            <button className="ProjectPart">
+                                <Link to="/profile" className="projectPart">
+                                    <span className = "iconportion">{Icons.ProfileIcon}</span>
+                                    <span className="textportion">Profile</span>
+                                </Link>
+                            </button>
+                        )
+                    }
+                </li>
 
-            <li>
-                {
-                    user && (
-                        <button className="ProjectPart">
-                            <Link to="/profile" className="projectPart">
-                                <Tooltip title="Profile" arrow>{Icons.ProfileIcon}</Tooltip>
-                            </Link>
-                        </button>
-                    )
-                }
-            </li>
+                <li>
+                    {
+                        user && (
+                            <button className="ProjectPart">
+                                <Link to="/leaderboard" className="projectPart">
+                                    <span className = "iconportion">{Icons.LeaderboardIcon}</span>
+                                    <span className="textportion">Leaderboard</span>
+                                </Link>
+                            </button>
+                        )
+                    }
+                </li>
+            </div>
 
-            <li>
-                {
-                    user && (
-                        <button className="ProjectPart">
-                            <Link to="/leaderboard" className="projectPart">
-                                <Tooltip title="Leaderboard" arrow>{Icons.LeaderboardIcon}</Tooltip>
-                            </Link>
-                        </button>
-                    )
-                }
-            </li>
-            
-            <li>
-                {
-                    user && (
-                        <button className="ProjectPart">
-                            <Link to="/plinko" className="projectPart">
-                                <Tooltip title="Play Plinko" arrow>{Icons.PlinkoIcon}</Tooltip>
-                            </Link>
-                        </button>
-                    )
-                }
-            </li>
+            <div className="group">
+                <div className="group-header">
+                    <h2>Topics</h2>
+                    <div className="line"></div>
+                </div>
+                <li>
+                    {
+                        user && (
+                            <button className="title">
+                                <Link to="/answer-questions" className="projectPart">
+                                    <span className = "iconportion">{Icons.QuestionIcon}</span>
+                                    <span className="textportion">dSAT Math</span>
+                                </Link>
+                            </button>
+                        )
+                    }
+                </li>
+            </div>
 
-            <li>
-                {
-                    user && (
-                        <button className="ProjectPart">
-                            <Link to="/crash" className="projectPart">
-                                <Tooltip title='Play Crash' arrow>{Icons.RocketIcon}</Tooltip>
-                            </Link>
-                        </button>
-                    )
-                }
-            </li>
+            <div className="group">
+                <div className="group-header">
+                    <h2>Games</h2>
+                    <div className="line"></div>
+                </div>
+                <li>
+                    {
+                        user && (
+                            <button className="ProjectPart">
+                                <Link to="/plinko" className="projectPart">
+                                    <span className = "iconportion">{Icons.PlinkoIcon}</span>
+                                    <span className="textportion">Play Plinko</span>
+                                </Link>
+                            </button>
+                        )
+                    }
+                </li>
+
+                <li>
+                    {
+                        user && (
+                            <button className="ProjectPart">
+                                <Link to="/crash" className="projectPart">
+                                    <span className = "iconportion">{Icons.RocketIcon}</span>
+                                    <span className="textportion">Play Crash</span>
+                                </Link>
+                            </button>
+                        )
+                    }
+                </li>
+            </div>
         </ul>
     </div>
   );

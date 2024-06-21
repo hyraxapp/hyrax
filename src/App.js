@@ -26,11 +26,11 @@ const App = () => {
       <Toaster/>
     <Router basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path='/' element={
+        {/* <Route path='/' element={
             <div>
               <DashboardWindow/>
             </div>
-          }/>
+          }/> */}
         <Route path='/dashboard' element={
           <div>
             <Navbar1/>

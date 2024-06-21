@@ -10,6 +10,7 @@ const QuestionWindow = () => {
   const [html, setHtml] = useState('');
   const [questionData, setQuestionData] = useState(null);
   const [loadProblem, setLoadProblem] = useState(true);
+  const [problemLoaded, setProblemLoaded] = useState(false);
   const [loadWhiteboard, setLoadWhiteboard] = useState(false);
   // Function to toggle visibility of domain sections
   const handleCheckboxChange = (domain) => {
@@ -34,6 +35,7 @@ const QuestionWindow = () => {
   });
   const handleNextQuestion = () => {
     setLoadProblem(true);
+    setProblemLoaded(false);
   };
 
   useEffect(() => {
@@ -73,6 +75,7 @@ const QuestionWindow = () => {
             isAnswerChoice,
             arrLength
           });
+          setProblemLoaded(true);
         }
       } catch (error) {
         console.log("Unable to see problem");
@@ -124,7 +127,7 @@ const QuestionWindow = () => {
           </div>
           <div className="answerSide">
             <div className="answer-box">
-              {questionData && (
+              {(questionData && problemLoaded) && (
                   <AnswerBox
                     userId={questionData.userId}
                     id={questionData.id}

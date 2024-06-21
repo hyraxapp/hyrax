@@ -18,6 +18,7 @@ const [shouldStart, updateShouldStart] = useState(false);
 const [betAmount, setBetAmount] = useState('');
 const [numPlinkos, setNumPlinkos] = useState(1);
 const [userMoney, setUserMoney] = useState('');
+const [userTickets, setUserTickets] = useState(25);
 const [message, setMessage] = useState('');
 const [isSubmitted, setIsSubmitted] = useState(false);
 const [gameOver, setGameOver] = useState(true);
@@ -67,6 +68,9 @@ useEffect(() => {
     const retrieveMoney = async() => {
         let tuserMoney = await getMoney(user?.result?._id);
         let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
+        let numTickets = await getTickets(user?.result?._id);
+        let userTickets = numTickets.tickets;
+        setUserTickets(userTickets);
         setUserMoney(userMoney);
     }
     if (user) {
@@ -353,7 +357,7 @@ return (user &&
                     value={numPlinkos}
                     onChange={(e) => setNumPlinkos(e.target.value)}
                     min="1"
-                    max={25}
+                    max={Math.min(userTickets, 25)}
                     step="1"
                     disabled={isSubmitted}
                     className="slider"

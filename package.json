@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "homepage": "https://dashboard.hyraxapp.com",
   "private": false,
-  "proxy": "https://dashboard.hyrax-api.onrender.com/",
+  "proxy": "https://hyrax-api.onrender.com/",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",

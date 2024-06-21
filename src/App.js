@@ -31,7 +31,7 @@ const App = () => {
               <DashboardWindow/>
             </div>
           }/> */}
-        <Route path='/dashboard' element={
+        <Route path='/' element={
           <div>
             <Navbar1/>
             <div className="mainContainer">

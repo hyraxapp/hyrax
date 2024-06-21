@@ -46,7 +46,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .sideBar_maincontainer{
   position: fixed;
-  background-color: #242c38;
+  background-color: #14212e;
   display: inline-flex;
   height: 90vh;
   flex-direction: column;

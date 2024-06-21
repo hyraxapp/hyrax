@@ -17,6 +17,7 @@ import CrashWindow from './components/CrashWindow/CrashWindow'
 import LeaderboardWindow from './components/LeaderboardWindow/LeaderboardWindow'
 import ProfileWindow from './components/ProfileWindow/ProfileWindow'
 import PlinkoWindow from './components/PlinkoWindow/PlinkoWindow'
+import DashboardWindow from './components/DashboardWindow/DashboardWindow'
 
 const App = () => {
 
@@ -26,6 +27,11 @@ const App = () => {
     <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path='/' element={
+            <div>
+              <DashboardWindow/>
+            </div>
+          }/>
+        <Route path='/dashboard' element={
           <div>
             <Navbar1/>
             <div className="mainContainer">

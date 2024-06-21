@@ -78,7 +78,7 @@
 .group {
     display: flex;
     flex-direction: column;
-    background-color: #465382;
+    background-color: #1e2c38;
     margin-bottom: 10px;
     border-radius: 5px;
 }
@@ -104,6 +104,6 @@
     flex-grow: 1;
     width: 90%;
     height: 2px;
-    background-color: rgb(45, 45, 45); /* Line color */
+    background-color: #344553; /* Line color */
     justify-content: center;
 }

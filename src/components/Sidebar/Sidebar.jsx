@@ -57,7 +57,7 @@ const Sidebar = () => {
 
             <div className="group">
                 <div className="group-header">
-                    <h2>Topics</h2>
+                    <h2>Practice</h2>
                     <div className="line"></div>
                 </div>
                 <li>

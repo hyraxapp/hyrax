@@ -16,7 +16,7 @@ const initialState = { username: "", email: "", password: "", money: 0.0, ticket
 const Auth = (choseSignUp="") => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isSignUp, setisSignUp] = useState((choseSignUp.choseSignUp != ""));
+  const [isSignUp, setisSignUp] = useState((choseSignUp.choseSignUp != null));
   const [PasswordType, setPasswordType] = useState(false);
   const [formData, setFormData] = useState(initialState);
 

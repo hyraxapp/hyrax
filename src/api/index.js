@@ -45,4 +45,5 @@ export const getTickets = (id) => API.get(`user/getTickets/${id}`);
 export const getUserArr = (userId) => API.get(`/user/getUserArr/${userId}`);
 export const getTopUsers = () => API.get(`/user/getTopUsers`);
 export const getUserProblemStats = (id) => API.get(`/user/getUserProblemStats/${id}`);
+export const getLifetimeStats = (id) => API.get(`/user/getLifetimeStats/${id}`);
 export const postUpdatedUserStats = (id, domain, skill, difficulty, cor) => API.post(`/user/postUpdatedUserStats/${id}/${domain}/${skill}/${difficulty}/${cor}`);

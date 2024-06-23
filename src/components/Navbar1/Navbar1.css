@@ -166,3 +166,9 @@
     flex-direction: row;
     align-items: center;
 }
+
+.buttonBox{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}

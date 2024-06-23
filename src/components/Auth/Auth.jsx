@@ -13,11 +13,10 @@ import { toast } from "react-hot-toast";
 const clientId = "385535133386-7trib7sa1qvhqh9ghnmdoeh9cgjsjo7h.apps.googleusercontent.com";
 const initialState = { username: "", email: "", password: "", money: 0.0, tickets: 0, theta: 0.0 };
 
-const Auth = () => {
+const Auth = (choseSignUp="") => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [isSignUp, setisSignUp] = useState(false);
+  const [isSignUp, setisSignUp] = useState((choseSignUp.choseSignUp != ""));
   const [PasswordType, setPasswordType] = useState(false);
   const [formData, setFormData] = useState(initialState);
 
@@ -57,8 +56,14 @@ const Auth = () => {
     } catch (validationError) {
       if (formData.email && !formData.email.includes("@")) {
         toast.error("Enter valid email!");
-      } else if (formData.email && formData.password) {
+      } else if (formData.email && formData.password && formData.password.length <= 6) {
         toast.error("Password length should be greater than 6");
+      } else if (formData.email && formData.password && formData.username){
+        if (formData.username.length >= 40) {
+          toast.error("Username length should be less than 40 characters");
+        } else {
+          toast.error("Username should only contain letters and numbers");
+        }
       } else {
         toast.error("All fields are required!");
       }

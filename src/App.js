@@ -111,6 +111,7 @@ const App = () => {
         }/>
         <Route path='/contactMe' element={<div><Navbar1/><ContactMe/></div>}/>
         <Route path='/auth' element={<div><Auth/></div>}/> 
+        <Route path='/authSignUp' element={<div><Auth choseSignUp="true"/></div>}/> 
         <Route path='/verify-email' element={<VerifyEmail/>}/>
         <Route path='*' element={<div>404 Not Found</div>} />
       </Routes>

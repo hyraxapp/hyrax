@@ -184,10 +184,17 @@ const Navbar1 = () => {
               </Menu>
             </>
           ) : (
-            <div className="sign">
-              <Link to="/auth" className="Signin">
-                Sign in
-              </Link>
+            <div className="buttonBox">
+              <div className="sign">
+                <Link to="/authSignUp" className="Signin">
+                  Register
+                </Link>
+              </div>
+              <div className="sign">
+                <Link to="/auth" className="Signin">
+                  Sign in
+                </Link>
+              </div>
             </div>
           )}
         </div>

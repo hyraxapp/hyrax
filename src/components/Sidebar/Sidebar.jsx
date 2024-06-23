@@ -85,7 +85,7 @@ const Sidebar = () => {
                             <button className="ProjectPart">
                                 <Link to="/plinko" className="projectPart">
                                     <span className = "iconportion">{Icons.PlinkoIcon}</span>
-                                    <span className="textportion">Play Plinko</span>
+                                    <span className="textportion">Plinko</span>
                                 </Link>
                             </button>
                         )
@@ -98,7 +98,7 @@ const Sidebar = () => {
                             <button className="ProjectPart">
                                 <Link to="/crash" className="projectPart">
                                     <span className = "iconportion">{Icons.RocketIcon}</span>
-                                    <span className="textportion">Play Crash</span>
+                                    <span className="textportion">Crash</span>
                                 </Link>
                             </button>
                         )

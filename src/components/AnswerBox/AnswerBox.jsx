@@ -165,11 +165,11 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
                 <div className="betChoice">
                     <p>Choose to Solve for Hybux or Tickets</p>
                     <div className="mode-selection">
-                        <button className={`modeButton ${mode === 'money' ? 'selected' : ''}`} onClick={() => setMode('money')}>
-                        <img src = {images.coinIcon} width={28} height={28}/>
-                        </button>
                         <button className={`modeButton ${mode === 'tickets' ? 'selected' : ''}`} onClick={() => setMode('tickets')}>
                         <img src = {images.ticketIcon} width={28} height={28}/>
+                        </button>
+                        <button className={`modeButton ${mode === 'money' ? 'selected' : ''}`} onClick={() => setMode('money')}>
+                        <img src = {images.coinIcon} width={28} height={28}/>
                         </button>
                     </div>
                 </div>

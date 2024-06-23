@@ -6,7 +6,7 @@ const LeaderboardWindow = () => {
 const user = JSON.parse(localStorage.getItem("profile"));
 const [topUsers, setTopUsers] = useState([]);
 const [extraPlace, setExtraPlace] = useState(0);
-const [userMoney, setUserMoney] = useState('');
+const [userMoney, setUserMoney] = useState(0);
 useEffect(() => {
     if (user) {
         // Function to fetch top 10 users based on money descending
@@ -58,7 +58,7 @@ return (user &&
                     <li key={extraPlace + 1} className="leaderboard_item">
                         <span className="rank">{extraPlace + 1}.</span>
                         <span className="username">{user?.result?.name}</span>
-                        {userMoney && (<span className="money">${truncateToDecimals(parseFloat(userMoney)).toLocaleString('en', {useGrouping:true})}</span>)}
+                        <span className="money">${truncateToDecimals(parseFloat(userMoney)).toLocaleString('en', {useGrouping:true})}</span>
                     </li>
                 }
             </ul>

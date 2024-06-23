@@ -154,15 +154,13 @@ const LifetimeCircle = ({total, correct}) => {
     const incorrectPercentage = parseFloat(100 - correctPercentage);
     return (
         <div className="accuracy-ring">
-            <svg width="100%" height="100%" viewBox="0 0 42 42">
-                    <circle cx="21" cy="21" r="15" fill="none" stroke="#ddd" strokeWidth="4" />
-                    {total != 0 && (
-                        <div>
-                            <circle cx="21" cy="21" r="15" fill="none" stroke="#2ECC40" strokeWidth="4" strokeDasharray={`${correctPercentage} ${100 - correctPercentage}`}/>
-                            <circle cx="21" cy="21" r="15" fill="none" stroke="#FF3737" strokeWidth="4" strokeDasharray={`${incorrectPercentage} ${100 - incorrectPercentage}`} strokeDashoffset={`${100-correctPercentage}`} />
-                        </div>
-                    )}
+            {(total != 0) && (
+                <svg width="100%" height="100%" viewBox="0 0 42 42">
+                        <circle cx="21" cy="21" r="15" fill="none" stroke="#ddd" strokeWidth="4" />
+                        <circle cx="21" cy="21" r="15" fill="none" stroke="#2ECC40" strokeWidth="4" strokeDasharray={`${correctPercentage} ${100 - correctPercentage}`}/>
+                        <circle cx="21" cy="21" r="15" fill="none" stroke="#FF3737" strokeWidth="4" strokeDasharray={`${incorrectPercentage} ${100 - incorrectPercentage}`} strokeDashoffset={`${100-correctPercentage}`} />
                 </svg>
+            )}
                 <div className="accuracy-text">
                     <p>Correct: {correct}</p>
                     <p>Incorrect: {total - correct}</p>

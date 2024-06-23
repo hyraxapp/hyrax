@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getUserProblemStats } from '../../actions/posts';
+import { getUserProblemStats, getLifetimeStats } from '../../actions/posts';
 import './ProfileWindow.css';
 
 const ProfileWindow = () => {
@@ -13,12 +13,16 @@ const ProfileWindow = () => {
         geometryTrigonometry: false
     });
     const [userData, setUserData] = useState({});
+    const [userLifetimeData, setUserLifetimeData] = useState({});
     // Example user data (replace with actual data)
     useEffect(() => {
         if (user) {
             const fetchUserStats = async () => {
                 const userStats = await getUserProblemStats(user?.result?._id);
                 setUserData(userStats);
+                const userLifetime = await getLifetimeStats(user?.result?._id);
+                setUserLifetimeData(userLifetime);
+                // console.log(userLifetime.lifetime.dSAT.problemsCorrect);
             }
             fetchUserStats();
         }
@@ -30,12 +34,16 @@ const ProfileWindow = () => {
             [domain]: !prevState[domain]
         }));
     };
+    function truncateToDecimals(num, dec = 2) {
+        const calcDec = Math.pow(10, dec);
+        return Math.trunc(num * calcDec) / calcDec;
+    }
 
     return (user &&
         <div className="profile_window">
             <div className="profile_container">
                 {/* Checkboxes for domains */}
-                <div className="checkboxes">
+                <div className="checkboxes2">
                     <div className="checkBoxItem" onClick={() => handleCheckboxChange('algebra')}>
                         <label>
                             <input type="checkbox" checked={showDomains.algebra} onChange={() => handleCheckboxChange('algebra')} />
@@ -62,59 +70,98 @@ const ProfileWindow = () => {
                     </div>
                 </div>
 
-                {/* Sections for each domain */}
-                {showDomains.algebra && (
-                    <div className="subtopics">
-                        <h1 className="subtopicTitle">Algebra</h1>
+                <div className="revealedSection">
+                    {/* Sections for each domain */}
+                    {userLifetimeData && (
+                        <div className="subtopics">
+                            <h1 className="subtopicTitle">Lifetime Stats</h1>
+                            <div className="subtopic-grid">
+                                <div className="gridbox">
+                                    {(userLifetimeData.lifetimeTickets != null) && (<p>Total Tickets Earned: {parseInt(userLifetimeData.lifetimeTickets)}</p>)}
+                                    {userLifetimeData.maxNetWorth && (<p>Max Hybux NetWorth: {truncateToDecimals(parseFloat((userLifetimeData.maxNetWorth.$numberDecimal)))}</p>)}
+                                </div>
+                                <div className="subtopic-section">
+                                    <h3>dSAT Math</h3>
+                                    {(userLifetimeData.lifetime) && (<LifetimeCircle correct={userLifetimeData.lifetime.dSAT.problemsCorrect} total={userLifetimeData.lifetime.dSAT.problemsAttempted}/>)}
+                                </div>
+                            </div>
+                        </div>
+                    )
+                    }
+                    {showDomains.algebra && (
+                        <div className="subtopics">
+                            <h1 className="subtopicTitle">Algebra</h1>
+                            <div className="subtopic-grid">
+                                {userData.algebra.linEqOneVar && (<SubTopicSection domain="Linear Equations in One Variable" userData={{easy: userData.algebra.linEqOneVar.easy, medium: userData.algebra.linEqOneVar.medium, hard: userData.algebra.linEqOneVar.hard}} />)}
+                                {userData.algebra.linFunctions && (<SubTopicSection domain="Linear Functions" userData={{easy: userData.algebra.linFunctions.easy, medium: userData.algebra.linFunctions.medium, hard: userData.algebra.linFunctions.hard}} />)}
+                                {userData.algebra.linEqTwoVar && (<SubTopicSection domain="Linear Equations In Two Variables" userData={{easy: userData.algebra.linEqTwoVar.easy, medium: userData.algebra.linEqTwoVar.medium, hard: userData.algebra.linEqTwoVar.hard}} />)}
+                                {userData.algebra.sysTwoLinEqTwoVar && (<SubTopicSection domain="Systems Of Two Linear Equations In Two Variables" userData={{easy: userData.algebra.sysTwoLinEqTwoVar.easy, medium: userData.algebra.sysTwoLinEqTwoVar.medium, hard: userData.algebra.sysTwoLinEqTwoVar.hard}} />)}
+                                {userData.algebra.linIneqOneOrTwoVar && (<SubTopicSection domain="Linear Inequalities In One Or Two Variables" userData={{easy: userData.algebra.linIneqOneOrTwoVar.easy, medium: userData.algebra.linIneqOneOrTwoVar.medium, hard: userData.algebra.linIneqOneOrTwoVar.hard}} />)}
+                            </div>
+                        </div>
+                    )}
+                    {showDomains.advancedMath && (
+                        <div className="subtopics">
+                        <h1 className="subtopicTitle">Advanced Math</h1>
                         <div className="subtopic-grid">
-                            <SubTopicSection domain="Linear Equations in One Variable" userData={{easy: userData.algebra.linEqOneVar.easy, medium: userData.algebra.linEqOneVar.medium, hard: userData.algebra.linEqOneVar.hard}} />
-                            <SubTopicSection domain="Linear Functions" userData={{easy: userData.algebra.linFunctions.easy, medium: userData.algebra.linFunctions.medium, hard: userData.algebra.linFunctions.hard}} />
-                            <SubTopicSection domain="Linear Equations In Two Variables" userData={{easy: userData.algebra.linEqTwoVar.easy, medium: userData.algebra.linEqTwoVar.medium, hard: userData.algebra.linEqTwoVar.hard}} />
-                            <SubTopicSection domain="Systems Of Two Linear Equations In Two Variables" userData={{easy: userData.algebra.sysTwoLinEqTwoVar.easy, medium: userData.algebra.sysTwoLinEqTwoVar.medium, hard: userData.algebra.sysTwoLinEqTwoVar.hard}} />
-                            <SubTopicSection domain="Linear Inequalities In One Or Two Variables" userData={{easy: userData.algebra.linIneqOneOrTwoVar.easy, medium: userData.algebra.linIneqOneOrTwoVar.medium, hard: userData.algebra.linIneqOneOrTwoVar.hard}} />
+                            {userData.advMath.nonLinFunc && (<SubTopicSection domain="Nonlinear Functions" userData={{easy: userData.advMath.nonLinFunc.easy, medium: userData.advMath.nonLinFunc.medium, hard: userData.advMath.nonLinFunc.hard}} />)}
+                            {userData.advMath.nonLinEqOneVarAndSysEqTwoVar && (<SubTopicSection domain="Nonlinear Equations In One Variable And Systems Of Equations In Two Variables" userData={{easy: userData.advMath.nonLinEqOneVarAndSysEqTwoVar.easy, medium: userData.advMath.nonLinEqOneVarAndSysEqTwoVar.medium, hard: userData.advMath.nonLinEqOneVarAndSysEqTwoVar.hard}} />)}
+                            {userData.advMath.equivExpressions && (<SubTopicSection domain="Equivalent expressions" userData={{easy: userData.advMath.equivExpressions.easy, medium: userData.advMath.equivExpressions.medium, hard: userData.advMath.equivExpressions.hard}} />)}
                         </div>
                     </div>
-                )}
-                {showDomains.advancedMath && (
-                    <div className="subtopics">
-                    <h1 className="subtopicTitle">Advanced Math</h1>
-                    <div className="subtopic-grid">
-                        <SubTopicSection domain="Nonlinear Functions" userData={{easy: userData.advMath.nonLinFunc.easy, medium: userData.advMath.nonLinFunc.medium, hard: userData.advMath.nonLinFunc.hard}} />
-                        <SubTopicSection domain="Nonlinear Equations In One Variable And Systems Of Equations In Two Variables" userData={{easy: userData.advMath.nonLinEqOneVarAndSysEqTwoVar.easy, medium: userData.advMath.nonLinEqOneVarAndSysEqTwoVar.medium, hard: userData.advMath.nonLinEqOneVarAndSysEqTwoVar.hard}} />
-                        <SubTopicSection domain="Equivalent expressions" userData={{easy: userData.advMath.equivExpressions.easy, medium: userData.advMath.equivExpressions.medium, hard: userData.advMath.equivExpressions.hard}} />
-                    </div>
+                    )}
+                    {showDomains.problemSolvingAndDataAnalysis && (
+                        <div className="subtopics">
+                            <h1 className="subtopicTitle">Problem Solving and Data Analysis</h1>
+                            <div className="subtopic-grid">
+                                {userData.probSolvDataAnalysis.ratioRatePropRelationUnits && (<SubTopicSection domain="Ratios, Rates, Proportional Relationships, And Units" userData={{easy: userData.probSolvDataAnalysis.ratioRatePropRelationUnits.easy, medium: userData.probSolvDataAnalysis.ratioRatePropRelationUnits.medium, hard: userData.probSolvDataAnalysis.ratioRatePropRelationUnits.hard}} />)}
+                                {userData.probSolvDataAnalysis.percentages && (<SubTopicSection domain="Percentages" userData={{easy: userData.probSolvDataAnalysis.percentages.easy, medium: userData.probSolvDataAnalysis.percentages.medium, hard: userData.probSolvDataAnalysis.percentages.hard}} />)}
+                                {userData.probSolvDataAnalysis.oneVarDataDistribMeasuresCenterSpread && (<SubTopicSection domain="One-variable Data: Distributions And Measures Of Center And Spread" userData={{easy: userData.probSolvDataAnalysis.oneVarDataDistribMeasuresCenterSpread.easy, medium: userData.probSolvDataAnalysis.oneVarDataDistribMeasuresCenterSpread.medium, hard: userData.probSolvDataAnalysis.oneVarDataDistribMeasuresCenterSpread.hard}} />)}
+                                {userData.probSolvDataAnalysis.twoVarDataModelScatPlot && (<SubTopicSection domain="Two-variable Data: Models And Scatterplots" userData={{easy: userData.probSolvDataAnalysis.twoVarDataModelScatPlot.easy, medium: userData.probSolvDataAnalysis.twoVarDataModelScatPlot.medium, hard: userData.probSolvDataAnalysis.twoVarDataModelScatPlot.hard}} />)}
+                                {userData.probSolvDataAnalysis.ratioRatePropRelationUnits && (<SubTopicSection domain="Probability And Conditional Probability" userData={{easy: userData.probSolvDataAnalysis.probConditionalProb.easy, medium: userData.probSolvDataAnalysis.probConditionalProb.medium, hard: userData.probSolvDataAnalysis.probConditionalProb.hard}} />)}
+                                {userData.probSolvDataAnalysis.probConditionalProb && (<SubTopicSection domain="Inference From Sample Statistics And Margin Of Error" userData={{easy: userData.probSolvDataAnalysis.infFromSampleStatAndMarginError.easy, medium: userData.probSolvDataAnalysis.infFromSampleStatAndMarginError.medium, hard: userData.probSolvDataAnalysis.infFromSampleStatAndMarginError.hard}} />)}
+                                {userData.probSolvDataAnalysis.evalStatClaimObvStudyAndExperiment && (<SubTopicSection domain="Evaluating Statistical Claims: Observational Studies And Experiments" userData={{easy: userData.probSolvDataAnalysis.evalStatClaimObvStudyAndExperiment.easy, medium: userData.probSolvDataAnalysis.evalStatClaimObvStudyAndExperiment.medium, hard: userData.probSolvDataAnalysis.evalStatClaimObvStudyAndExperiment.hard}} />)}
+                            </div>
+                        </div>
+                    )}
+                    {showDomains.geometryTrigonometry && (
+                        <div className="subtopics">
+                            <h1 className="subtopicTitle">Problem Solving and Data Analysis</h1>
+                            <div className="subtopic-grid">
+                                {userData.geoTrig.areaAndVolume && (<SubTopicSection domain="Area And Volume" userData={{easy: userData.geoTrig.areaAndVolume.easy, medium: userData.geoTrig.areaAndVolume.medium, hard: userData.geoTrig.areaAndVolume.hard}} />)}
+                                {userData.geoTrig.lineAngleTriangle && (<SubTopicSection domain="Lines, Angles, And Triangles" userData={{easy: userData.geoTrig.lineAngleTriangle.easy, medium: userData.geoTrig.lineAngleTriangle.medium, hard: userData.geoTrig.lineAngleTriangle.hard}} />)}
+                                {userData.geoTrig.rightTriangleTrig && (<SubTopicSection domain="Right Triangles And Trigonometry" userData={{easy: userData.geoTrig.rightTriangleTrig.easy, medium: userData.geoTrig.rightTriangleTrig.medium, hard: userData.geoTrig.rightTriangleTrig.hard}} />)}
+                                {userData.geoTrig.circles && (<SubTopicSection domain="Circles" userData={{easy: userData.geoTrig.circles.easy, medium: userData.geoTrig.circles.medium, hard: userData.geoTrig.circles.hard}} />)}
+                            </div>
+                        </div>
+                    )}
                 </div>
-                )}
-                {showDomains.problemSolvingAndDataAnalysis && (
-                    <div className="subtopics">
-                        <h1 className="subtopicTitle">Problem Solving and Data Analysis</h1>
-                        <div className="subtopic-grid">
-                            <SubTopicSection domain="Ratios, Rates, Proportional Relationships, And Units" userData={{easy: userData.probSolvDataAnalysis.ratioRatePropRelationUnits.easy, medium: userData.probSolvDataAnalysis.ratioRatePropRelationUnits.medium, hard: userData.probSolvDataAnalysis.ratioRatePropRelationUnits.hard}} />
-                            <SubTopicSection domain="Percentages" userData={{easy: userData.probSolvDataAnalysis.percentages.easy, medium: userData.probSolvDataAnalysis.percentages.medium, hard: userData.probSolvDataAnalysis.percentages.hard}} />
-                            <SubTopicSection domain="One-variable Data: Distributions And Measures Of Center And Spread" userData={{easy: userData.probSolvDataAnalysis.oneVarDataDistribMeasuresCenterSpread.easy, medium: userData.probSolvDataAnalysis.oneVarDataDistribMeasuresCenterSpread.medium, hard: userData.probSolvDataAnalysis.oneVarDataDistribMeasuresCenterSpread.hard}} />
-                            <SubTopicSection domain="Two-variable Data: Models And Scatterplots" userData={{easy: userData.probSolvDataAnalysis.twoVarDataModelScatPlot.easy, medium: userData.probSolvDataAnalysis.twoVarDataModelScatPlot.medium, hard: userData.probSolvDataAnalysis.twoVarDataModelScatPlot.hard}} />
-                            <SubTopicSection domain="Probability And Conditional Probability" userData={{easy: userData.probSolvDataAnalysis.probConditionalProb.easy, medium: userData.probSolvDataAnalysis.probConditionalProb.medium, hard: userData.probSolvDataAnalysis.probConditionalProb.hard}} />
-                            <SubTopicSection domain="Inference From Sample Statistics And Margin Of Error" userData={{easy: userData.probSolvDataAnalysis.infFromSampleStatAndMarginError.easy, medium: userData.probSolvDataAnalysis.infFromSampleStatAndMarginError.medium, hard: userData.probSolvDataAnalysis.infFromSampleStatAndMarginError.hard}} />
-                            <SubTopicSection domain="Evaluating Statistical Claims: Observational Studies And Experiments" userData={{easy: userData.probSolvDataAnalysis.evalStatClaimObvStudyAndExperiment.easy, medium: userData.probSolvDataAnalysis.evalStatClaimObvStudyAndExperiment.medium, hard: userData.probSolvDataAnalysis.evalStatClaimObvStudyAndExperiment.hard}} />
-                        </div>
-                    </div>
-                )}
-                {showDomains.geometryTrigonometry && (
-                    <div className="subtopics">
-                        <h1 className="subtopicTitle">Problem Solving and Data Analysis</h1>
-                        <div className="subtopic-grid">
-                            <SubTopicSection domain="Area And Volume" userData={{easy: userData.geoTrig.areaAndVolume.easy, medium: userData.geoTrig.areaAndVolume.medium, hard: userData.geoTrig.areaAndVolume.hard}} />
-                            <SubTopicSection domain="Lines, Angles, And Triangles" userData={{easy: userData.geoTrig.lineAngleTriangle.easy, medium: userData.geoTrig.lineAngleTriangle.medium, hard: userData.geoTrig.lineAngleTriangle.hard}} />
-                            <SubTopicSection domain="Right Triangles And Trigonometry" userData={{easy: userData.geoTrig.rightTriangleTrig.easy, medium: userData.geoTrig.rightTriangleTrig.medium, hard: userData.geoTrig.rightTriangleTrig.hard}} />
-                            <SubTopicSection domain="Circles" userData={{easy: userData.geoTrig.circles.easy, medium: userData.geoTrig.circles.medium, hard: userData.geoTrig.circles.hard}} />
-                        </div>
-                    </div>
-                )}
             </div>
         </div>
     );
 };
 
+const LifetimeCircle = ({total, correct}) => {
+    const correctPercentage = parseFloat(correct / total) * 100;
+    const incorrectPercentage = parseFloat(100 - correctPercentage);
+    return (
+        <div className="accuracy-ring">
+            <svg width="100%" height="100%" viewBox="0 0 42 42">
+                    <circle cx="21" cy="21" r="15" fill="none" stroke="#ddd" strokeWidth="4" />
+                    {total != 0 && (
+                        <div>
+                            <circle cx="21" cy="21" r="15" fill="none" stroke="#2ECC40" strokeWidth="4" strokeDasharray={`${correctPercentage} ${100 - correctPercentage}`}/>
+                            <circle cx="21" cy="21" r="15" fill="none" stroke="#FF3737" strokeWidth="4" strokeDasharray={`${incorrectPercentage} ${100 - incorrectPercentage}`} strokeDashoffset={`${100-correctPercentage}`} />
+                        </div>
+                    )}
+                </svg>
+                <div className="accuracy-text">
+                    <p>Correct: {correct}</p>
+                    <p>Incorrect: {total - correct}</p>
+                </div>
+        </div>
+    )
+}
 // Component for displaying circles and difficulty buttons for each domain
 const SubTopicSection = ({ domain, userData }) => {
   const { easy, medium, hard } = userData;
@@ -127,9 +174,11 @@ const SubTopicSection = ({ domain, userData }) => {
   const [correctPercentage, setCorrectPercentage] = useState(parseFloat(correct / total) * 100);
   const [incorrectPercentage, setIncorrectPercentage] = useState(parseFloat(incorrect / total) * 100);
   const [givenUpPercentage, setGivenUpPercentage] = useState(parseFloat(givenUp / total) * 100);
+  const [selectedAnswer, setSelectedAnswer] = useState('Easy');
 
   const handleButtonClick = (difficulty) => {
     setMode(difficulty);
+    setSelectedAnswer(difficulty);
     switch (difficulty) {
       case 'Easy':
         setCorrect(easy.correct);
@@ -179,9 +228,9 @@ const SubTopicSection = ({ domain, userData }) => {
             </div>
             {/* Difficulty buttons */}
             <div className="difficulty-buttons">
-            <button onClick={() => handleButtonClick('Easy')}>Easy</button>
-            <button onClick={() => handleButtonClick('Medium')}>Medium</button>
-            <button onClick={() => handleButtonClick('Hard')}>Hard</button>
+            <button className={`difficulty_button ${selectedAnswer === 'Easy' ? 'selected' : ''}`} onClick={() => handleButtonClick('Easy')}>Easy</button>
+            <button className={`difficulty_button ${selectedAnswer === 'Medium' ? 'selected' : ''}`} onClick={() => handleButtonClick('Medium')}>Medium</button>
+            <button className={`difficulty_button ${selectedAnswer === 'Hard' ? 'selected' : ''}`} onClick={() => handleButtonClick('Hard')}>Hard</button>
             </div>
         </div>
     );

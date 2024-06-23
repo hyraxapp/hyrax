@@ -1,10 +1,10 @@
 .question_container{
-    width: 80%;
+    width: 70rem;
     height: 700px;
     background-color: white;
     border: 1px solid rgb(104, 104, 104);
-    border-radius: 50px;
-    transform: translate(13%, 0%);
+    border-radius: 25px;
+    transform: translate(0%, 0%);
 }
 .question_header{
     color: black;
@@ -19,7 +19,7 @@
 }
 .question_box{
     display: flex;
-    height: 65%;
+    height: 85%;
     width: 100%;
     align-items: center;
     flex-direction: row;

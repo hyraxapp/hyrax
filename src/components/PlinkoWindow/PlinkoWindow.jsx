@@ -12,6 +12,7 @@ var accel = -0.1;
 var origY = -1;
 var luckyIndex = -1;
 var hit = false;
+var winnings = 0;
 const PlinkoWindow = () => {
 const user = JSON.parse(localStorage.getItem("profile"));
 const [shouldStart, updateShouldStart] = useState(false);
@@ -47,18 +48,19 @@ const handleSubmit = async () => {
     setMessage('');
 
     if (isNaN(amount) || amount < 1) {
-        setMessage('Please enter a valid decimal amount. (Minimum bet 1)');
+        setMessage('Please enter a valid decimal amount. (Minimum investment 1)');
     } else if (amount * plinkoCnt > userMoney) {
-        setMessage('You do not have enough money to place this bet.');
+        setMessage('You do not have enough money to place this investment.');
     } else if (userTickets < numPlinkos) {
-        setMessage('You do not have enough tickets to place a bet.');
+        setMessage('You do not have enough tickets to place a investment.');
     } else if (numPlinkos > 25) {
         setMessage('Max number of chips allowed is 25');
     } else {
-        setMessage('Bet placed successfully!');
+        setMessage('Investment placed successfully!');
         await updateTickets(user?.result?._id, -1 * numPlinkos);
         await updateMoney(user?.result?._id, -1 * amount * numPlinkos);
         setIsSubmitted(true);
+        winnings = 0;
         setGameOver(false);
         updateShouldStart(true);
     }
@@ -78,8 +80,11 @@ useEffect(() => {
     }
 })
 
-const handleHitBottom = async(multi) => {
-    await updateMoney(user?.result?._id, multi * parseFloat(betAmount));
+const handleHitBottom = async(multi, last) => {
+    winnings += multi * parseFloat(betAmount);
+    if (last) {
+        await updateMoney(user?.result?._id, winnings);
+    }
 }
 
 const sketch = (p5) => {
@@ -150,7 +155,7 @@ const sketch = (p5) => {
                     var index = particles.findIndex((plinko) => plinko.body.id == ball.id);
                     particles.splice(index, 1);
                     World.remove(world, ball);
-                    handleHitBottom(box.multiplier);
+                    handleHitBottom(box.multiplier, particles.length == 0);
                     animateMultiplier(box);
                 }
             }
@@ -310,7 +315,7 @@ const sketch = (p5) => {
         if (once) {
             once = false;
             for (var i = 0; i < numPlinkos; i++) {
-                var horizOffset = Math.random() * 2 - 1;
+                var horizOffset = Math.random() * 1.6 - 0.8;
                 var p = new Plinko(400 + horizOffset, 30, 10);
                 particles.push(p);
             }
@@ -362,13 +367,13 @@ return (user &&
                     disabled={isSubmitted}
                     className="slider"
                     />
-                    <p className="slider-value">{numPlinkos}</p>
+                    <p className="slider-value"></p>
                 </div>
                 <input
                     type="number"
                     value={betAmount}
                     onChange={(e) => setBetAmount(e.target.value)}
-                    placeholder="Enter bet amount"
+                    placeholder="Enter investment amount"
                     step="0.01"
                     disabled={isSubmitted}
                 />
@@ -383,11 +388,11 @@ return (user &&
                     disabled={isSubmitted}
                     className="slider"
                     />
-                    <p className="slider-value">{betAmount}</p>
+                    <p className="slider-value"></p>
                 </div>
                 {(!isSubmitted && gameOver) && 
                     <button className="submit_button" onClick={handleSubmit}>
-                        Submit Bet
+                        Submit Investment
                     </button>
                 }
                 <p id="message" style={{ color: isSubmitted ? 'green' : 'white' }}>

@@ -28,11 +28,11 @@ const handleSubmit = async () => {
     if (isNaN(amount) || amount <= 0) {
         setMessage('Please enter a valid decimal amount.');
     } else if (amount > userMoney) {
-        setMessage('You do not have enough money to place this bet.');
+        setMessage('You do not have enough money to place this investment.');
     } else if (!userHasTicket) {
-        setMessage('You do not have a ticket to place a bet.');
+        setMessage('You do not have a ticket to place a investment.');
     } else {
-        setMessage('Bet placed successfully!');
+        setMessage('Investment placed successfully!');
         await updateTickets(user?.result?._id, -1);
         await updateMoney(user?.result?._id, -1 * amount);
         setIsSubmitted(true);
@@ -209,7 +209,7 @@ return (user &&
                     type="number"
                     value={betAmount}
                     onChange={(e) => setBetAmount(e.target.value)}
-                    placeholder="Enter bet amount"
+                    placeholder="Enter investment amount"
                     step="0.01"
                     disabled={isSubmitted}
                 />
@@ -228,7 +228,7 @@ return (user &&
                 </div>
                 {(!isSubmitted) && 
                     <button className="submit_button" onClick={handleSubmit}>
-                        Submit Bet
+                        Submit Investment
                     </button>
                 }
                 <p id="message" style={{ color: isSubmitted ? 'green' : 'white' }}>

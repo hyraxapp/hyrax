@@ -238,9 +238,9 @@ export const getTickets = async(id) => {
     }
 }
 
-export const getTopUsers = async() => {
+export const getTopUsers = async(id) => {
     try {
-        const {data} = await api.getTopUsers();
+        const {data} = await api.getTopUsers(id);
         return {list: data.list};
     } catch (error) {
         console.log("Failed to get top users");
@@ -252,6 +252,16 @@ export const getUserProblemStats = async(id) => {
     try {
         const {data} = await api.getUserProblemStats(id);
         return {algebra: data.algebra, advMath: data.advMath, probSolvDataAnalysis: data.probSolvDataAnalysis, geoTrig: data.geoTrig};
+    } catch (error) {
+        console.log("Failed to get top users");
+        return null;
+    }
+}
+
+export const getLifetimeStats = async(id) => {
+    try {
+        const {data} = await api.getLifetimeStats(id);
+        return {lifetimeTickets: data.lifetimeTickets, lifetime: data.lifetime, maxNetWorth: data.maxNetWorth};
     } catch (error) {
         console.log("Failed to get top users");
         return null;

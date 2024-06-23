@@ -3,7 +3,7 @@ body{
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #0D1117;
+  background-color: #1e2c38;
 }
 /* global-styles.css */
 
@@ -42,6 +42,7 @@ body::-webkit-scrollbar-thumb:hover {
   flex-direction: row;
   align-items: center;
   gap: 0px;
+  font-family: "Clash Grotesk";
 }
 
 .sideBar_maincontainer{
@@ -351,4 +352,14 @@ body::-webkit-scrollbar-thumb:hover {
 html, body {
   max-width: 100%;
   overflow-x: hidden;
+}
+
+@font-face {
+  font-family: 'Clash Grotesk'; /*a name to be used later*/
+  src: url('../public/fonts/ClashGrotesk-Variable.ttf'); /*URL to font*/
+}
+
+@font-face {
+  font-family: 'Alexandria'; /*a name to be used later*/
+  src: url('../public/fonts/Alexandria-Medium.ttf'); /*URL to font*/
 }

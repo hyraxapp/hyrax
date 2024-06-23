@@ -10,7 +10,7 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
   const [userInput, setUserInput] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
-  const [mode, setMode] = useState('money'); // Default mode is money
+  const [mode, setMode] = useState('tickets'); // Default mode is money
   const [givenUp, setGivenUp] = useState(false);
 
   const handleAnswerClick = (answer) => {

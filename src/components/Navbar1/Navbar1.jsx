@@ -85,7 +85,7 @@ const Navbar1 = () => {
           <img src="hyraxLogoCircle.png" width={50} height={50}/>
         </div>
         <Link to="/" className="logo">
-          Hyrax
+          Hyrax AI
         </Link>
         {user && (
             <div className="ticket_container">

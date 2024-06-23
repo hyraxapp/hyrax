@@ -95,9 +95,8 @@ const QuestionWindow = () => {
     {(!loadWhiteboard) ? (
       <div>
       <div className='question_container'>
-        <div className="question_header">Answer Questions</div>
         <div className="checkboxes">
-            Chosen Topics: 
+            Topics: 
             <div className="checkBoxItem" onClick={() => handleCheckboxChange('algebra')}>
                 <label>
                     <input type="checkbox" checked={showDomains.algebra} onChange={() => handleCheckboxChange('algebra')} /> Algebra

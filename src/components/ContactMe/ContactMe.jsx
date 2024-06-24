@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ContactMe.css";
 import { Link, useNavigate } from "react-router-dom";
+import { feedback } from "../../actions/auth";
 import { useForm, ValidationError } from "@formspree/react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
+const initialState = { email: "", message: ""};
 const ContactMe = () => {
   const [state, handleSubmit] = useForm("moqoyevn");
+  const [formData, setFormData] = useState(initialState);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   if(state.succeeded)
   {
-    toast.success("Feedback Submitted Successfully 🎉");
-    navigate('/');
+    dispatch(feedback(formData, navigate));
   }
 
 
@@ -28,6 +35,7 @@ const ContactMe = () => {
               placeholder="Enter your email address"
               id="email"
               name="email"
+              onChange={handleChange}
             />
             <ValidationError
               prefix="Email"
@@ -43,6 +51,7 @@ const ContactMe = () => {
               placeholder="Enter your valuable feedback"
               id="message"
               name="message"
+              onChange={handleChange}
             />
             <ValidationError
               prefix="Message"

@@ -32,6 +32,7 @@ export const getAnswer = (id) => API.get(`/problems/getAnswer/${id}`);
 
 //authentification related calls
 export const signIn = (formData) => API.post('/user/signin', formData);
+export const feedback = (formData) => API.post('/user/feedback', formData);
 export const googleSignIn = (formData) => API.post('/user/googleSignIn', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 export const sendOTP = (finalData) => API.post('/user/sendotp', finalData);

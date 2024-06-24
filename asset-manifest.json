@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.c91a5c86.css",
+    "main.css": "/static/css/main.d064f685.css",
     "main.js": "/static/js/main.2e5c59ae.js",
     "static/media/Alexandria-Medium.ttf": "/static/media/Alexandria-Medium.478694d7a185be996fbc.ttf",
     "static/media/ClashGrotesk-Variable.ttf": "/static/media/ClashGrotesk-Variable.6eccb344b604e67e2145.ttf",
@@ -8,11 +8,11 @@
     "static/media/money.png": "/static/media/money.4933c4cd0c1739a0c8a6.png",
     "static/media/user.png": "/static/media/user.0d14c6999b4a5c8e86a7.png",
     "index.html": "/index.html",
-    "main.c91a5c86.css.map": "/static/css/main.c91a5c86.css.map",
+    "main.d064f685.css.map": "/static/css/main.d064f685.css.map",
     "main.2e5c59ae.js.map": "/static/js/main.2e5c59ae.js.map"
   },
   "entrypoints": [
-    "static/css/main.c91a5c86.css",
+    "static/css/main.d064f685.css",
     "static/js/main.2e5c59ae.js"
   ]
 }

@@ -78,7 +78,7 @@ const ProfileWindow = () => {
                             <div className="subtopic-grid">
                                 <div className="gridbox">
                                     {(userLifetimeData.lifetimeTickets != null) && (<p>Total Tickets Earned: {parseInt(userLifetimeData.lifetimeTickets)}</p>)}
-                                    {userLifetimeData.maxNetWorth && (<p>Max Hybux NetWorth: {truncateToDecimals(parseFloat((userLifetimeData.maxNetWorth.$numberDecimal)))}</p>)}
+                                    {userLifetimeData.maxNetWorth && (<p>Max Hybux Net Worth: ${truncateToDecimals(parseFloat((userLifetimeData.maxNetWorth.$numberDecimal))).toLocaleString('en', {useGrouping:true})}</p>)}
                                 </div>
                                 <div className="subtopic-section">
                                     <h3>dSAT Math</h3>

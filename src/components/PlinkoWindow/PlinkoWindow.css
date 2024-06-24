@@ -9,9 +9,9 @@
 
 .plinko_window{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 5px;
+    gap: 15px;
 }
 .p5Canvas{
     width: 80%;

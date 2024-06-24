@@ -203,7 +203,6 @@ useEffect(() => {
 return (user &&
     <div className="crash_main_window">
         <div className="crash_window">
-            <canvas className="crash_container" ref={canvasRef}></canvas>
             <div className="betting-container">
                 <input
                     type="number"
@@ -224,7 +223,7 @@ return (user &&
                     disabled={isSubmitted}
                     className="slider"
                     />
-                    <p className="slider-value">{betAmount}</p>
+                    <p className="slider-value"></p>
                 </div>
                 {(!isSubmitted) && 
                     <button className="submit_button" onClick={handleSubmit}>
@@ -240,6 +239,7 @@ return (user &&
                     </button>
                 )}
             </div>
+            <canvas className="crash_container" ref={canvasRef}></canvas>
         </div>
         <div className="crash_explanation">
             <h1 className="crash_title">How Crash Works</h1>

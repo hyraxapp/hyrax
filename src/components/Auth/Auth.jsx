@@ -103,7 +103,7 @@ const Auth = (choseSignUp="") => {
         <p className="auth_headText">
           {isSignUp ? "Sign Up" : "Sign In"}&nbsp;
         </p>{" "}
-        to your account
+        to Your Account
       </div>
       <div className="auth_container">
         <div className="auth_subContainer">
@@ -169,7 +169,7 @@ const Auth = (choseSignUp="") => {
                     onClick={renderProps.onClick}
                     disabled={renderProps.disabled}
                   >
-                    <b>Google SignIn</b>
+                    <b>Google Sign In</b>
                   </button>
                 )}
                 onSuccess={googleSuccess}

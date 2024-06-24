@@ -345,7 +345,6 @@ return (user &&
     <div className="plinko_main_window">
         <div className="plinko_window">
             {/* <canvas className="plinko_container" ref={canvasRef}></canvas> */}
-            <ReactP5Wrapper sketch={sketch}/>
             <div className="betting-container">
                 <input
                     type="number"
@@ -399,6 +398,7 @@ return (user &&
                     {message}
                 </p>
             </div>
+            <ReactP5Wrapper sketch={sketch}/>
         </div>
         <div className="plinko_explanation">
             <h1 className="plinko_title">How Plinko Works</h1>

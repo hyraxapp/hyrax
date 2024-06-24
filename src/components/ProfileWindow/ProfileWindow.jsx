@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getUserProblemStats, getLifetimeStats } from '../../actions/posts';
+import { toast } from "react-hot-toast"
 import './ProfileWindow.css';
 
 const ProfileWindow = () => {
     const user = JSON.parse(localStorage.getItem("profile"));
-
     // Example state to manage checkbox visibility and user data
     const [showDomains, setShowDomains] = useState({
         algebra: false,
@@ -17,16 +17,22 @@ const ProfileWindow = () => {
     // Example user data (replace with actual data)
     useEffect(() => {
         if (user) {
+            const toastId = toast.loading("Loading..")
             const fetchUserStats = async () => {
                 const userStats = await getUserProblemStats(user?.result?._id);
                 setUserData(userStats);
                 const userLifetime = await getLifetimeStats(user?.result?._id);
                 setUserLifetimeData(userLifetime);
-                // console.log(userLifetime.lifetime.dSAT.problemsCorrect);
             }
-            fetchUserStats();
+            try {
+                fetchUserStats();
+            } catch (err) {
+                console.log("FAILED FETCH USER STATS");
+                console.log(err);
+            }
+            toast.dismiss(toastId);
         }
-    });
+    }, []);
     // Function to toggle visibility of domain sections
     const handleCheckboxChange = (domain) => {
         setShowDomains(prevState => ({

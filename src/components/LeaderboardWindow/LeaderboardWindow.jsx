@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getTopUsers, getMoney } from '../../actions/posts';
+import { toast } from "react-hot-toast"
 import './LeaderboardWindow.css';
 
 const LeaderboardWindow = () => {
@@ -11,6 +12,7 @@ useEffect(() => {
     if (user) {
         // Function to fetch top 10 users based on money descending
         const fetchTopUsers = async () => {
+            const toastId = toast.loading("Loading..");
             try {
                 // Replace this with actual API endpoint for fetching leaderboard data
                 const response = await getTopUsers(user?.result?._id);
@@ -33,6 +35,7 @@ useEffect(() => {
             } catch (error) {
                 console.error('Error fetching leaderboard data:', error);
             }
+            toast.dismiss(toastId);
         };
 
         fetchTopUsers();

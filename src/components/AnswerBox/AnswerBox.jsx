@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {accessParameters, accessProblem, getUpdatedParameters, postUpdatedParameters, postUpdatedUserStats, updateMoney, updateTickets, removeOffList, clearList} from '../../actions/posts';
 import {updateTheta} from '../../actions/auth';
 import images from "../../constants/images";
@@ -10,12 +10,19 @@ const AnswerBox = ({ userId, id, theta, isMultipleChoice, isAnswerChoice, correc
   const [userInput, setUserInput] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
-  const [mode, setMode] = useState('tickets'); // Default mode is money
+  const [mode, setMode] = useState(() => {
+    // Initialize mode based on some condition, local storage, or default value
+    const savedMode = localStorage.getItem('mode');
+    return savedMode || 'tickets'; // Default to 'tickets' if no saved mode is found
+  });
   const [givenUp, setGivenUp] = useState(false);
 
   const handleAnswerClick = (answer) => {
     setSelectedAnswer(answer);
   };
+  useEffect(() => {
+    localStorage.setItem('mode', mode);
+  }, [mode]);
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value);

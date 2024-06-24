@@ -1,5 +1,5 @@
 .crash_main_window{
-    transform: translate(0%, 10%);
+    transform: translate(0%, 10vh);
     margin-top: 50px;
     display: flex;
     flex-direction: column;
@@ -16,6 +16,7 @@
 .crash_container{
     width: 80%;
     height: 600px;
+    max-width: 80vh;
     background-color: rgb(10, 1, 81);
     border: 1px solid rgb(104, 104, 104);
     border-radius: 25px;

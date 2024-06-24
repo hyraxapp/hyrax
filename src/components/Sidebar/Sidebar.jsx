@@ -105,6 +105,24 @@ const Sidebar = () => {
                     }
                 </li>
             </div>
+            <div className="group">
+                <div className="group-header">
+                    <h2>Support</h2>
+                    <div className="line"></div>
+                </div>
+                <li>
+                    {
+                        user && (
+                            <button className="title">
+                                <Link to="/contactMe" className="projectPart">
+                                    <span className = "iconportion">{Icons.FeedbackIcon}</span>
+                                    <span className="textportion">Feedback</span>
+                                </Link>
+                            </button>
+                        )
+                    }
+                </li>
+            </div>
         </ul>
     </div>
   );

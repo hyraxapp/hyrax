@@ -9,25 +9,23 @@ function WhiteboardWindow() {
     const [drawing, setDrawing] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [tool, setTool] = useState("pencil"); // added tool state
-    const [cursor, setCursor] = useState("url('https://img.icons8.com/?size=30&id=11737&format=png&color=000000') 0 19, auto"); // added cursor state
+    const [cursor, setCursor] = useState("url('https://img.icons8.com/?size=30&id=11737&format=png&color=000000') 0 30, auto"); // added cursor state
     const [canvasOffset, setCanvasOffset] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const canv = canvasRef.current;
-    canv.width = 800;
-    canv.height = 550;
+    canv.width = window.innerWidth * 0.5;
+    canv.height = window.innerHeight * 0.4;
+    const offset = canv.getBoundingClientRect();
+    setCanvasOffset({ x: offset.left, y: offset.top});
+    console.log(canv.width, canv.height);
     const canvCtx = canv.getContext("2d");
     canvCtx.lineJoin = "round";
     canvCtx.lineCap = "round";
     canvCtx.lineWidth = 5;
     setCtx(canvCtx);
-
-    const offset = canv.getBoundingClientRect();
-    // const parentOffset = canv.parentElement.getBoundingClientRect(); // Parent container offset
-
-    // Calculate canvas offset relative to the viewport
-    setCanvasOffset({ x: offset.left, y: offset.top});
   }, []);
+  
 
   const handleMouseDown = (e) => {
     setDrawing(true);
@@ -64,9 +62,9 @@ function WhiteboardWindow() {
   function handleToolChange(tool) {
     setTool(tool);
     if (tool === "pencil") {
-      setCursor("url('https://img.icons8.com/?size=30&id=11737&format=png&color=000000') 0 19, auto");
+      setCursor("url('https://img.icons8.com/?size=30&id=11737&format=png&color=000000') 0 30, auto");
     } else if (tool === "eraser") {
-      setCursor("url('https://img.icons8.com/?size=30&id=1061&format=png&color=000000') 0 19, auto");
+      setCursor("url('https://img.icons8.com/?size=30&id=1061&format=png&color=000000') 0 30, auto");
     }
   }
 

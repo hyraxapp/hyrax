@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {accessProblem, getBestQuestion, getAnswer, getUserArr} from '../../actions/posts';
+import { toast } from "react-hot-toast"
 import AnswerBox from "../AnswerBox/AnswerBox";
 import WhiteboardWindow from "../WhiteboardWindow/WhiteboardWindow";
 import images from "../../constants/images";
@@ -24,8 +25,8 @@ const QuestionWindow = () => {
     }));
   };
   const handleWhiteboardChange = () => {
+    if (loadWhiteboard) setLoadProblem(true);
     setLoadWhiteboard(!loadWhiteboard);
-    setLoadProblem(true);
   };
   const [showDomains, setShowDomains] = useState({
     algebra: true,
@@ -40,6 +41,7 @@ const QuestionWindow = () => {
 
   useEffect(() => {
     const seeProblem = async () => {
+      const toastId = toast.loading("Loading Problem..");
       try {
         const user = JSON.parse(localStorage.getItem("profile"));
         const userTheta = parseFloat(user.result.theta.$numberDecimal);
@@ -81,6 +83,7 @@ const QuestionWindow = () => {
         console.log("Unable to see problem");
         console.log(error);
       }
+      toast.dismiss(toastId);
     };
 
     if (user && loadProblem) {

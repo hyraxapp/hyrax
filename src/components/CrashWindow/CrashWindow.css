@@ -1,9 +1,9 @@
 .crash_main_window{
     transform: translate(0%, 10vh);
-    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 65vh;
     gap: 15px;
 }
 
@@ -14,9 +14,8 @@
     gap: 15px;
 }
 .crash_container{
-    width: 80%;
-    height: 600px;
-    max-width: 80vh;
+    width: 80vh;
+    height: 40vh;
     background-color: rgb(10, 1, 81);
     border: 1px solid rgb(104, 104, 104);
     border-radius: 25px;
@@ -90,7 +89,7 @@ input[type="number"] {
     align-items: center;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 7vh;
 }
 
 .crash_title{

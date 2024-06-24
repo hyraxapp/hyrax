@@ -3,6 +3,7 @@ import {getMoney, updateMoney, getTickets, updateTickets} from '../../actions/po
 import './PlinkoWindow.css';
 import { ReactP5Wrapper } from "@p5-wrapper/react";
 import { TimerSharp } from '@mui/icons-material';
+import { toast } from 'react-hot-toast';
 var Matter = require('matter-js');
 
 
@@ -38,6 +39,8 @@ var multipliers = ['170x', '24x', '8.1x', '2x', '1x', '0.7x', '0.5x', '0.2x', '0
 var multiVals = [170, 24, 8.1, 2, 1, 0.7, 0.5, 0.2, 0.5, 0.7, 1, 2, 8.1, 24, 170];
 
 const handleSubmit = async () => {
+    const toastId = toast.loading("Loading..");
+    setIsSubmitted(true);
     const amount = parseFloat(betAmount);
     let tuserMoney = await getMoney(user?.result?._id);
     let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
@@ -49,21 +52,26 @@ const handleSubmit = async () => {
 
     if (isNaN(amount) || amount < 1) {
         setMessage('Please enter a valid decimal amount. (Minimum investment 1)');
+        setIsSubmitted(false);
     } else if (amount * plinkoCnt > userMoney) {
         setMessage('You do not have enough money to place this investment.');
+        setIsSubmitted(false);
     } else if (userTickets < numPlinkos) {
         setMessage('You do not have enough tickets to place a investment.');
+        setIsSubmitted(false);
     } else if (numPlinkos > 25) {
         setMessage('Max number of chips allowed is 25');
+        setIsSubmitted(false);
     } else {
         setMessage('Investment placed successfully!');
+        winnings = 0;
         await updateTickets(user?.result?._id, -1 * numPlinkos);
         await updateMoney(user?.result?._id, -1 * amount * numPlinkos);
-        setIsSubmitted(true);
-        winnings = 0;
-        setGameOver(false);
         updateShouldStart(true);
+        setIsSubmitted(true);
+        setGameOver(false);
     }
+    toast.dismiss(toastId);
 };
 
 useEffect(() => {
@@ -404,7 +412,7 @@ return (user &&
             <h1 className="plinko_title">How Plinko Works</h1>
             <p>Plinko involves investing a given amount and dropping a chip down the board</p>
             <p>Whichever number the chip lands on is the amount the invested hybux is multiplied by</p>
-            <p>DISCLAIMER: If chip does not hit the bottom, user will lose all money (i.e. refreshing mid game)</p>
+            <p>DISCLAIMER: If all chips do not hit the bottom, user will lose all money (i.e. refreshing mid game)</p>
         </div>
     </div>
 )

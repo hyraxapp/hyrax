@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import './CrashWindow.css';
 import {getMoney, updateMoney, getTickets, updateTickets} from '../../actions/posts';
 import { CancelScheduleSendOutlined } from '@mui/icons-material';
+import { toast } from 'react-hot-toast';
 
 const CrashWindow = () => {
 const user = JSON.parse(localStorage.getItem("profile"));
@@ -17,6 +18,8 @@ let number = 1;
 
 const handleSubmit = async () => {
     setCashedOut(false);
+    setIsSubmitted(true);
+    const toastId = toast.loading("Loading..");
     const amount = parseFloat(betAmount);
     let tuserMoney = await getMoney(user?.result?._id);
     let userMoney = parseFloat(tuserMoney.money.$numberDecimal);
@@ -27,17 +30,22 @@ const handleSubmit = async () => {
 
     if (isNaN(amount) || amount <= 0) {
         setMessage('Please enter a valid decimal amount.');
+        setIsSubmitted(false);
     } else if (amount > userMoney) {
         setMessage('You do not have enough money to place this investment.');
+        setIsSubmitted(false);
     } else if (!userHasTicket) {
         setMessage('You do not have a ticket to place a investment.');
+        setIsSubmitted(false);
     } else {
+        // disable manually
         setMessage('Investment placed successfully!');
         await updateTickets(user?.result?._id, -1);
         await updateMoney(user?.result?._id, -1 * amount);
         setIsSubmitted(true);
         updateStart(true);
     }
+    toast.dismiss(toastId);
 };
 
 const handleCashOut = async () => {

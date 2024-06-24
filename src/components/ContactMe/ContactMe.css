@@ -1,10 +1,11 @@
 .contactMe_mainContainer{
-    height: 90vh;
+    height: 85vh;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    transform: translate(0, 10vh);
 }
 .contactMe_header{
     height: 70px;

@@ -4,7 +4,7 @@
     background-color: white;
     border: 1px solid rgb(104, 104, 104);
     border-radius: 25px;
-    overflow: auto;
+    overflow: y;
 }
 .question_header{
     color: black;
@@ -100,7 +100,7 @@ SVG{
     flex-direction: column;
     gap: 10px;
     margin-top: 10vh;
-    margin-bottom: 30px;
+    margin-bottom: 7vh;
 }
 
 .question_title{

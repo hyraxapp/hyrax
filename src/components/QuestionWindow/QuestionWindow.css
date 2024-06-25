@@ -24,6 +24,7 @@
     align-items: center;
     flex-direction: row;
     color: black;
+    font-size: 2vh;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
     white-space: nowrap;
@@ -47,7 +48,8 @@
 .question-prompt{
     height: 100%;
     width: 100%;
-    padding: 30px;
+    padding: 3vh;
+    font-size: 2vh;
     word-wrap: break-word;
     overflow: auto;
     white-space: normal;
@@ -57,7 +59,8 @@
 .answer-choices{
     height:100%;
     width:100%;
-    padding: 20px;
+    padding: 3vh;
+    font-size: 2vh;
     word-wrap: break-word;
     overflow: auto;
     white-space: normal;
@@ -66,7 +69,8 @@
 .answer-box{
     height: 100%;
     width:100%;
-    padding: 20px;
+    padding: 2vh;
+    font-size: 2vh;
     word-wrap: break-word;
     overflow: auto;
     white-space: normal;

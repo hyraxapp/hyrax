@@ -9,7 +9,7 @@
     z-index: 100;
 }
 .logo{
-    font-size: 30px;
+    font-size: 3vh;
     font-weight: 600;
     font-family: "Alexandria";
     margin-left: 6px;
@@ -31,8 +31,8 @@
     justify-content: center;
 }
 #profileImg{
-    height: 45px;
-    width: 45px;
+    height: 6vh;
+    width: 6vh;
     border-radius: 50%;
     background-color: #b1b1b1;
     border: 2px solid grey;
@@ -54,14 +54,14 @@
     border-width: 1px;
 }
 .money_image_container{
-    width: 35px;
-    margin-left: 5px;
+    width: 3.5vh;
+    margin-left: 0.5vh;
 }
 .money_amount_container{
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 25px;
+    font-size: 2.5vh;
     width: 100%;
     overflow-x: auto;
 }
@@ -83,19 +83,23 @@
     overflow-x: auto;
 }
 .ticket_image_container{
-    width: 35px;
-    margin-left: 5px;
+    width: 3.5vh;
+    margin-left: 0.5vh;
 }
 .ticket_amount_container{
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 25px;
+    font-size: 2.5vh;
     width: 100%;
 }
 .logoContainer{
     margin-left: 10px;
     margin-right: 10px;
+}
+.logoImg{
+    width: 7vh;
+    height: 7vh;
 }
 .ProjectPart{
     background-color: transparent;

@@ -86,7 +86,6 @@ input[type="number"] {
 .crash_explanation{
     color: white;
     display: flex;
-    align-items: center;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 7vh;
@@ -95,5 +94,6 @@ input[type="number"] {
 .crash_title{
     font-size: 30px;
     font-weight: bold;
+    text-align: center;
     text-decoration: underline;
 }

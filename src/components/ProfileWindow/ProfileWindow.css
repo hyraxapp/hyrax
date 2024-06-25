@@ -31,6 +31,22 @@
     align-items: center;
 }
 
+.flat {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Aligns items with maximum space between them */
+    align-items: center; /* Centers items vertically */
+}
+
+.leftHeader {
+    /* Optional: If you want some styling for left header */
+    margin-left: 1vw; /* Adjust as needed */
+}
+
+.rightHeader {
+    margin-right: 1vw;
+    /* Optional: If you want some styling for right header */
+}
 .checkboxes2 {
     margin-bottom: 20px;
     display: flex;

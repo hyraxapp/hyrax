@@ -410,9 +410,9 @@ return (user &&
         </div>
         <div className="plinko_explanation">
             <h1 className="plinko_title">How Plinko Works</h1>
-            <p>Plinko involves investing a given amount and dropping a chip down the board</p>
-            <p>Whichever number the chip lands on is the amount the invested hybux is multiplied by</p>
-            <p>DISCLAIMER: If all chips do not hit the bottom, user will lose all money (i.e. refreshing mid game)</p>
+            <p className="plinko_line">Plinko involves investing a given amount and dropping a chip down the board</p>
+            <p className="plinko_line">Whichever number the chip lands on is the amount the invested hybux is multiplied by</p>
+            <p className="plinko_line">DISCLAIMER: If all chips do not hit the bottom, user will lose all money (i.e. refreshing mid game)</p>
         </div>
     </div>
 )

@@ -74,7 +74,7 @@ const ContactMe = () => {
               Back to Home Page
             </Link>
             <button className="sendButton" type="submit" disabled={state.submitting}>
-                SEND
+                Send
             </button>
           </div>
         </div>

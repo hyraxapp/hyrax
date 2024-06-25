@@ -113,6 +113,7 @@ SVG{
     width: 80%;
     border: 1px solid white;
     margin-bottom: 30px;
+    background-color: #bbbbbb;
 }
 
 .questionTableElem {

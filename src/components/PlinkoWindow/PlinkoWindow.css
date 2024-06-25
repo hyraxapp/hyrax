@@ -22,7 +22,7 @@
 }
 
 .react-p5-wrapper{
-    scale: 0.63;
+    scale: 0.9;
     max-width: 40vh;
     margin: 0px;
 }
@@ -55,7 +55,7 @@
     align-items: center;
     flex-direction: column;
     gap: 10px;
-    transform: translate(7vw, -10vh);
+    transform: translate(18vw, -5vh);
     margin-bottom: 2vh;
 }
 

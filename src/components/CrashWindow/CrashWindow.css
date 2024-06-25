@@ -14,8 +14,8 @@
     gap: 15px;
 }
 .crash_container{
-    width: 80vh;
-    height: 40vh;
+    width: 100vh;
+    height: 50vh;
     background-color: rgb(10, 1, 81);
     border: 1px solid rgb(104, 104, 104);
     border-radius: 25px;

@@ -110,7 +110,7 @@ const App = () => {
               <div className="sideBar_maincontainer">
                 <Sidebar/>
               </div>
-              <div className="noti_maincontainer">
+              <div className="noti_maincontainer2">
                 <PlinkoWindow/>
               </div>
               <Footer/>

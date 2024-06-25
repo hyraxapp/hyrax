@@ -66,7 +66,17 @@ body::-webkit-scrollbar-thumb:hover {
   background-color: transparent;
   display: flex;
   justify-content: center;
-  margin-right: 100px;
+  transform: translate(15vw, 10vh);
+  overflow: y;
+}
+
+.noti_maincontainer2 {
+  width: 85vw;
+  /* height: 85vh; */
+  background-color: transparent;
+  display: flex;
+  justify-content: left;
+  margin-left: 5vw;
   transform: translate(15vw, 10vh);
   overflow: y;
 }

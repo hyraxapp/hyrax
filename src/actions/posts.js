@@ -193,9 +193,9 @@ export const postUpdatedParameters = async(id, a, b) => {
 export const updateMoney = async(id, change) => {
     try {
         if (change > 0) {
-            toast.success("Earned " + change.toFixed(2) + " Hybux");
+            toast.success("Earned " + Math.abs(change.toFixed(2)).toLocaleString('en', {useGrouping:true}) + " Hybux");
         } else {
-            toast.error("Lost " + Math.abs(change.toFixed(2)) + " Hybux");
+            toast.error("Lost " + Math.abs(change.toFixed(2)).toLocaleString('en', {useGrouping:true}) + " Hybux");
         }
         await api.updateMoney(id, change);
     } catch (error) {

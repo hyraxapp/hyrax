@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.c4dcee2c.css",
-    "main.js": "/static/js/main.890c7658.js",
+    "main.css": "/static/css/main.3f793616.css",
+    "main.js": "/static/js/main.1ab3756a.js",
     "static/media/Alexandria-Medium.ttf": "/static/media/Alexandria-Medium.478694d7a185be996fbc.ttf",
     "static/media/ClashGrotesk-Variable.ttf": "/static/media/ClashGrotesk-Variable.6eccb344b604e67e2145.ttf",
     "static/media/mainLogo.png": "/static/media/mainLogo.c67a484933aac34b0416.png",
     "static/media/money.png": "/static/media/money.4933c4cd0c1739a0c8a6.png",
     "static/media/user.png": "/static/media/user.0d14c6999b4a5c8e86a7.png",
     "index.html": "/index.html",
-    "main.c4dcee2c.css.map": "/static/css/main.c4dcee2c.css.map",
-    "main.890c7658.js.map": "/static/js/main.890c7658.js.map"
+    "main.3f793616.css.map": "/static/css/main.3f793616.css.map",
+    "main.1ab3756a.js.map": "/static/js/main.1ab3756a.js.map"
   },
   "entrypoints": [
-    "static/css/main.c4dcee2c.css",
-    "static/js/main.890c7658.js"
+    "static/css/main.3f793616.css",
+    "static/js/main.1ab3756a.js"
   ]
 }

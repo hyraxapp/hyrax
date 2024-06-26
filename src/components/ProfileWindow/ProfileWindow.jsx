@@ -17,12 +17,13 @@ const ProfileWindow = () => {
     // Example user data (replace with actual data)
     useEffect(() => {
         if (user) {
-            const toastId = toast.loading("Loading..")
             const fetchUserStats = async () => {
+                const toastId = toast.loading("Loading..")
                 const userStats = await getUserProblemStats(user?.result?._id);
                 setUserData(userStats);
                 const userLifetime = await getLifetimeStats(user?.result?._id);
                 setUserLifetimeData(userLifetime);
+                toast.dismiss(toastId);
             }
             try {
                 fetchUserStats();
@@ -30,7 +31,6 @@ const ProfileWindow = () => {
                 console.log("FAILED FETCH USER STATS");
                 console.log(err);
             }
-            toast.dismiss(toastId);
         }
     }, []);
     // Function to toggle visibility of domain sections

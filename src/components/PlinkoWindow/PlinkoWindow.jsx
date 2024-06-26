@@ -35,8 +35,8 @@ var multis = [];
 var boundaries = [];
 var frameCount = 0;
 var rows = 14;
-var multipliers = ['170x', '24x', '8.1x', '2x', '1x', '0.7x', '0.5x', '0.2x', '0.5x', '0.7x', '1x', '2x', '8.1x', '24x', '170x'];
-var multiVals = [170, 24, 8.1, 2, 1, 0.7, 0.5, 0.2, 0.5, 0.7, 1, 2, 8.1, 24, 170];
+var multipliers = ['50x', '20x', '8x', '2x', '1x', '0.7x', '0.5x', '0.2x', '0.5x', '0.7x', '1x', '2x', '8x', '20x', '50x'];
+var multiVals = [50, 20, 8, 2, 1, 0.7, 0.5, 0.2, 0.5, 0.7, 1, 2, 8, 20, 50];
 
 const handleSubmit = async () => {
     const toastId = toast.loading("Loading..");

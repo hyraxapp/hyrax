@@ -95,6 +95,7 @@ const QuestionWindow = () => {
   return (
     user &&
     <div className="entire_container">
+    <div className="mainpage_header">SAT Math Prep</div>
     {(!loadWhiteboard) ? (
       <div>
       <div className='question_container'>

@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.2e47bc8e.css",
-    "main.js": "/static/js/main.7dd1551c.js",
+    "main.js": "/static/js/main.651e8ec3.js",
     "static/media/Alexandria-Medium.ttf": "/static/media/Alexandria-Medium.478694d7a185be996fbc.ttf",
     "static/media/ClashGrotesk-Variable.ttf": "/static/media/ClashGrotesk-Variable.6eccb344b604e67e2145.ttf",
     "static/media/mainLogo.png": "/static/media/mainLogo.c67a484933aac34b0416.png",
     "static/media/coin-icon.png": "/static/media/coin-icon.2086be757cca0cd1281d.png",
     "index.html": "/index.html",
     "main.2e47bc8e.css.map": "/static/css/main.2e47bc8e.css.map",
-    "main.7dd1551c.js.map": "/static/js/main.7dd1551c.js.map"
+    "main.651e8ec3.js.map": "/static/js/main.651e8ec3.js.map"
   },
   "entrypoints": [
     "static/css/main.2e47bc8e.css",
-    "static/js/main.7dd1551c.js"
+    "static/js/main.651e8ec3.js"
   ]
 }

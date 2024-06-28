@@ -35,7 +35,7 @@ var multis = [];
 var boundaries = [];
 var frameCount = 0;
 var rows = 14;
-var multipliers = ['170x', '20x', '4x', '2x', '1x', '0.7x', '0.5x', '0.2x', '0.5x', '0.7x', '1x', '2x', '4x', '20x', '170x'];
+var multipliers = ['170x', '20x', '8x', '2x', '1x', '0.7x', '0.5x', '0.2x', '0.5x', '0.7x', '1x', '2x', '8x', '20x', '170x'];
 var multiVals = [170, 20, 8, 2, 1, 0.7, 0.5, 0.2, 0.5, 0.7, 1, 2, 8, 20, 170];
 
 const handleSubmit = async () => {

@@ -21,7 +21,7 @@ useEffect(() => {
                 setUserMoney(money);
                 if (response) {
                     console.log(response.list);
-                    maxAccept = 100
+                    let maxAccept = 100
                     if (response.list.length > maxAccept) {
                         setExtraPlace(response.list[maxAccept]);
                         setTopUsers(response.list.splice(maxAccept, maxAccept+1)); // Assuming data is an array of top users

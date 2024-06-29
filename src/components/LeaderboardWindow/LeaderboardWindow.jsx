@@ -58,7 +58,7 @@ return (user &&
                         {user.money && (<span className="money">${truncateToDecimals(parseFloat(user.money.$numberDecimal)).toLocaleString('en', {useGrouping:true})}</span>)}
                     </li>
                 ))}
-                {(parseInt(extraPlace) != 0 && parseInt(extraPlace) > 9) && 
+                {(parseInt(extraPlace) != 0 && parseInt(extraPlace) > 100 - 1) && 
                     <li key={extraPlace + 1} className="leaderboard_item">
                         <span className="rank">{extraPlace + 1}.</span>
                         <span className="username">{user?.result?.name}</span>

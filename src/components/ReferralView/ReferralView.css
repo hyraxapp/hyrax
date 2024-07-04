@@ -1,0 +1,20 @@
+.referralView_window{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 85vw;
+    padding: 10vh;
+}
+
+.referralView_container{
+    width: 65vw;
+    height: 70vh;
+    overflow: auto;
+    background-color: white;
+    border: 1px solid rgb(104, 104, 104);
+    border-radius: 25px;
+    text-align: center;
+    align-items: center;
+}

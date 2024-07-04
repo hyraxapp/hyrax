@@ -33,6 +33,10 @@ export const getAnswer = (id) => API.get(`/problems/getAnswer/${id}`);
 //authentification related calls
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const feedback = (formData) => API.post('/user/feedback', formData);
+export const referral = (formData) => API.post('/user/referral', formData);
+export const claimReferral = (email) => API.post(`/user/claimReferral/${email}`);
+export const claimUserReferred = (email) => API.post(`/user/claimUserReferred/${email}`);
+export const deleteReferral = (email) => API.post(`/user/deleteReferral/${email}`);
 export const googleSignIn = (formData) => API.post('/user/googleSignIn', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 export const sendOTP = (finalData) => API.post('/user/sendotp', finalData);
@@ -46,5 +50,7 @@ export const getTickets = (id) => API.get(`user/getTickets/${id}`);
 export const getUserArr = (userId) => API.get(`/user/getUserArr/${userId}`);
 export const getTopUsers = (id) => API.get(`/user/getTopUsers/${id}`);
 export const getUserProblemStats = (id) => API.get(`/user/getUserProblemStats/${id}`);
+export const getReferralProgress = (id) => API.get(`/user/getReferralProgress/${id}`);
+export const getUserReferred = (id) => API.get(`/user/getUserReferred/${id}`);
 export const getLifetimeStats = (id) => API.get(`/user/getLifetimeStats/${id}`);
 export const postUpdatedUserStats = (id, domain, skill, difficulty, cor) => API.post(`/user/postUpdatedUserStats/${id}/${domain}/${skill}/${difficulty}/${cor}`);

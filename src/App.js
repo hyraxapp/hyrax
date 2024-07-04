@@ -10,6 +10,8 @@ import Navbar1 from './components/Navbar1/Navbar1'
 import Footer from './components/Footer/Footer'
 import Footer2 from './components/Footer2/Footer2'
 import ContactMe from './components/ContactMe/ContactMe';
+import Referral from './components/Referral/Referral';
+import ReferralView from './components/ReferralView/ReferralView';
 import Auth from './components/Auth/Auth';
 import VerifyEmail from './components/VerifyEmail/VerifyEmail';
 import Sidebar from './components/Sidebar/Sidebar'
@@ -118,6 +120,21 @@ const App = () => {
           </div>
         }/>
         <Route path='/contactMe' element={<div className="wholePage"><Navbar1/><ContactMe/><Footer2/></div>}/>
+        <Route path='/referral' element={<div className="wholePage"><Navbar1/><Referral/><Footer2/></div>}/>
+        <Route path='/referralView' element={
+          <div>
+            <Navbar1/>
+            <div className="mainContainer">
+              <div className="sideBar_maincontainer">
+                <Sidebar/>
+              </div>
+              <div className="noti_maincontainer">
+                <ReferralView/>
+              </div>
+              <Footer/>
+            </div>
+          </div>
+        }/>
         <Route path='/auth' element={<div><Auth/></div>}/> 
         <Route path='/authSignUp' element={<div><Auth choseSignUp="true"/></div>}/> 
         <Route path='/verify-email' element={<VerifyEmail/>}/>

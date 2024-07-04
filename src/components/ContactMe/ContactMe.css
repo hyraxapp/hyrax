@@ -8,8 +8,10 @@
     transform: translate(0, 10vh);
 }
 .contactMe_header{
-    height: 70px;
-    font-size: 32px;
+    height: 14vh;
+    font-size: 3.2vh;
+    width: 60vw;
+    text-align: center;
     color: white;
     font-style: italic;
     font-weight: 600;
@@ -122,9 +124,9 @@
 {
     background-color: #0D1117;
     border: 1px solid cyan;
-    height: 35px;
-    width: 215px;
-    font-size: 15px;
+    height: 4vh;
+    width: 20vh;
+    font-size: 2vh;
     border-radius: 5px;
     color: white;
     letter-spacing: 1px;

@@ -257,6 +257,51 @@ export const getUserProblemStats = async(id) => {
         return null;
     }
 }
+export const getReferralProgress = async(id) => {
+    try {
+        const {data} = await api.getReferralProgress(id);
+        return {arr: data.arr};
+    } catch (error) {
+        console.log("Failed to get referral progress");
+        return null;
+    }
+}
+
+export const getUserReferred = async(id) => {
+    try {
+        const {data} = await api.getUserReferred(id);
+        return {arr: data.arr};
+    } catch (error) {
+        console.log("Failed to get referral progress");
+        return null;
+    }
+}
+
+export const claimReferral = async(email) => {
+    try {
+        await api.claimReferral(email);
+    } catch (error) {
+        console.log("Failed to get claim referral");
+        return null;
+    }
+}
+
+export const claimUserReferred = async(email) => {
+    try {
+        await api.claimUserReferred(email);
+    } catch (error) {
+        console.log("Failed to get claim user referred");
+        return null;
+    }
+}
+export const deleteReferral = async(email) => {
+    try {
+        await api.deleteReferral(email);
+    } catch (error) {
+        console.log("Failed to get delete referral", error);
+        return null;
+    }
+}
 
 export const getLifetimeStats = async(id) => {
     try {

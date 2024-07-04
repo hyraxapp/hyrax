@@ -9,3 +9,4 @@ export const ProfileIcon = <img src="https://img.icons8.com/?size=100&id=fUUEbUb
 export const PlinkoIcon = <img src="https://img.icons8.com/?size=100&id=mIzQr2yyVyPW&format=png&color=b4bad4" width={35} height={35}/>
 export const WhiteboardIcon = <img src="https://img.icons8.com/?size=100&id=Oyhn1OzMgr68&format=png&color=000000" width={35} height={35}/>
 export const FeedbackIcon = <img src="https://img.icons8.com/?size=100&id=52209&format=png&color=b4bad4" width={35} height={35}/>
+export const ReferralIcon = <img src="https://img.icons8.com/?size=100&id=58565&format=png&color=b4bad4" width={35} height={35}/>

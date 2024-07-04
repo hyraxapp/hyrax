@@ -80,6 +80,33 @@ export const feedback = (formData, navigate) => async() => {
     toast.dismiss(toastId);
 
 }
+
+export const referral = (formData, navigate) => async() => {
+    const toastId = toast.loading("Loading..")
+    try {
+        //login the user
+        const response = await api.referral(formData);
+        console.log(response);
+
+        const {result, token} = response.data;
+        const data = {result, token};
+
+        if(!response.data.success)
+        {
+            throw new Error(response.data.message);
+        }
+        toast.success("Referral Successfully Submitted 🎉");
+        navigate('/referralView');
+    }
+    catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message);
+    }
+
+    toast.dismiss(toastId);
+
+}
+
 //the component interacts with the action controller directly which in turn takes the help of an api call 
 //we need to give the api the props needed to make the api call and the action controllers res is the response that the api gets which is also fetched by the action controller front end
 
